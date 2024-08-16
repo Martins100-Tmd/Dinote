@@ -1,0 +1,32 @@
+import { useState } from 'react';
+import SectionContainer from './sectionCont';
+
+const NoteSection = ({ id }: { id: string }) => {
+   let [state, setstate] = useState({ createSection: false });
+   return (
+      <section className='flex flex-col items-start w-full border-r border-[#222222] justify-between h-full'>
+         <section className='flex flex-col gap-2 items-start'>
+            <SectionContainer id={id} />
+            <div className={`${state.createSection ? 'flex' : 'hidden'} flex-row items-center w-full p-2`}>
+               <input type='text' className='border border-gray-300 bg-transparent text-white outline-none p-2 font-redit text-base' />
+               <i
+                  onClick={() => setstate((prev) => ({ ...prev, createSection: false }))}
+                  className='material-icons cursor-pointer text-xl text-gray-300'
+               >
+                  clear
+               </i>
+            </div>
+         </section>
+         <section className='justify-end flex'>
+            <div
+               className='flex flex-row items-center cursor-pointer'
+               onClick={() => setstate((prev) => ({ ...prev, createSection: state.createSection ? false : true }))}
+            >
+               <i className='material-icons text-4xl text-emerald-200 font-thin'>add</i>
+               <p className='font-sans text-base text-left text-emerald-100 font-semibold'>Add Section</p>
+            </div>
+         </section>
+      </section>
+   );
+};
+export default NoteSection;
