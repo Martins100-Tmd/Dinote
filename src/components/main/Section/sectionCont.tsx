@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { UtilFunc, backendAPI } from '../../..';
 import LoadingSectionList from './loading';
 import SectionList from './sectionList';
+import { useEffect, useState, useContext } from 'react';
+import createNoteState from '../../state/context';
 
 const fetchNoteSection = async (id: string) => {
    const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
@@ -12,11 +14,23 @@ const fetchNoteSection = async (id: string) => {
          Authorization: 'Bearer ' + token,
       },
    });
-   return await A.json();
+   return id ? await A.json() : new Promise((res) => res([]));
 };
 
 export default function SectionContainer({ id }: { id: string }) {
-   let sectionQuery = useQuery({ queryKey: ['sectionList'], queryFn: () => fetchNoteSection(id) });
+   let {
+      state: { noteObj },
+   } = useContext(createNoteState);
+   let [sectionData, setSectionData] = useState<any[]>([{ title: '' }]);
+   let sectionQuery = useQuery({ queryKey: ['sectionList', noteObj, id], queryFn: () => fetchNoteSection(noteObj ? noteObj['id'] : id) });
+
+   useEffect(() => {
+      if (sectionQuery.isSuccess && sectionQuery.data) setSectionData(sectionQuery.data.data);
+   }, [sectionQuery.status]);
+
+   useEffect(() => {
+      sectionQuery.refetch();
+   }, [id]);
 
    if (sectionQuery.isLoading) return LoadingSectionList;
    if (sectionQuery.isError)
@@ -25,9 +39,11 @@ export default function SectionContainer({ id }: { id: string }) {
             <p className='font-raj text-base text-center text-white'>{sectionQuery.error.message}</p>
          </div>
       );
-   if (sectionQuery.isSuccess) {
-      return sectionQuery.data.map((item: any) => {
-         <SectionList item={item} fn={UtilFunc} />;
-      });
-   }
+   return (
+      sectionQuery.data &&
+      sectionData &&
+      sectionData.map &&
+      (noteObj || id) &&
+      sectionData.map((item) => <SectionList item={item} fn={UtilFunc.randomColor} />)
+   );
 }

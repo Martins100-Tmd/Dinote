@@ -14,6 +14,10 @@ export const useStore = create((set) => ({
 export const useStoreII = create((set) => ({
    addnote: false,
    notename: '',
+   currnoteobj: {},
+   currsectionobj: {},
+   setCurrNoteObj: (obj: any) => set((state: any) => ({ ...state, currNoteObj: obj })),
+   setCurrSectionObj: (obj: any) => set((state: any) => ({ ...state, currNoteObj: obj })),
    setAddNote: () => set((state: any) => ({ ...state, addnote: !state.addnote })),
    setNoteName: (val: string) => set((state: any) => ({ ...state, notename: val })),
 }));

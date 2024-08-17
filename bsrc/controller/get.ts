@@ -50,9 +50,18 @@ export const routeAuth = async function (req: Request, res: Response) {
 
 export const getNoteSections = async function (req: Request, res: Response) {
    const { userId } = req.body;
-   const id = req.params.id;
+   let id = req.params.id,
+      uniqueSection;
    if (userId && id) {
-      const uniqueSection = await prisma.section.findUnique({ where: { id }, include: { pages: true } });
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      const note = await prisma.note.findUnique({ where: { id } });
+      if (user && note) {
+         uniqueSection = await prisma.section.findMany({
+            where: {
+               noteId: id,
+            },
+         });
+      }
       if (uniqueSection) res.status(200).json({ success: true, data: uniqueSection });
       else res.status(400).json({ success: false, msg: 'Failed to get section' });
    } else res.status(400).json({ success: false, msg: 'make sure note id is correct and exist' });

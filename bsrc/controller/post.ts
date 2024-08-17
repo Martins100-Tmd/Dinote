@@ -49,11 +49,12 @@ export const createANewNote = async function (req: Request, res: Response) {
 
 //:SECTION
 export const createANewSection = async function (req: Request, res: Response) {
+   const { title, noteId } = req.body;
    const createSection = await prisma.section.create({
       data: {
-         title: 'Mathematics',
+         title,
          color: '#282828',
-         noteId: '1bd3ebdc-0627-4fbb-8195-fe274b5b81bb',
+         noteId,
       },
    });
    if (createSection) {

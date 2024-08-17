@@ -1,13 +1,22 @@
 import NoteSection from './Section/section';
 import NotePage from './Page/Page';
-import { storeB } from '../state/sectnpage';
+import { useContext, useEffect, useState } from 'react';
+import createNoteState from '../state/context';
 
 const NoteLayout = function () {
-   let [currNoteId, currSectId] = storeB((state: any) => [state.currNoteId, state.currSectionId]);
+   let {
+      state: { noteObj },
+   } = useContext(createNoteState);
+   let [id, setId] = useState('');
+
+   useEffect(() => {
+      if (noteObj) setId(noteObj.id);
+   }, [noteObj]);
+
    return (
       <section className='flex flex-row w-full h-[93%]'>
-         <NoteSection id={currNoteId} />
-         <NotePage id={currSectId} />
+         <NoteSection id={id} />
+         <NotePage id={''} />
       </section>
    );
 };

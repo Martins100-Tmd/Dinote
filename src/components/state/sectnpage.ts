@@ -10,8 +10,6 @@ export const storeB = create((set) => ({
 }));
 
 export const IDstore = create((set) => ({
-   currnoteid: '',
-   setCurrNoteId: (id: string) => set((s: any) => ({ ...s, currnoteid: id })),
    currsectionid: '',
    setCurrSectionId: (id: string) => set((s: any) => ({ ...s, currsectionid: id })),
    currpageid: '',
