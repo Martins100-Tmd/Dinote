@@ -26,20 +26,21 @@ const NoteSection = ({ id }: { id: string }) => {
             <SectionContainer id={id} />
             <div className={`${state.createSection ? 'flex' : 'hidden'} flex-row items-center w-full p-2`}>
                <input
-                  onInput={(e: any) => {
+                  onInput={(e) => {
                      const target = e.target as HTMLInputElement;
                      setSectVal(target.value);
                   }}
-                  onBlur={() => {
+                  onBlur={(e) => {
                      if (sectVal && id) {
                         addSectMutation.mutate({ title: sectVal, noteId: id });
                         setstate((prev) => ({ ...prev, createSection: false }));
+                        e.target.value = '';
                      }
                   }}
-                  onKeyPress={(e) => {
+                  onKeyPress={(e: any) => {
                      if (e.key === 'Enter' && sectVal && id) {
-                        addSectMutation.mutate({ title: sectVal, noteId: id });
-                        setstate((prev) => ({ ...prev, createSection: false }));
+                        addSectMutation.mutate({ title: sectVal, noteId: id }), setstate((prev) => ({ ...prev, createSection: false }));
+                        e.target.value = '';
                      }
                   }}
                   type='text'

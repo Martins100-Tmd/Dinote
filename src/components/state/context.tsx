@@ -7,6 +7,7 @@ export function NoteStateProvider({ children }: { children: ReactNode }) {
       noteObj: { id: '', title: '' },
       signal: false,
       reft: false,
+      secnal: 3,
    });
 
    const noteObjFn = (obj: any) => setstate((s: any) => ({ ...s, noteObj: obj }));

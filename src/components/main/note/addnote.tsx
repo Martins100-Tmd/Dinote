@@ -7,15 +7,13 @@ export default function AddNoteSection() {
    const queryClient = useQueryClient();
    let [notename, setnotename] = useStoreII((s: any) => [s.notename, s.setNoteName]);
    let [addnote, setaddnote] = useStoreII((s: any) => [s.addnote, s.setAddNote]);
+
    const addNoteMutation = useMutation({
       mutationKey: ['addNote'],
       mutationFn: (data: string) => addNoteFn({ title: data }),
-      async onSuccess(data) {
-         console.log(data);
-         await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] });
-         console.log(data);
-      },
+      onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] }),
    });
+
    useEffect(() => {
       if (addNoteMutation.isSuccess) setaddnote();
       if (addNoteMutation.isError) console.log(addNoteMutation.error);

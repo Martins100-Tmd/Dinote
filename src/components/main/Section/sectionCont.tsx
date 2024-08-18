@@ -22,15 +22,21 @@ export default function SectionContainer({ id }: { id: string }) {
       state: { noteObj },
    } = useContext(createNoteState);
    let [sectionData, setSectionData] = useState<any[]>([{ title: '' }]);
-   let sectionQuery = useQuery({ queryKey: ['sectionList', noteObj, id], queryFn: () => fetchNoteSection(noteObj ? noteObj['id'] : id) });
+   let [ID, setID] = useState(id);
+
+   let sectionQuery = useQuery({
+      queryKey: ['sectionList', ID],
+      queryFn: () => fetchNoteSection(noteObj ? noteObj['id'] : id),
+      refetchOnMount: 'always',
+   });
+
+   useEffect(() => setID(id ?? noteObj['id']), [id, noteObj]);
 
    useEffect(() => {
-      if (sectionQuery.isSuccess && sectionQuery.data) setSectionData(sectionQuery.data.data);
-   }, [sectionQuery.status]);
-
-   useEffect(() => {
-      sectionQuery.refetch();
-   }, [id]);
+      if (sectionQuery.isSuccess && sectionQuery.data) {
+         setSectionData(sectionQuery.data.data);
+      }
+   }, [sectionQuery.status, sectionQuery.data]);
 
    if (sectionQuery.isLoading) return LoadingSectionList;
    if (sectionQuery.isError)

@@ -13,7 +13,10 @@ export function NoteHeadFn() {
 
    return (
       <section className={`w-full border-b border-[#2c2c2c] flex flex-row justify-between self-start`}>
-         <div onClick={setNoteDrop} className={`w-full flex flex-row items-center gap-1.5 self-center hover:bg-[#4e4e4e] p-3`}>
+         <div
+            onClick={setNoteDrop}
+            className={`w-full flex cursor-pointer flex-row items-center gap-1.5 self-center hover:bg-[#4e4e4e] p-3`}
+         >
             <i className={`material-icons text-emerald-500 opacity-65 text-3xl self-center`}>sticky_note_2</i>
             <p className={`font-redit text-lg text-slate-50 font-thin self-center`}>{title}</p>
             <div className='pl-3'>

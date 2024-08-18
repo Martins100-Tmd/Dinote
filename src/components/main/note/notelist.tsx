@@ -18,7 +18,7 @@ async function fetchNotes() {
    return await A.json();
 }
 export default function NoteListFn() {
-   const noteQuery = useQuery({ queryKey: ['fetchNotes', 'NOTE'], queryFn: fetchNotes });
+   const noteQuery = useQuery({ queryKey: ['fetchNotes'], queryFn: fetchNotes, refetchOnMount: 'always' });
    let [noteData, setNoteData] = useState<any[]>([]);
    let currnoteid = storeB((s: any) => s.currNoteId);
    let {
@@ -30,7 +30,6 @@ export default function NoteListFn() {
    const getCurrNote = (list: any[], id: string) => noteObjFn(list.find((item) => item.id === id));
 
    useEffect(() => {
-      noteQuery.refetch();
       if (noteQuery.isSuccess && noteQuery.data) setNoteData(noteQuery.data.getNotes);
    }, [noteObj, signal]);
 
@@ -41,7 +40,7 @@ export default function NoteListFn() {
          noteObjFn(noteData[0]);
          setstate((s: any) => ({ ...s, signal: !signal }));
       }
-   }, [noteQuery.status, noteData]);
+   }, [noteQuery.status, noteQuery.data, currnoteid, noteData]);
 
    useEffect(() => {
       getCurrNote(noteData, currnoteid);
