@@ -16,7 +16,7 @@ const NoteSection = ({ id }: { id: string }) => {
          await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
       },
       onError(err) {
-         console.log(err, err);
+         console.log(err);
       },
    });
 
