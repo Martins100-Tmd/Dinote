@@ -14,4 +14,5 @@ export function NoteStateProvider({ children }: { children: ReactNode }) {
 
    return <createNoteState.Provider value={{ noteObjFn, state, setstate }}>{children}</createNoteState.Provider>;
 }
+
 export default createNoteState;

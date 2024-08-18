@@ -16,7 +16,7 @@ const NoteLayout = function () {
    return (
       <section className='flex flex-row w-full h-[93%]'>
          <NoteSection id={id} />
-         <NotePage id={''} />
+         <NotePage />
       </section>
    );
 };

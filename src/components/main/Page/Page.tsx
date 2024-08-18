@@ -1,9 +1,9 @@
 import PageListContainer from './pagelist';
-const NotePage = function ({ id }: { id: string }) {
+const NotePage = function () {
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] p-2 justify-between h-full'>
          <section className='flex flex-col gap-2 items-start w-full'>
-            <PageListContainer id={id} />
+            <PageListContainer />
          </section>
          <section className='justify-end flex'>
             <div className='flex flex-row items-center cursor-pointer'>

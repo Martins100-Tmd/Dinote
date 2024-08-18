@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { delSection } from './op';
+import { sectionId } from '../../state/section';
 
 export default function SectionList({ item, fn }: { item: any; fn: Function }) {
    const queryClient = useQueryClient();
    let [menu, setmenu] = useState(false);
+   let [currSectId, setCurrSectId] = sectionId((s: any) => [s.currSectId, s.setCurrSectId]);
    const delSectMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
       mutationKey: ['delSection'],
@@ -15,9 +17,12 @@ export default function SectionList({ item, fn }: { item: any; fn: Function }) {
          console.log(error);
       },
    });
+
+   useEffect(() => console.log(currSectId), [currSectId]);
    return (
       <div
          onContextMenu={() => setmenu(!menu)}
+         onClick={() => setCurrSectId(item.id)}
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >
          <i className={`text-${fn()} text-xs material-icons opacity-40 self-center mr-3`}></i>

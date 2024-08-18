@@ -4,6 +4,7 @@ import LoadingSectionList from './loading';
 import SectionList from './sectionList';
 import { useEffect, useState, useContext } from 'react';
 import createNoteState from '../../state/context';
+import { sectionId } from '../../state/section';
 
 const fetchNoteSection = async (id: string) => {
    const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
@@ -22,6 +23,7 @@ export default function SectionContainer({ id }: { id: string }) {
       state: { noteObj },
    } = useContext(createNoteState);
    let [sectionData, setSectionData] = useState<any[]>([{ title: '' }]);
+   let [setCurrSectId] = sectionId((s: any) => [s.setCurrSectId]);
    let [ID, setID] = useState(id);
 
    let sectionQuery = useQuery({
@@ -35,6 +37,7 @@ export default function SectionContainer({ id }: { id: string }) {
    useEffect(() => {
       if (sectionQuery.isSuccess && sectionQuery.data) {
          setSectionData(sectionQuery.data.data);
+         sectionData ? setCurrSectId(sectionData[0]['id'] ?? '') : '';
       }
    }, [sectionQuery.status, sectionQuery.data]);
 

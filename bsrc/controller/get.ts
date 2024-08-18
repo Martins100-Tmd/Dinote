@@ -51,18 +51,37 @@ export const routeAuth = async function (req: Request, res: Response) {
 export const getNoteSections = async function (req: Request, res: Response) {
    const { userId } = req.body;
    let id = req.params.id,
-      uniqueSection;
+      Section;
    if (userId && id) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
       const note = await prisma.note.findUnique({ where: { id } });
       if (user && note) {
-         uniqueSection = await prisma.section.findMany({
+         Section = await prisma.section.findMany({
             where: {
                noteId: id,
             },
          });
       }
-      if (uniqueSection) res.status(200).json({ success: true, data: uniqueSection });
+      if (Section) res.status(200).json({ success: true, data: Section });
       else res.status(400).json({ success: false, msg: 'Failed to get section' });
+   } else res.status(400).json({ success: false, msg: 'make sure note id is correct and exist' });
+};
+
+export const getSectionPages = async function (req: Request, res: Response) {
+   const { userId } = req.body;
+   let id = req.params.id,
+      Pages;
+   if (userId && id) {
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      const section = await prisma.section.findUnique({ where: { id } });
+      if (user && section) {
+         Pages = await prisma.page.findMany({
+            where: {
+               sectionId: id,
+            },
+         });
+      }
+      if (Pages) res.status(200).json({ success: true, data: Pages });
+      else res.status(400).json({ success: false, msg: 'Failed to get pages' });
    } else res.status(400).json({ success: false, msg: 'make sure note id is correct and exist' });
 };

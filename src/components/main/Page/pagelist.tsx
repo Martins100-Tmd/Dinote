@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { backendAPI } from '../../..';
 import LoadingPageList from './loadingpages';
 import { PageItem } from './pageitem';
+import { sectionId } from '../../state/section';
 
 const fetchSectionPages = async function (id: string) {
    const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
@@ -15,8 +16,9 @@ const fetchSectionPages = async function (id: string) {
    return await A.json();
 };
 
-export default function PageListContainer({ id }: { id: string }) {
-   let pageQuery = useQuery({ queryKey: ['fetchSectionPages'], queryFn: () => fetchSectionPages(id) });
+export default function PageListContainer() {
+   let currSectId = sectionId((s: any) => s.currSectId);
+   let pageQuery = useQuery({ queryKey: ['fetchSectionPages', currSectId], queryFn: () => fetchSectionPages(currSectId) });
 
    if (pageQuery.isLoading) return LoadingPageList;
    if (pageQuery.isError)
@@ -25,7 +27,7 @@ export default function PageListContainer({ id }: { id: string }) {
             <p className='font-raj text-base text-center text-white'>{pageQuery.error.message}</p>
          </div>
       );
-   if (pageQuery.isSuccess) {
+   if (pageQuery.isSuccess && pageQuery.data && pageQuery.data.map) {
       return pageQuery.data.map((item: any) => {
          return <PageItem item={item} />;
       });
