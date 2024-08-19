@@ -1,15 +1,9 @@
-import cors from 'cors';
-import express, { Response, Request } from 'express';
+import { Response, Request } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { JWT } from '../util/jwt';
 import { color } from '../util/color';
 
-const router = express.Router();
 const prisma = new PrismaClient();
-
-router.use(cors({ origin: '*' }));
-router.use(express.json({ limit: '500mb' }));
-router.use(express.urlencoded({ extended: true }));
 
 //:SIGNUP
 export const createANewUser = async function (req: Request, res: Response) {

@@ -13,4 +13,4 @@ postRouter.post('/signup', createANewUser);
 postRouter.post('/login', authenticateUser);
 postRouter.post('/newnote', userAuthMiddleWare, createANewNote);
 postRouter.post('/newsection', userAuthMiddleWare, createANewSection);
-postRouter.post('/page', userAuthMiddleWare, createANewPage);
+postRouter.post('/newpage', userAuthMiddleWare, createANewPage);

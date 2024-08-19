@@ -3,6 +3,7 @@ import { backendAPI } from '../../..';
 import LoadingPageList from './loadingpages';
 import { PageItem } from './pageitem';
 import { sectionId } from '../../state/section';
+import { useEffect } from 'react';
 
 const fetchSectionPages = async function (id: string) {
    const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
@@ -20,13 +21,10 @@ export default function PageListContainer() {
    let currSectId = sectionId((s: any) => s.currSectId);
    let pageQuery = useQuery({ queryKey: ['fetchSectionPages', currSectId], queryFn: () => fetchSectionPages(currSectId) });
 
+   useEffect(() => console.log(currSectId), [currSectId]);
+
    if (pageQuery.isLoading) return LoadingPageList;
-   if (pageQuery.isError)
-      return (
-         <div className='w-full flex justify-center p-4 rounded shadow'>
-            <p className='font-raj text-base text-center text-white'>{pageQuery.error.message}</p>
-         </div>
-      );
+   if (pageQuery.isError) console.log(pageQuery.error);
    if (pageQuery.isSuccess && pageQuery.data && pageQuery.data.map) {
       return pageQuery.data.map((item: any) => {
          return <PageItem item={item} />;
