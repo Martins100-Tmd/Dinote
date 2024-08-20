@@ -6,7 +6,7 @@ export default function PageItem({ item }: any) {
    let setcurrPageId = PageStore((s: any) => s.setClickedPageId);
    return (
       <div
-         onClick={() => setcurrPageId(item['id'])}
+         onClick={() => setcurrPageId(item.id)}
          className='relative flex flex-row w-full items-center justify-between px-4 py-2 border-l-4 border-emerald-700 rounded-l-md'
       >
          <p className='outline-none border-none font-redit text-slate-100 font-medium self-center'>{item.title}</p>
