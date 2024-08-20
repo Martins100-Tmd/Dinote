@@ -41,7 +41,7 @@ export default function SectionContainer({ id }: { id: string }) {
       }
    }, [sectionQuery.status, sectionQuery.data]);
 
-   if (sectionQuery.isLoading) return LoadingSectionList;
+   if (sectionQuery.isLoading) return <LoadingSectionList />;
    if (sectionQuery.isError)
       return (
          <div className='w-full flex justify-center p-4 rounded shadow'>
@@ -53,6 +53,6 @@ export default function SectionContainer({ id }: { id: string }) {
       sectionData &&
       sectionData.map &&
       (noteObj || id) &&
-      sectionData.map((item) => <SectionList item={item} fn={UtilFunc.randomColor} />)
+      sectionData.map((item: any, index: number) => <SectionList key={index} item={item} fn={UtilFunc.randomColor} />)
    );
 }

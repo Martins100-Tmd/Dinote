@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { delSection } from './op';
 import { sectionId } from '../../state/section';
 
-export default function SectionList({ item, fn }: { item: any; fn: Function }) {
+export default function SectionList({ item, fn }: any) {
    const queryClient = useQueryClient();
    let [menu, setmenu] = useState(false);
    let [currSectId, setCurrSectId] = sectionId((s: any) => [s.currSectId, s.setCurrSectId]);

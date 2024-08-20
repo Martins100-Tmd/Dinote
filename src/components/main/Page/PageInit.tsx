@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { backendAPI } from '../../..';
 import { sectionId } from '../../state/section';
 import { useState } from 'react';
@@ -15,6 +15,7 @@ export default function PageInit() {
    const timeNow = new Date();
    const formattedTime = String(formatTime(timeNow));
    let currSectId = sectionId((s: any) => s.currSectId);
+   const queryClient = useQueryClient();
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
@@ -26,6 +27,7 @@ export default function PageInit() {
       mutationFn: (body: bodyReq) => addPage(body),
       onSuccess: async (data) => {
          console.log(data);
+         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
       },
       onError: async (error) => {
          console.log(error);
