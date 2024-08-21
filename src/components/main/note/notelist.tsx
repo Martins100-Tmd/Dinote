@@ -42,7 +42,7 @@ export default function NoteListFn() {
          console.log(noteQuery.data);
          getCurrNote(noteData, currnoteid);
          noteObjFn(noteData[0]);
-         setstate((s: any) => ({ ...s, signal: !signal }));
+         setstate((s: any) => ({ ...s, signal: !signal, username: noteQuery.data.getUserWithNote.username }));
       }
    }, [noteQuery.status, noteQuery.data, currnoteid, noteData]);
 
