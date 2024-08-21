@@ -6,18 +6,6 @@ import { useEffect, useState, useContext } from 'react';
 import createNoteState from '../../state/context';
 import { sectionId } from '../../state/section';
 
-const fetchNoteSection = async (id: string) => {
-   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
-   const A = await fetch(backendAPI + 'get/section/' + id, {
-      method: 'GET',
-      headers: {
-         'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return id ? await A.json() : new Promise((res) => res([]));
-};
-
 export default function SectionContainer({ id }: { id: string }) {
    let {
       state: { noteObj },
@@ -58,3 +46,15 @@ export default function SectionContainer({ id }: { id: string }) {
       sectionData.map((item: any, index: number) => <SectionList key={index} item={item} fn={UtilFunc.randomColor} />)
    );
 }
+
+const fetchNoteSection = async (id: string) => {
+   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
+   const A = await fetch(backendAPI + 'get/section/' + id, {
+      method: 'GET',
+      headers: {
+         'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+   });
+   return id ? await A.json() : new Promise((res) => res([]));
+};
