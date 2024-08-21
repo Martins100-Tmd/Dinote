@@ -22,7 +22,7 @@ export default function SectionContainer({ id }: { id: string }) {
    let {
       state: { noteObj },
    } = useContext(createNoteState);
-   let [sectionData, setSectionData] = useState<any[]>([{ title: '' }]);
+   let [sectionData, setSectionData] = useState<any[]>([{ title: '', id: '' }]);
    let [setCurrSectId] = sectionId((s: any) => [s.setCurrSectId]);
    let [ID, setID] = useState(id);
 
@@ -37,6 +37,8 @@ export default function SectionContainer({ id }: { id: string }) {
    useEffect(() => {
       if (sectionQuery.isSuccess && sectionQuery.data) {
          setSectionData(sectionQuery.data.data);
+         if (!sectionData[0]['id']) setSectionData([{ title: '', id: '' }]);
+         console.log(sectionData);
          sectionData ? setCurrSectId(sectionData[0]['id'] ?? '') : '';
       }
    }, [sectionQuery.status, sectionQuery.data]);

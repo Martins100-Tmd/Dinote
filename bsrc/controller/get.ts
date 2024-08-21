@@ -27,12 +27,12 @@ export const getUserWithNote = async function (req: Request, res: Response) {
             id: userId,
          },
          include: {
-            notes: true,
+            notes: { where: { userId } },
          },
       });
       if (getUserWithNote) {
          res.status(200).json({ getUserWithNote });
-      }
+      } else res.status(400).json({ success: false, msg: 'Operation failed!' });
    }
 };
 

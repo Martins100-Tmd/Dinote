@@ -30,12 +30,13 @@ export default function NoteListFn() {
    const getCurrNote = (list: any[], id: string) => noteObjFn(list.find((item) => item.id === id));
 
    useEffect(() => {
-      if (noteQuery.isSuccess && noteQuery.data) setNoteData(noteQuery.data.getNotes);
+      if (noteQuery.isSuccess && noteQuery.data) setNoteData(noteQuery.data.getUserWithNote.notes);
    }, [noteObj, signal]);
 
    useEffect(() => {
       if (noteQuery.isSuccess && noteQuery.data) {
-         setNoteData(noteQuery.data.getNotes);
+         setNoteData(noteQuery.data.getUserWithNote.notes);
+         console.log(noteQuery.data);
          getCurrNote(noteData, currnoteid);
          noteObjFn(noteData[0]);
          setstate((s: any) => ({ ...s, signal: !signal }));
@@ -51,16 +52,18 @@ export default function NoteListFn() {
 
    return (
       <section className='grid grid-cols-1 items-start w-full gap-4'>
-         {noteData.map((item: any, index: number) => {
-            let id = noteObj ? noteObj['id'] : '';
-            if (id !== item['id']) {
-               return (
-                  <div key={index}>
-                     <NoteItem item={item} />
-                  </div>
-               );
-            }
-         })}
+         {noteData.length > 0 &&
+            noteData.map &&
+            noteData.map((item: any, index: number) => {
+               let id = noteObj ? noteObj['id'] : '';
+               if (id !== item['id']) {
+                  return (
+                     <div key={index}>
+                        <NoteItem item={item} />
+                     </div>
+                  );
+               }
+            })}
       </section>
    );
 }
