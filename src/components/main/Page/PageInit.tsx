@@ -25,8 +25,8 @@ export default function PageInit({ id }: { id: string }) {
       if (currId) firstFetch();
    }, [currId]);
 
-   return (id ? (
-            <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
+   return id ? (
+      <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
             <PAGEINITHOC tag={'input'} val={title} />
             <div className='flex flex-row items-center w-full justify-between'>
@@ -35,16 +35,16 @@ export default function PageInit({ id }: { id: string }) {
             </div>
          </section>
          <PAGEINITHOC tag={'textarea'} val={body} />
-            </section>
-   ): (
+      </section>
+   ) : (
       <section className={`w-full bg-[#2c2c2c] h-full flex justify-center duration-100`}>
          <div className='flex justify-center flex-col'>
             <p className='text-2xl font-semibold text-center mb-10 text-slate-50'>There aren't any pages here.</p>
             <p className='text-xl font-medium text-center font-redit text-slate-200'>Add a page to start taking notes.</p>
          </div>
-      </section>)
-   )
-
+      </section>
+   );
+}
 
 function formatTime(date: any) {
    const hours = date.getHours();
