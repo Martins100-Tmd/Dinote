@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const NoteMainComponent = function () {
    let [state, setstate] = useStore((state: any) => [state.slide, state.setSlide]);
-   let newPage = PageStore((s: any) => s.newPage);
+   let PageId = PageStore((s: any) => s.clickedPageId);
 
    useEffect(() => {
       function formatDate(date: any) {
@@ -33,24 +33,9 @@ const NoteMainComponent = function () {
             </div>
          </section>
          <Note width={state} />
-         <PageSect action={newPage} />
+         <PageInit id={PageId} />
       </section>
    );
 };
-
-function PageSect({ action }: { action: boolean }) {
-   if (!action) {
-      return (
-         <section className={`w-full bg-[#2c2c2c] h-full flex justify-center duration-100`}>
-            <div className='flex justify-center flex-col'>
-               <p className='text-2xl font-semibold text-center mb-10 text-slate-50'>There aren't any pages here.</p>
-               <p className='text-xl font-medium text-center font-redit text-slate-200'>Add a page to start taking notes.</p>
-            </div>
-         </section>
-      );
-   } else {
-      return <PageInit />;
-   }
-}
 
 export default NoteMainComponent;
