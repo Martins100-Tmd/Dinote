@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { PageStore } from '../../state/page';
 import PAGEINITHOC from './PageHOCinit';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { pagePreFetch } from './fetch';
+import { PageContext } from '../../state/pageContext';
 export default function PageInit({ id }: { id: string }) {
    const dateNow = new Date();
    const formattedDate = String(formatDate(dateNow));
@@ -10,21 +10,17 @@ export default function PageInit({ id }: { id: string }) {
    const formattedTime = String(formatTime(timeNow));
    let [title, settitle] = useState('');
    let [body, setbody] = useState('');
-   let currId = PageStore((s: any) => s.clickedPageId);
-
-   const firstFetch = () => {
-      const { data, isSuccess, isError } = useQuery({
-         queryKey: ['prefetchpage'],
-         queryFn: () => pagePreFetch(currId),
-      });
-      if (isSuccess) settitle(data.title), setbody(data.body);
-      if (isError) settitle(''), setbody('');
-   };
+   let { notePageState } = useContext(PageContext);
+   const { data, isSuccess, isError, error } = useQuery({
+      queryKey: ['prefetchpage'],
+      queryFn: () => pagePreFetch(notePageState.currpageid),
+      enabled: !!notePageState.currpageid,
+   });
 
    useEffect(() => {
-      console.log(currId);
-      if (currId) firstFetch();
-   }, [currId]);
+      if (isSuccess && data) setbody(data.body), settitle(data.title);
+      if (isError) console.log(error);
+   }, [notePageState.currpageid]);
 
    return id ? (
       <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>

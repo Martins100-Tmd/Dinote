@@ -2,7 +2,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { Authentication, Layout } from '.';
 import { Route, Routes } from 'react-router-dom';
 import { NoteStateProvider } from './components/state/context';
-import { PageContextProvider } from './components/state/page';
+import { PageContextProvider } from './components/state/pageContext';
 
 const queryClient = new QueryClient({
    defaultOptions: {
