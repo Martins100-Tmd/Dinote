@@ -11,6 +11,7 @@ export default function PageInit({ id }: { id: string }) {
    let [title, settitle] = useState('');
    let [body, setbody] = useState('');
    let currId = PageStore((s: any) => s.clickedPageId);
+
    const firstFetch = () => {
       const { data, isSuccess, isError } = useQuery({
          queryKey: ['prefetchpage'],
