@@ -34,3 +34,16 @@ export const deleteSection = async function (req: Request, res: Response) {
       } else res.status(400).json({ success: false, msg: `Error deleting Section` });
    } else res.status(403).json({ success: false, msg: 'Unauthorized User!' });
 };
+
+export const deletePage = async function (req: Request, res: Response) {
+   const { userId } = req.body;
+   const id = req.params.id;
+   const user = await prisma.user.findUnique({ where: { id: userId } });
+   if (user) {
+      const delPage = await prisma.page.delete({ where: { id } });
+      console.log(delPage, id);
+      if (delPage) {
+         res.status(200).json({ success: true, msg: `Page: ${delPage.title} deleted!` });
+      } else res.status(400).json({ success: false, msg: `Error deleting Page` });
+   } else res.status(403).json({ success: false, msg: 'Unauthorized User!' });
+};

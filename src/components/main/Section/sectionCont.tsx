@@ -25,7 +25,7 @@ export default function SectionContainer({ id }: { id: string }) {
    useEffect(() => {
       if (sectionQuery.isSuccess && sectionQuery.data) {
          setSectionData(sectionQuery.data.data);
-         let sectionPayloadNotReady = !sectionData[0]['id'];
+         let sectionPayloadNotReady = !sectionData;
          if (sectionPayloadNotReady) setSectionData([{ title: '', id: '' }]), setCurrSectId('');
          console.log(sectionData);
       }

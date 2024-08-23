@@ -22,7 +22,7 @@ const NoteNavComponent = function () {
          <section className='flex flex-row items-center justify-between gap-5'>
             <p className='font-redit font-thin text-lg text-slate-50'>{username}</p>
             <span className='h-[15px] w-[2px] bg-opacity-45 bg-slate-50'></span>
-            <ProfileImage firstLetter={username[0]} />
+            <ProfileImage firstLetter={username ? username[0] : 'XX'} />
          </section>
       </nav>
    );
