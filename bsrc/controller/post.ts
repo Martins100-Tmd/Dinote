@@ -79,6 +79,7 @@ export const createANewPage = async function (req: Request, res: Response) {
    if (userId) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
       const section = await prisma.section.findUnique({ where: { id: sectionId } });
+      console.log(user, section);
       if (user && section) {
          const createPage = await prisma.page.create({
             data: { title, content, sectionId },

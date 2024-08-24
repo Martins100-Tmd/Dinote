@@ -1,12 +1,11 @@
 import { useStore } from '../state/note';
-import { PageStore } from '../state/page';
+import { PageContext } from '../state/pageContext';
 import PageInit from './Page/PageInit';
 import Note from './note/notesect';
 import { useEffect } from 'react';
 
 const NoteMainComponent = function () {
    let [state, setstate] = useStore((state: any) => [state.slide, state.setSlide]);
-   let PageId = PageStore((s: any) => s.clickedPageId);
 
    useEffect(() => {
       function formatDate(date: any) {
@@ -33,7 +32,7 @@ const NoteMainComponent = function () {
             </div>
          </section>
          <Note width={state} />
-         <PageInit id={PageId} />
+         <PageInit />
       </section>
    );
 };

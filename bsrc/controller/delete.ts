@@ -29,6 +29,7 @@ export const deleteSection = async function (req: Request, res: Response) {
             id,
          },
       });
+      console.log(delSection, ';;;;;;');
       if (delSection) {
          res.status(200).json({ success: true, msg: `Section: ${delSection.title} deleted!` });
       } else res.status(400).json({ success: false, msg: `Error deleting Section` });

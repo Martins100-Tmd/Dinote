@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ReactNode, useState } from 'react';
-import { sectionId } from '../../state/section';
+import { ReactNode, useState, useContext } from 'react';
 import { addPage } from './fetch';
+import { PageContext } from '../../state/pageContext';
 interface bodyReq {
    title: string;
    content: string;
@@ -9,12 +9,14 @@ interface bodyReq {
 }
 
 export default function PAGEINITHOC({ tag, val }: { tag: ReactNode; val?: string }) {
-   let currSectId = sectionId((s: any) => s.currSectId);
+   let {
+      notePageState: { sectpageid },
+   } = useContext(PageContext);
    const queryClient = useQueryClient();
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
-      sectionId: currSectId,
+      sectionId: sectpageid,
    });
    const addMutation = useMutation({
       mutationKey: ['addPage'],
@@ -30,12 +32,14 @@ export default function PAGEINITHOC({ tag, val }: { tag: ReactNode; val?: string
 
    return tag === 'input' ? (
       <input
-         onBlur={() => (body.title ? addMutation.mutate(body) : '')}
+         onBlur={() => {
+            body.title ? addMutation.mutate(body) : '', console.log(body);
+         }}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
             setbody((bd: any) => ({ ...bd, title: target.value }));
          }}
-         value={val}
+         value={body.title}
          type='text'
          className='w-full outline-none border-b bg-transparent border-slate-200 font-raj text-slate-100 text-3xl font-medium'
          autoFocus
@@ -47,7 +51,7 @@ export default function PAGEINITHOC({ tag, val }: { tag: ReactNode; val?: string
             const target = e.target as HTMLTextAreaElement;
             setbody((bd) => ({ ...bd, content: target.value }));
          }}
-         value={val}
+         value={body.content}
          className='text-slate-100 text-xl w-full h-full font-raj text-start bg-transparent outline-none border-none'
       ></textarea>
    );

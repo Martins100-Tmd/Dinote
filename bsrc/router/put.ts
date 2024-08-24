@@ -1,6 +1,5 @@
 import express from 'express';
 import userAuthMiddleWare from '../middleware/userId';
-import { deleteNote, deleteSection } from '../controller/delete';
 
 export const putRouter = express.Router();
 

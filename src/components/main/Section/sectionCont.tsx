@@ -4,32 +4,36 @@ import LoadingSectionList from './loading';
 import SectionList from './sectionList';
 import { useEffect, useState, useContext } from 'react';
 import createNoteState from '../../state/context';
-import { sectionId } from '../../state/section';
+import { PageContext } from '../../state/pageContext';
+import sectionContext from '../../state/sectContext';
 
 export default function SectionContainer({ id }: { id: string }) {
    let {
       state: { noteObj },
    } = useContext(createNoteState);
    let [sectionData, setSectionData] = useState<any[]>([{ title: '', id: '' }]);
-   let [setCurrSectId] = sectionId((s: any) => [s.setCurrSectId]);
    let [ID, setID] = useState(id);
+   let {
+      setCurrSection,
+      sectionState: { currsection },
+   } = useContext(sectionContext);
 
    let sectionQuery = useQuery({
       queryKey: ['sectionList', ID],
       queryFn: () => fetchNoteSection(noteObj ? noteObj['id'] : id),
       refetchOnMount: 'always',
+      enabled: !!ID,
    });
 
    useEffect(() => setID(id ?? noteObj['id']), [id, noteObj]);
 
    useEffect(() => {
-      if (sectionQuery.isSuccess && sectionQuery.data) {
+      if (sectionQuery.isSuccess) {
          setSectionData(sectionQuery.data.data);
-         let sectionPayloadNotReady = !sectionData;
-         if (sectionPayloadNotReady) setSectionData([{ title: '', id: '' }]), setCurrSectId('');
-         console.log(sectionData);
+         setCurrSection(sectionData[0]['id']);
+         console.log(sectionData, currsection);
       }
-   }, [sectionQuery.status, sectionQuery.data]);
+   }, [sectionQuery.isError, sectionQuery.data, sectionQuery.isLoading]);
 
    if (sectionQuery.isLoading) return <LoadingSectionList />;
    if (sectionQuery.isError)

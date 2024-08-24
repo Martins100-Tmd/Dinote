@@ -3,6 +3,7 @@ import { Authentication, Layout } from '.';
 import { Route, Routes } from 'react-router-dom';
 import { NoteStateProvider } from './components/state/context';
 import { PageContextProvider } from './components/state/pageContext';
+import { SectionContextProvider } from './components/state/sectContext';
 
 const queryClient = new QueryClient({
    defaultOptions: {
@@ -16,12 +17,14 @@ const App = () => {
    return (
       <QueryClientProvider client={queryClient}>
          <NoteStateProvider>
-            <PageContextProvider>
-               <Routes>
-                  <Route path='/' Component={Authentication} />
-                  <Route path='/home' Component={Layout} />
-               </Routes>
-            </PageContextProvider>
+            <SectionContextProvider>
+               <PageContextProvider>
+                  <Routes>
+                     <Route path='/' Component={Authentication} />
+                     <Route path='/home' Component={Layout} />
+                  </Routes>
+               </PageContextProvider>
+            </SectionContextProvider>
          </NoteStateProvider>
       </QueryClientProvider>
    );
