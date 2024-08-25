@@ -17,7 +17,7 @@ export default function SectionContainer({ id }: { id: string }) {
    let sectionQuery = useQuery({
       queryKey: ['sectionList', ID],
       queryFn: () => fetchNoteSection(noteObj ? ID : id),
-      refetchOnMount: '',
+      refetchOnMount: 'always',
       enabled: !!ID,
    });
 
