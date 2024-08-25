@@ -88,12 +88,12 @@ export const getSectionPages = async function (req: Request, res: Response) {
 
 export const getPage = async function (req: Request, res: Response) {
    let [{ userId }, pageId] = [req.body, req.params.id];
-   console.log(userId, PageId);
+   console.log(userId, pageId);
    if (userId && pageId) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (user) {
          const onePage = await prisma.page.findUnique({ where: { id: pageId } });
-         if (onePage) res.status(200).json({ success: true, data: onePage });
+         if (onePage) console.log(onePage), res.status(200).json({ success: true, data: onePage });
          else res.status(400).json({ success: false, msg: 'Error getting page' });
       } else res.status(404).json({ success: false, msg: 'User not found' });
    }

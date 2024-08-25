@@ -12,7 +12,7 @@ interface PageContextT {
    setPageId: (id: string) => void;
    setPageEmp: (val: boolean) => void;
    setSectId: (id: string) => void;
-   setNewPage: () => void;
+   setNewPage: (id?: boolean) => void;
 }
 
 const defaultState: PageContextT = {
@@ -36,7 +36,7 @@ export const PageContextProvider = ({ children }: { children: ReactNode }) => {
    const setPageId = (id: string) => setNotePageState((prev) => ({ ...prev, currpageid: id }));
    const setPageEmp = (val: boolean) => setNotePageState((prev) => ({ ...prev, pagelistempty: val }));
    const setSectId = (id: string) => setNotePageState((prev) => ({ ...prev, sectpageid: id }));
-   const setNewPage = () => setNotePageState((prev) => ({ ...prev, newPage: !prev.newPage }));
+   const setNewPage = (id?: boolean) => setNotePageState((prev) => ({ ...prev, newPage: id ?? !prev.newPage }));
 
    return <PageContext.Provider value={{ setNewPage, notePageState, setPageId, setPageEmp, setSectId }}>{children}</PageContext.Provider>;
 };

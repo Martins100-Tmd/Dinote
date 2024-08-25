@@ -1,6 +1,6 @@
+import { DateString } from '../../utils/date';
 import { useStore } from '../state/note';
-import { PageContext } from '../state/pageContext';
-import PageInit from './Page/PageInit';
+// import PageInit from './Page/PageInit';
 import Note from './note/notesect';
 import { useEffect } from 'react';
 
@@ -8,14 +8,7 @@ const NoteMainComponent = function () {
    let [state, setstate] = useStore((state: any) => [state.slide, state.setSlide]);
 
    useEffect(() => {
-      function formatDate(date: any) {
-         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-         return date.toLocaleDateString('en-US', options);
-      }
-
-      const now = new Date();
-      const formattedDate = formatDate(now).replace('day', '');
-      console.log(formattedDate);
+      console.log(DateString);
    }, []);
 
    return (
@@ -32,7 +25,7 @@ const NoteMainComponent = function () {
             </div>
          </section>
          <Note width={state} />
-         <PageInit />
+         {/* <PageInit /> */}
       </section>
    );
 };

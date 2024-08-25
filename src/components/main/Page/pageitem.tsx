@@ -6,7 +6,7 @@ import { PageContext } from '../../state/pageContext';
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
    const queryClient = useQueryClient();
-   const { setPageId } = useContext(PageContext);
+   const { setPageId, setNewPage } = useContext(PageContext);
 
    let ref = useRef(null);
 
@@ -21,7 +21,9 @@ export default function PageItem({ item }: any) {
 
    return (
       <div
-         onClick={() => setPageId(item.id)}
+         onClick={() => {
+            setNewPage(false), setPageId(item.id);
+         }}
          className='relative flex flex-row w-full hover:bg-[#535353] items-center justify-between px-4 py-2 border-l-4 border-emerald-700 rounded-l-md'
       >
          <p className='outline-none border-none font-redit text-slate-100 font-medium self-center'>{item.title}</p>
