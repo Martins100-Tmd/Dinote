@@ -3,4 +3,5 @@ function dateFunc(date: any) {
    return date.toLocaleDateString('en-US', options);
 }
 const now = new Date();
+
 export const DateString = dateFunc(now).replace('day', '');
