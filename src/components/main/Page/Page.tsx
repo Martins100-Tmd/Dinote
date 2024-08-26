@@ -8,6 +8,16 @@ const NotePage = function () {
       notePageState: { newPage },
    } = useContext(PageContext);
    useEffect(() => console.log(newPage), [newPage]);
+
+   useEffect(() => {
+      const body = document.body as HTMLBodyElement;
+      body.onclick = (e) => {
+         let target = e.target as HTMLElement;
+         if (target.id === 'newPAGE') setNewPage(true);
+         else setNewPage(false);
+      };
+   }, []);
+
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] p-2 justify-between h-full'>
          <section className='flex flex-col gap-2 items-start w-full'>
@@ -15,13 +25,20 @@ const NotePage = function () {
          </section>
          <section className='justify-end flex'>
             <div
-               onClick={() => {
-                  setNewPage(true), setPageId('');
+               onClick={(e) => {
+                  setPageId('');
+                  // let target = e.target as HTMLDivElement;
+                  // if (target.id == 'newPAGE') setNewPage(true);
                }}
-               className='flex flex-row items-center cursor-pointer'
+               id='newPAGE'
+               className='flex flex-row items-center cursor-pointer bg-red'
             >
-               <i className='material-icons text-4xl text-emerald-200 font-thin'>add</i>
-               <p className='font-sans text-base text-left text-emerald-100 font-semibold'>Add Page</p>
+               <i id='newPAGE' className='material-icons text-4xl text-emerald-200 font-thin'>
+                  add
+               </i>
+               <p id='newPAGE' className='font-sans text-base text-left text-emerald-100 font-semibold'>
+                  Add Page
+               </p>
             </div>
          </section>
       </section>

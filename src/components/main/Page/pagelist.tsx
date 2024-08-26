@@ -16,6 +16,12 @@ export default function PageListContainer() {
       enabled: !!currsection,
    });
 
+   let emptyData: string = '[]';
+
+   useEffect(() => {
+      console.log(currsection);
+   }, []);
+
    useEffect(() => {
       if (pageQuery.isSuccess && pageQuery.data) {
          console.log(pageQuery.data);
@@ -24,5 +30,8 @@ export default function PageListContainer() {
 
    if (pageQuery.isLoading) return <LoadingPageList />;
    if (pageQuery.isError) return <>{pageQuery.error.message}</>;
-   return pageQuery.data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
+   if (pageQuery.isSuccess) {
+      if (JSON.stringify(pageQuery.data['data']) == emptyData) {
+      } else return pageQuery.data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
+   }
 }
