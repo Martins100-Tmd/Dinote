@@ -13,7 +13,7 @@ export interface bodyReq {
 export default function PostPage() {
    const queryClient = useQueryClient();
    let {
-      notePageState: { sectpageid, new},
+      notePageState: { sectpageid },
    } = useContext(PageContext);
    let [body, setbody] = useState<bodyReq>({
       title: '',
