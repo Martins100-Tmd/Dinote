@@ -1,6 +1,23 @@
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ReactNode, useState, useContext, useEffect } from 'react';
+import { addPage } from './fetch';
+import { PageContext } from '../../state/pageContext';
+interface bodyReq {
+   title: string;
+   content: string;
+   sectionId: string;
+}
 
-export default function PostPage() {
+export default function PAGEINITHOC({ tag, val }: { tag: ReactNode; val?: string }) {
+   let {
+      notePageState: { sectpageid, newPage },
+   } = useContext(PageContext);
+   const queryClient = useQueryClient();
+   let [body, setbody] = useState<bodyReq>({
+      title: '',
+      content: '',
+      sectionId: sectpageid,
+   });
    const addMutation = useMutation({
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
@@ -12,29 +29,16 @@ export default function PostPage() {
          console.log(error);
       },
    });
+   useEffect(() => {
+      if (tag == 'input') setbody((prev) => ({ ...prev, title: val ?? '' }));
+      if (tag == 'textarea') setbody((prev) => ({ ...prev, content: val ?? '' }));
+   }, [val]);
 
-   return (
-      <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
-         <section className='flex flex-col items-center gap-3'>
-            <Input />
-            <div className='flex flex-row items-center w-full justify-between'>
-               <p className='text-start w-full font-raj text-slate-200'>{formattedDate}</p>
-               <p className='text-start w-1/4 font-raj text-slate-200'>{formattedTime}</p>
-            </div>
-         </section>
-         <TextArea />
-      </section>
-   );
-}
+   useEffect(() => {
+      if (newPage) setbody((prev) => ({ ...prev, content: '', title: '', sectionId: sectpageid }));
+   }, [newPage]);
 
-interface FormInt {
-   body: { title: string; content: string };
-   addMutation: UseMutationResult<any, Error, any, unknown>;
-   setbody: Function;
-}
-
-function Input({ addMutation, body, setbody }: FormInt) {
-   return (
+   return tag === 'input' ? (
       <input
          onBlur={() => {
             body.title ? addMutation.mutate(body) : '', console.log(body);
@@ -48,16 +52,12 @@ function Input({ addMutation, body, setbody }: FormInt) {
          className='w-full outline-none border-b bg-transparent border-slate-200 font-raj text-slate-100 text-3xl font-medium'
          autoFocus
       />
-   );
-}
-
-function TextArea({ body, addMutation, setbody }: FormInt) {
-   return (
+   ) : (
       <textarea
          onBlur={() => (body.title ? addMutation.mutate(body) : '')}
          onChange={(e) => {
             const target = e.target as HTMLTextAreaElement;
-            setbody((bd: any) => ({ ...bd, content: target.value }));
+            setbody((bd) => ({ ...bd, content: target.value }));
          }}
          value={body.content}
          className='text-slate-100 text-xl w-full h-full font-raj text-start bg-transparent outline-none border-none'

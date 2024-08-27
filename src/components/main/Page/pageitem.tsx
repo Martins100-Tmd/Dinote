@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState, useEffect } from 'react';
 import { backendAPI } from '../../../index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PageContext } from '../../state/pageContext';
@@ -6,7 +6,11 @@ import { PageContext } from '../../state/pageContext';
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
    const queryClient = useQueryClient();
-   const { setPageId, setNewPage } = useContext(PageContext);
+   const {
+      setPageId,
+      setNewPage,
+      notePageState: { newPage },
+   } = useContext(PageContext);
 
    let ref = useRef(null);
 
@@ -18,6 +22,10 @@ export default function PageItem({ item }: any) {
          setPageMenu(!pageMenu);
       },
    });
+
+   useEffect(() => {
+      console.log(newPage);
+   }, [newPage]);
 
    return (
       <div

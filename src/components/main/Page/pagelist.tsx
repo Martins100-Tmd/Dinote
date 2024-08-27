@@ -4,12 +4,16 @@ import PageItem from './Pageitem';
 import { useEffect, useContext } from 'react';
 import sectionContext from '../../state/sectContext';
 import { fetchSectionPages } from './fetch';
+import { PageContext } from '../../state/pageContext';
 
 export default function PageListContainer() {
    let {
       sectionState: { currsection },
    } = useContext(sectionContext);
-   //let { setPageEmp, setPageId } = useContext(PageContext);
+   let {
+      notePageState: { currpageid },
+      setNewPage,
+   } = useContext(PageContext);
    let pageQuery = useQuery({
       queryKey: ['fetchSectionPages', currsection],
       queryFn: () => fetchSectionPages(currsection),
@@ -21,6 +25,10 @@ export default function PageListContainer() {
    useEffect(() => {
       console.log(currsection);
    }, []);
+
+   useEffect(() => {
+      if (currpageid || JSON.stringify(pageQuery.data['data']) == emptyData) setNewPage(false);
+   }, [currpageid, pageQuery.status, currsection]);
 
    useEffect(() => {
       if (pageQuery.isSuccess && pageQuery.data) {
