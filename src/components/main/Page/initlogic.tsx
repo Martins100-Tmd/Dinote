@@ -1,5 +1,4 @@
 import PAGEINITHOC from './PageHOCinit';
-import { formattedDate, formattedTime } from './fetch';
 import { useEffect } from 'react';
 
 interface dataInt {

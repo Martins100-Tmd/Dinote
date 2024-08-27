@@ -26,3 +26,15 @@ export const addPage = async function (data: dataInt) {
    });
    return await A.json();
 };
+
+export const getSolePage = async function (id: string, data: dataInt) {
+   const A = await fetch(backendAPI + 'get/getpage/' + id, {
+      method: 'PUT',
+      headers: {
+         'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(data),
+   });
+   return await A.json();
+};

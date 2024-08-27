@@ -1,6 +1,25 @@
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
+import { addPage } from './fetch';
+import { PageContext } from '../../state/pageContext';
+import { useContext, useState } from 'react';
+import { DateString } from '../../../utils/date';
+
+export interface bodyReq {
+   title: string;
+   content: string;
+   sectionId: string;
+}
 
 export default function PostPage() {
+   const queryClient = useQueryClient();
+   let {
+      notePageState: { sectpageid, newPage },
+   } = useContext(PageContext);
+   let [body, setbody] = useState<bodyReq>({
+      title: '',
+      content: '',
+      sectionId: sectpageid,
+   });
    const addMutation = useMutation({
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
@@ -16,13 +35,12 @@ export default function PostPage() {
    return (
       <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
-            <Input />
-            <div className='flex flex-row items-center w-full justify-between'>
-               <p className='text-start w-full font-raj text-slate-200'>{formattedDate}</p>
-               <p className='text-start w-1/4 font-raj text-slate-200'>{formattedTime}</p>
+            <Input addMutation={addMutation} body={body} setbody={setbody} />
+            <div className='flex items-center w-full justify-start'>
+               <p className='text-start w-full font-raj text-slate-200'>{DateString}</p>
             </div>
          </section>
-         <TextArea />
+         <TextArea addMutation={addMutation} body={body} setbody={setbody} />
       </section>
    );
 }
