@@ -1,11 +1,16 @@
 import { DateString } from '../../utils/date';
 import { useStore } from '../state/note';
+import { PageContext } from '../state/pageContext';
+import PageInterface from './Page/pageInterface';
 // import PageInit from './Page/PageInit';
 import Note from './note/notesect';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 const NoteMainComponent = function () {
    let [state, setstate] = useStore((state: any) => [state.slide, state.setSlide]);
+   let {
+      notePageState: { newPage },
+   } = useContext(PageContext);
 
    useEffect(() => {
       console.log(DateString);
@@ -25,7 +30,7 @@ const NoteMainComponent = function () {
             </div>
          </section>
          <Note width={state} />
-         {/* <PageInit /> */}
+         <PageInterface init={newPage} />
       </section>
    );
 };

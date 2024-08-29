@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
 import { PageContext } from '../../state/pageContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DateString } from '../../../utils/date';
 
 export interface bodyReq {
@@ -20,11 +20,18 @@ export default function PostPage() {
       content: '',
       sectionId: sectpageid,
    });
+
+   useEffect(() => {
+      console.log(sectpageid, body);
+   }, [sectpageid]);
+   let { setPageId } = useContext(PageContext);
+
    const addMutation = useMutation({
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
       onSuccess: async (data) => {
          console.log(data);
+         setPageId(data['id']);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
       },
       onError: async (error) => {
@@ -35,7 +42,7 @@ export default function PostPage() {
    return (
       <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
-            <Input addMutation={addMutation} body={body} setbody={setbody} />
+            <Input addMutation={addMutation} body={body} setbody={setbody} sectpageid={sectpageid} />
             <div className='flex items-center w-full justify-start'>
                <p className='text-start w-full font-raj text-slate-200'>{DateString}</p>
             </div>
@@ -49,13 +56,15 @@ interface FormInt {
    body: { title: string; content: string };
    addMutation: UseMutationResult<any, Error, any, unknown>;
    setbody: Function;
+   sectpageid?: string;
 }
 
-function Input({ addMutation, body, setbody }: FormInt) {
+function Input({ addMutation, body, setbody, sectpageid }: FormInt) {
    return (
       <input
          onBlur={() => {
-            body.title ? addMutation.mutate(body) : '', console.log(body);
+            console.log(body, sectpageid);
+            body.title ? addMutation.mutate(body) : '';
          }}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
@@ -72,7 +81,9 @@ function Input({ addMutation, body, setbody }: FormInt) {
 function TextArea({ body, addMutation, setbody }: FormInt) {
    return (
       <textarea
-         onBlur={() => (body.title ? addMutation.mutate(body) : '')}
+         onBlur={() => {
+            body.title ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
+         }}
          onChange={(e) => {
             const target = e.target as HTMLTextAreaElement;
             setbody((bd: any) => ({ ...bd, content: target.value }));

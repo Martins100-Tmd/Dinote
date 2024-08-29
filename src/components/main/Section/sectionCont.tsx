@@ -4,39 +4,45 @@ import LoadingSectionList from './loading';
 import SectionList from './sectionList';
 import { useEffect, useContext, useMemo } from 'react';
 import createNoteState from '../../state/context';
-import sectionContext from '../../state/sectContext';
 
 export default function SectionContainer({ id }: { id: string }) {
    let {
       state: { noteObj },
    } = useContext(createNoteState);
-   let { setCurrSection } = useContext(sectionContext);
 
    let ID = useMemo(() => (noteObj ? noteObj['id'] : ''), [noteObj]);
 
-   let sectionQuery = useQuery({
+   let { data, isSuccess, isLoading, isError, error, status } = useQuery({
       queryKey: ['sectionList', ID],
       queryFn: () => fetchNoteSection(noteObj ? ID : id),
-      refetchOnMount: 'always',
+      refetchOnMount: false,
       enabled: !!ID,
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 10000,
    });
 
    useEffect(() => {
-      if (sectionQuery.isSuccess && sectionQuery.data['data']) setCurrSection(sectionQuery.data.data[0]['id']);
-   }, [sectionQuery.status]);
+      if (isSuccess && data['data']) localStorage.setItem('sectpageid', data['data'][0]['id']);
+      if (isLoading) console.log('SectionContainer loading...');
+      console.log(isSuccess, data);
+   }, [status, data]);
 
-   if (sectionQuery.isLoading) return <LoadingSectionList />;
-   if (sectionQuery.isError)
+   if (isLoading) {
+      console.log('SectionList fetch is loading');
+      return <LoadingSectionList />;
+   }
+   if (isError)
       return (
          <div className='w-full flex justify-center p-4 rounded shadow'>
-            <p className='font-raj text-base text-center text-white'>{sectionQuery.error.message}</p>
+            <p className='font-raj text-base text-center text-white'>{error?.message}</p>
          </div>
       );
-   if (sectionQuery.isSuccess && sectionQuery.data) {
+   if (isSuccess && data) {
       return (
-         sectionQuery.data &&
+         data &&
          (noteObj || id) &&
-         sectionQuery.data.data.map((item: any, index: number) => <SectionList key={index} item={item} fn={UtilFunc.randomColor} />)
+         data.data.map((item: any, index: number) => <SectionList key={index} item={item} fn={UtilFunc.randomColor} />)
       );
    }
 }

@@ -27,6 +27,7 @@ export default function PutPage() {
    });
    useEffect(() => {
       if (getSolePageQuery.isSuccess) {
+         console.log(getSolePageQuery.data);
          let data = getSolePageQuery.data['data'];
          setbody((prev) => ({ ...prev, title: data['title'], content: data['content'] }));
       }

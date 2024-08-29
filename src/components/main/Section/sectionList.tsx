@@ -25,10 +25,13 @@ export default function SectionList({ item, fn }: any) {
    useEffect(() => {
       console.log(sectpageid);
    }, [sectpageid]);
+
    return (
       <div
          onContextMenu={() => setmenu(!menu)}
-         onClick={() => setSectId(item.id)}
+         onClick={() => {
+            setSectId(item.id), localStorage.setItem('sectpageid', item.id);
+         }}
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >
          <i className={`text-${fn()} text-xs material-icons opacity-40 self-center mr-3`}></i>
