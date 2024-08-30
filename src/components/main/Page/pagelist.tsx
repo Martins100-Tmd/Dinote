@@ -24,6 +24,10 @@ export default function PageListContainer() {
    let emptyData: string = '[]';
 
    useEffect(() => {
+      console.log(currsection);
+   }, [currsection]);
+
+   useEffect(() => {
       if (currpageid || (data && JSON.stringify(data['data']) == emptyData)) setNewPage(false);
       data && isSuccess && !currpageid ? localStorage.setItem('currpageid', data['data'][0].id) : '';
       console.log(data);

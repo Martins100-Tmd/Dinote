@@ -23,7 +23,8 @@ export default function SectionContainer({ id }: { id: string }) {
    });
 
    useEffect(() => {
-      if (isSuccess && data['data']) localStorage.setItem('sectpageid', data['data'][0]['id']);
+      if (isSuccess && data['data'] && data['data'][0]) localStorage.setItem('sectpageid', data['data'][0]['id']);
+      else localStorage.setItem('sectpageid', '');
       if (isLoading) console.log('SectionContainer loading...');
       console.log(isSuccess, data);
    }, [status, data]);
