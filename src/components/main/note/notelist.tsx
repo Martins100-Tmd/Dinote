@@ -35,10 +35,7 @@ export default function NoteListFn() {
 
    useEffect(() => {
       if (noteQuery.isSuccess && noteQuery.data) {
-         let notePayloadNotReady = !noteQuery.data.success;
-         if (notePayloadNotReady) {
-         }
-         setNoteData(noteQuery.data.getUserWithNote.notes);
+         if (!!noteQuery.data['getUserWithNote']) setNoteData(noteQuery.data.getUserWithNote.notes);
          console.log(noteQuery.data);
          getCurrNote(noteData, currnoteid);
          noteObjFn(noteData[0]);

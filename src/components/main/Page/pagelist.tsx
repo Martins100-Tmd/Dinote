@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import LoadingPageList from './loadingpages';
 import PageItem from './Pageitem';
-import { useEffect, useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { fetchSectionPages } from './fetch';
 import { PageContext } from '../../state/pageContext';
 
 export default function PageListContainer() {
    let currsection = localStorage.getItem('sectpageid') ?? '';
-   let {
-      notePageState: { currpageid },
-      setNewPage,
-   } = useContext(PageContext);
+   let currpageid = localStorage.getItem('currpageid') ?? '';
+
+   let { setNewPage } = useContext(PageContext);
 
    let { isSuccess, isLoading, isError, error, data, status } = useQuery({
       queryKey: ['fetchSectionPages', currsection],
@@ -26,7 +25,8 @@ export default function PageListContainer() {
 
    useEffect(() => {
       if (currpageid || (data && JSON.stringify(data['data']) == emptyData)) setNewPage(false);
-      data && isSuccess ? console.log(data, currpageid, currsection) : '';
+      data && isSuccess && !currpageid ? localStorage.setItem('currpageid', data['data'][0].id) : '';
+      console.log(data);
    }, [currpageid, status, currsection]);
 
    if (isLoading) return <LoadingPageList />;

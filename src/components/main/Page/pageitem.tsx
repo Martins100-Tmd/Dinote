@@ -1,4 +1,4 @@
-import { useContext, useRef, useState, useEffect } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { backendAPI } from '../../../index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PageContext } from '../../state/pageContext';
@@ -6,11 +6,7 @@ import { PageContext } from '../../state/pageContext';
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
    const queryClient = useQueryClient();
-   const {
-      setPageId,
-      setNewPage,
-      notePageState: { newPage },
-   } = useContext(PageContext);
+   const { setPageId, setNewPage } = useContext(PageContext);
 
    let ref = useRef(null);
 
@@ -19,18 +15,15 @@ export default function PageItem({ item }: any) {
       mutationKey: ['delPage'],
       onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
+         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
          setPageMenu(!pageMenu);
       },
    });
 
-   useEffect(() => {
-      console.log(newPage);
-   }, [newPage]);
-
    return (
       <div
          onClick={() => {
-            setNewPage(false), setPageId(item.id);
+            setNewPage(false), setPageId(item.id), localStorage.setItem('currpageid', item.id);
          }}
          className='relative flex flex-row w-full hover:bg-[#535353] items-center justify-between px-4 py-2 border-l-4 border-emerald-700 rounded-l-md'
       >

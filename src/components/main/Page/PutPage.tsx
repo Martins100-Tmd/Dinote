@@ -1,43 +1,41 @@
 import { UseMutationResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addPage, getSolePage } from './fetch';
-import { PageContext } from '../../state/pageContext';
-import { useContext, useState, useEffect } from 'react';
+import { getSolePage, updatePage } from './fetch';
+import { useState, useEffect } from 'react';
 import { DateString } from '../../../utils/date';
-
-export interface bodyReq {
-   title: string;
-   content: string;
-   sectionId: string;
-}
+import { bodyReq } from '../../../types';
 
 export default function PutPage() {
    const queryClient = useQueryClient();
-   let {
-      notePageState: { sectpageid, currpageid },
-   } = useContext(PageContext);
+   let currsection = localStorage.getItem('sectpageid') ?? '';
+   let currpageid = localStorage.getItem('currpageid') ?? '';
+
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
-      sectionId: sectpageid,
+      sectionId: currsection,
    });
+
    const getSolePageQuery = useQuery({
       queryKey: ['getPageContent', currpageid],
-      queryFn: ({ queryKey }) => getSolePage(queryKey[1], body),
+      queryFn: () => getSolePage(currpageid),
       enabled: !!currpageid,
+      refetchOnWindowFocus: false,
+      retry: 2,
+      staleTime: 10000,
+      refetchOnMount: false,
    });
+
    useEffect(() => {
       if (getSolePageQuery.isSuccess) {
-         console.log(getSolePageQuery.data);
          let data = getSolePageQuery.data['data'];
          setbody((prev) => ({ ...prev, title: data['title'], content: data['content'] }));
       }
-   }, [getSolePageQuery.status]);
+   }, [getSolePageQuery.status, currpageid]);
 
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
-      mutationFn: (body: bodyReq) => addPage(body),
-      onSuccess: async (data) => {
-         console.log(data);
+      mutationFn: (body: bodyReq) => updatePage(body, currpageid),
+      onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
       },
       onError: async (error) => {
@@ -77,7 +75,7 @@ function Input({ updateMutation, body, setbody }: FormInt) {
          value={body.title}
          type='text'
          className='w-full outline-none border-b bg-transparent border-slate-200 font-raj text-slate-100 text-3xl font-medium'
-         autoFocus
+         autoFocus={!!body.title}
       />
    );
 }

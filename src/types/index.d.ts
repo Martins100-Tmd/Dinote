@@ -36,3 +36,15 @@ export interface State {
    credentials: { name?: string; email: string; password: string };
    addnote: boolean;
 }
+
+export interface bodyReq {
+   title: string;
+   content: string;
+   sectionId: string;
+}
+
+export interface bodyReq {
+   title: string;
+   content: string;
+   sectionId: string;
+}

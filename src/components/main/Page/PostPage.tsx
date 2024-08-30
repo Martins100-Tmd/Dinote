@@ -1,37 +1,23 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
-import { PageContext } from '../../state/pageContext';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DateString } from '../../../utils/date';
-
-export interface bodyReq {
-   title: string;
-   content: string;
-   sectionId: string;
-}
+import { bodyReq } from './PutPage';
 
 export default function PostPage() {
    const queryClient = useQueryClient();
-   let {
-      notePageState: { sectpageid },
-   } = useContext(PageContext);
+   let sectpageid = localStorage.getItem('sectpageid') ?? '';
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
       sectionId: sectpageid,
    });
 
-   useEffect(() => {
-      console.log(sectpageid, body);
-   }, [sectpageid]);
-   let { setPageId } = useContext(PageContext);
-
    const addMutation = useMutation({
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
       onSuccess: async (data) => {
-         console.log(data);
-         setPageId(data['id']);
+         localStorage.setItem('currpageid', data['id']);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
       },
       onError: async (error) => {
@@ -64,7 +50,7 @@ function Input({ addMutation, body, setbody, sectpageid }: FormInt) {
       <input
          onBlur={() => {
             console.log(body, sectpageid);
-            body.title ? addMutation.mutate(body) : '';
+            body.title && sectpageid ? addMutation.mutate(body) : '';
          }}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
@@ -78,11 +64,11 @@ function Input({ addMutation, body, setbody, sectpageid }: FormInt) {
    );
 }
 
-function TextArea({ body, addMutation, setbody }: FormInt) {
+function TextArea({ body, addMutation, setbody, sectpageid }: FormInt) {
    return (
       <textarea
          onBlur={() => {
-            body.title ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
+            body.title && sectpageid ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
          }}
          onChange={(e) => {
             const target = e.target as HTMLTextAreaElement;

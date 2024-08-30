@@ -26,26 +26,25 @@ export const addPage = async function (data: dataInt) {
    });
    return await A.json();
 };
-export const updatePage = async function (data: dataInt) {
-   const A = await fetch(backendAPI + 'put/newpage', {
+export const updatePage = async function (data: dataInt, id: string) {
+   const A = await fetch(backendAPI + 'put/onepage/' + id, {
       method: 'PUT',
       headers: {
          'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
       },
-      body: JSON.stringify({ ...data, title: 'untitled' }),
+      body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
    });
    return await A.json();
 };
 
-export const getSolePage = async function (id: string, data: dataInt) {
+export const getSolePage = async function (id: string) {
    const A = await fetch(backendAPI + 'get/getpage/' + id, {
-      method: 'PUT',
+      method: 'GET',
       headers: {
          'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
       },
-      body: JSON.stringify(data),
    });
    return await A.json();
 };
