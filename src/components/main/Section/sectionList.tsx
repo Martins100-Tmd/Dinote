@@ -9,7 +9,7 @@ export default function SectionList({ item, fn }: any) {
 
    let currsection = localStorage.getItem('sectpageid') ?? '';
 
-   useEffect(() => console.log(currsection), [currsection, sig]);
+   useEffect(() => console.log(currsection), [currsection]);
 
    const delSectMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
@@ -21,7 +21,6 @@ export default function SectionList({ item, fn }: any) {
          console.log(error);
       },
    });
-
    return (
       <div
          onContextMenu={() => setmenu(!menu)}

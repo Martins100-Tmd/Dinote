@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { UtilFunc, backendAPI } from '../../..';
 import LoadingSectionList from './loading';
 import SectionList from './sectionList';
-import { useEffect, useContext, useMemo } from 'react';
+import { useEffect, useContext, useMemo, useState } from 'react';
 import createNoteState from '../../state/context';
 
 export default function SectionContainer({ id }: { id: string }) {
@@ -11,6 +11,9 @@ export default function SectionContainer({ id }: { id: string }) {
    } = useContext(createNoteState);
 
    let ID = useMemo(() => (noteObj ? noteObj['id'] : ''), [noteObj]);
+   let [currsection, _] = useState(localStorage.getItem('sectpageid') ?? '');
+
+   useEffect(() => console.log(currsection), [currsection]);
 
    let { data, isSuccess, isLoading, isError, error, status } = useQuery({
       queryKey: ['sectionList', ID],
@@ -26,13 +29,10 @@ export default function SectionContainer({ id }: { id: string }) {
       if (isSuccess && data['data'] && data['data'][0]) localStorage.setItem('sectpageid', data['data'][0]['id']);
       else localStorage.setItem('sectpageid', '');
       if (isLoading) console.log('SectionContainer loading...');
-      console.log(isSuccess, data);
    }, [status, data]);
 
-   if (isLoading) {
-      console.log('SectionList fetch is loading');
-      return <LoadingSectionList />;
-   }
+   if (isLoading) return <LoadingSectionList />;
+
    if (isError)
       return (
          <div className='w-full flex justify-center p-4 rounded shadow'>

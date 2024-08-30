@@ -22,7 +22,7 @@ const NoteSection = ({ id }: { id: string }) => {
 
    return (
       <section className='flex flex-col items-start w-full border-r border-[#222222] justify-between h-full'>
-         <section className='flex flex-col gap-2 items-start'>
+         <section className='flex flex-col gap-2 items-start w-full'>
             <SectionContainer id={id} />
             <div className={`${state.createSection ? 'flex' : 'hidden'} flex-row items-center w-full p-2`}>
                <input
