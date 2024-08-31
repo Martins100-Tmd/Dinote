@@ -48,3 +48,15 @@ export const getSolePage = async function (id: string) {
    });
    return await A.json();
 };
+
+export const updPageName = async function (id: string, data: { title: string }) {
+   const A = await fetch(backendAPI + 'put/pagename/' + id, {
+      method: 'PUT',
+      headers: {
+         'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
+   });
+   return await A.json();
+};

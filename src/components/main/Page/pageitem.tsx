@@ -2,9 +2,12 @@ import { useContext, useRef, useState } from 'react';
 import { backendAPI } from '../../../index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PageContext } from '../../state/pageContext';
+import { updPageName } from './fetch';
 
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
+   let [rename, setrename] = useState(false);
+   let [pageText, setPageText] = useState(item.title);
    const queryClient = useQueryClient();
    const { setPageId, setNewPage } = useContext(PageContext);
 
@@ -19,6 +22,16 @@ export default function PageItem({ item }: any) {
          setPageMenu(!pageMenu);
       },
    });
+   const PutMutation = useMutation({
+      mutationFn: (title: string) => updPageName(item.id, { title }),
+      mutationKey: ['updatePageName'],
+      onSuccess: async (data) => {
+         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
+         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+         setPageMenu(!pageMenu), setrename(false);
+         console.log(data);
+      },
+   });
 
    return (
       <div
@@ -27,13 +40,39 @@ export default function PageItem({ item }: any) {
          }}
          className='relative flex flex-row w-full hover:bg-[#535353] items-center justify-between px-4 py-2 border-l-4 border-emerald-700 rounded-l-md'
       >
-         <p className='outline-none border-none font-redit text-slate-100 font-medium self-center'>{item.title}</p>
-         <i onClick={() => setPageMenu(!pageMenu)} className='material-icons text-xl cursor-pointer self-center text-slate-100 text-end'>
-            more_horiz
-         </i>
+         <>
+            {rename ? (
+               <>
+                  <input
+                     value={pageText}
+                     type='text'
+                     onChange={(e) => {
+                        let target = e.target as HTMLInputElement;
+                        setPageText(target.value);
+                     }}
+                     onBlur={() => PutMutation.mutate(pageText)}
+                     className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
+                     autoFocus
+                  />
+                  <i onClick={() => setrename(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
+                     close
+                  </i>
+               </>
+            ) : (
+               <>
+                  <p className='outline-none border-none font-redit text-slate-100 font-medium self-center'>{item.title}</p>
+                  <i
+                     onClick={() => setPageMenu(!pageMenu)}
+                     className='material-icons text-xl cursor-pointer self-center text-slate-100 text-end'
+                  >
+                     more_horiz
+                  </i>
+               </>
+            )}
+         </>
          <div ref={ref} className={`w-full top-[40%] absolute bg-[#535353] -right-[30%] shadow-2xl z-50 ${pageMenu ? 'flex' : 'hidden'}`}>
             <ul className='w-full flex flex-col items-stretch justify-center gap-2 py-2'>
-               <li className='flex justify-end w-full px-2'>
+               <li className='flex justify-end w-full px-2 cursor-pointer' onClick={() => setPageMenu(false)}>
                   <i className='material-icons sm:text-lg text-slate-200'>close</i>
                </li>
 
@@ -44,7 +83,12 @@ export default function PageItem({ item }: any) {
                   <i className='material-icons text-2xl text-slate-50 self-center'>close</i>
                   <span className='font-raj text-lg font-medium text-slate-100 self-center'>Delete page</span>
                </li>
-               <li className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'>
+               <li
+                  onClick={() => {
+                     setrename(true), setPageMenu(false);
+                  }}
+                  className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'
+               >
                   <i className='material-icons text-2xl text-slate-50 self-center'>drive_file_rename_outline</i>
                   <span className='font-raj text-lg font-medium text-slate-100 self-center'>Rename page</span>
                </li>
