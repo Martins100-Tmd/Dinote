@@ -2,7 +2,6 @@ import { DateString } from '../../utils/date';
 import { useStore } from '../state/note';
 import { PageContext } from '../state/pageContext';
 import PageInterface from './Page/pageInterface';
-// import PageInit from './Page/PageInit';
 import Note from './note/notesect';
 import { useContext, useEffect } from 'react';
 
@@ -11,10 +10,6 @@ const NoteMainComponent = function () {
    let {
       notePageState: { newPage },
    } = useContext(PageContext);
-
-   useEffect(() => {
-      console.log(DateString);
-   }, []);
 
    return (
       <section className='flex flex-row items-center w-full h-screen min-h-full relative bg-[#333333]'>

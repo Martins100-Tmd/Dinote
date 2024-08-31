@@ -6,7 +6,6 @@ export const updateAPage = async function (req: Request, res: Response) {
    const { userId, title, content, sectionId } = req.body;
    const id = req.params.id;
    if (userId) {
-      console.log('PUT:::', id);
       const user = await prisma.user.findUnique({ where: { id: userId } });
       const section = await prisma.section.findUnique({ where: { id: sectionId } });
       if (user && section) {

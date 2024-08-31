@@ -1,13 +1,8 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { PageContext } from '../../state/pageContext';
 import PageListContainer from './pagelist';
 const NotePage = function () {
-   let {
-      setNewPage,
-      setPageId,
-      notePageState: { newPage },
-   } = useContext(PageContext);
-   useEffect(() => console.log(newPage), [newPage]);
+   let { setNewPage, setPageId } = useContext(PageContext);
 
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] p-2 justify-between h-full'>

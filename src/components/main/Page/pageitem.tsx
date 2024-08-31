@@ -32,7 +32,11 @@ export default function PageItem({ item }: any) {
             more_horiz
          </i>
          <div ref={ref} className={`w-full top-[40%] absolute bg-[#535353] -right-[30%] shadow-2xl z-50 ${pageMenu ? 'flex' : 'hidden'}`}>
-            <ul className='w-full flex flex-col items-stretch justify-center gap-6 py-5'>
+            <ul className='w-full flex flex-col items-stretch justify-center gap-2 py-2'>
+               <li className='flex justify-end w-full px-2'>
+                  <i className='material-icons sm:text-lg text-slate-200'>close</i>
+               </li>
+
                <li
                   onClick={() => DelMutation.mutate(item.id)}
                   className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'

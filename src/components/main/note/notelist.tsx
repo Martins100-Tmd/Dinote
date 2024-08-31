@@ -36,7 +36,6 @@ export default function NoteListFn() {
    useEffect(() => {
       if (noteQuery.isSuccess && noteQuery.data) {
          if (!!noteQuery.data['getUserWithNote']) setNoteData(noteQuery.data.getUserWithNote.notes);
-         console.log(noteQuery.data);
          getCurrNote(noteData, currnoteid);
          noteObjFn(noteData[0]);
          setstate((s: any) => ({

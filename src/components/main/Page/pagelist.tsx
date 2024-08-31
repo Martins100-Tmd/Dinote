@@ -31,7 +31,6 @@ export default function PageListContainer() {
    useEffect(() => {
       if (currpageid || (data && JSON.stringify(data['data']) == emptyData)) setNewPage(false);
       if (data && isSuccess) {
-         console.log('Successful');
          if (!currpageid) {
             if (data['data'] && data['data'][0])
                localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
@@ -40,7 +39,7 @@ export default function PageListContainer() {
    }, [currpageid, status]);
 
    useEffect(() => {
-      if (data['data'] && data['data'][0])
+      if (data && data['data'] && data['data'][0])
          localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
    }, [currsection]);
 

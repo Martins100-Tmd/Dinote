@@ -7,6 +7,6 @@ dotenv.config({ path: path.join(__dirname, '/env') });
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export function JWT(id: string) {
-   const token = jwt.sign({ userId: id }, JWT_SECRET ?? 'ABCXXX00', { expiresIn: '1h' });
+   const token = jwt.sign({ userId: id }, JWT_SECRET ?? 'ABCXXX00', { expiresIn: '3h' });
    return token;
 }
