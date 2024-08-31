@@ -59,7 +59,7 @@ export default function PageItem({ item }: any) {
                </>
             ) : (
                <>
-                  <p className='outline-none border-none font-redit text-slate-100 font-medium self-center'>{item.title}</p>
+                  <p className='outline-none border-none text-ellipsis font-redit text-slate-100 font-medium self-center'>{item.title}</p>
                   <i
                      onClick={() => setPageMenu(!pageMenu)}
                      className='material-icons text-xl cursor-pointer self-center text-slate-100 text-end'

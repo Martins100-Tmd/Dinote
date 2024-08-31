@@ -73,9 +73,7 @@ interface FormInt {
 function Input({ updateMutation, body, setbody }: FormInt) {
    return (
       <input
-         onBlur={() => {
-            body.title ? updateMutation.mutate(body) : '', console.log(body);
-         }}
+         onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
             setbody((bd: any) => ({ ...bd, title: target.value }));
