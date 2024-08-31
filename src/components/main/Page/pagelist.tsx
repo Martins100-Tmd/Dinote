@@ -37,7 +37,12 @@ export default function PageListContainer() {
                localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
          }
       }
-   }, [currpageid, status, currsection]);
+   }, [currpageid, status]);
+
+   useEffect(() => {
+      if (data['data'] && data['data'][0])
+         localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
+   }, [currsection]);
 
    if (isLoading) return <LoadingPageList />;
    if (isError) return <>{error?.message}</>;
