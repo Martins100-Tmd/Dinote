@@ -21,6 +21,8 @@ export default function PutPage() {
       sectionId: currsection,
    });
 
+   useEffect(() => console.log(currpageid), [currpageid]);
+
    const getSolePageQuery = useQuery({
       queryKey: ['getPageContent', currpageid],
       queryFn: () => getSolePage(currpageid),

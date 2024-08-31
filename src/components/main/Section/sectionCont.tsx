@@ -36,7 +36,7 @@ export default function SectionContainer({ id }: { id: string }) {
          }
       }
       if (isLoading) console.log('SectionContainer loading...');
-   }, [status, data, currsection]);
+   }, [status, data]);
 
    if (isLoading) return <LoadingSectionList />;
 

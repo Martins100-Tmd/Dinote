@@ -31,13 +31,13 @@ export default function PageListContainer() {
    useEffect(() => {
       if (currpageid || (data && JSON.stringify(data['data']) == emptyData)) setNewPage(false);
       if (data && isSuccess) {
-         console.log(currpageid);
+         console.log('Successful');
          if (!currpageid) {
             if (data['data'] && data['data'][0])
                localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
          }
       }
-   }, [currpageid, status]);
+   }, [currpageid, status, currsection]);
 
    if (isLoading) return <LoadingPageList />;
    if (isError) return <>{error?.message}</>;
