@@ -45,3 +45,23 @@ export const updatePageName = async function (req: Request, res: Response) {
       } else res.status(404).json({ success: false, msg: 'User not found' });
    }
 };
+
+export const updateSectionName = async function (req: Request, res: Response) {
+   const { userId, title } = req.body;
+   const id = req.params.id;
+   if (userId) {
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (user) {
+         const putSectionName = await prisma.section.update({
+            where: {
+               id,
+            },
+            data: {
+               title,
+            },
+         });
+         if (putSectionName) res.status(200).json({ success: true, msg: 'Section name updated!' });
+         else res.status(500).json({ success: false, msg: 'Error updating Section title' });
+      } else res.status(404).json({ success: false, msg: 'User not found' });
+   }
+};

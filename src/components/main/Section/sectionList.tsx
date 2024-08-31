@@ -2,10 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useContext, useState } from 'react';
 import { delSection } from './op';
 import sectionContext from '../../state/sectContext';
+import { updSectionName } from './op';
 
-export default function SectionList({ item, fn }: any) {
+export default function SectionList({ item }: any) {
    const queryClient = useQueryClient();
    let [menu, setmenu] = useState(false);
+   let [secText, setSecText] = useState(item.title);
+   let [rename, setrename] = useState(false);
    let { setCurrSection } = useContext(sectionContext);
 
    const delSectMutation = useMutation({
@@ -18,6 +21,14 @@ export default function SectionList({ item, fn }: any) {
          console.log(error);
       },
    });
+   const PutMutation = useMutation({
+      mutationFn: (title: string) => updSectionName(item.id, { title }),
+      mutationKey: ['updatePageName'],
+      onSuccess: async () => {
+         await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
+         setmenu(!menu), setrename(false);
+      },
+   });
    return (
       <div
          onContextMenu={() => setmenu(!menu)}
@@ -27,8 +38,31 @@ export default function SectionList({ item, fn }: any) {
          }}
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >
-         <i className={`text-${fn()} text-xs material-icons opacity-40 self-center mr-3`}></i>
-         <p className='font-redit text-slate-100 font-medium self-center text-base'>{item.title}</p>
+         <>
+            {rename ? (
+               <>
+                  <input
+                     value={secText}
+                     type='text'
+                     onChange={(e) => {
+                        let target = e.target as HTMLInputElement;
+                        setSecText(target.value);
+                     }}
+                     onBlur={() => {
+                        PutMutation.mutate(secText);
+                        setrename(false);
+                     }}
+                     className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
+                     autoFocus
+                  />
+                  <i onClick={() => setrename(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
+                     close
+                  </i>
+               </>
+            ) : (
+               <p className='font-redit text-slate-100 font-medium self-center text-base'>{item.title}</p>
+            )}
+         </>
          <div
             className={`${
                menu ? 'flex' : 'hidden'
@@ -41,7 +75,13 @@ export default function SectionList({ item, fn }: any) {
                <i className='material-icons text-3xl text-emerald-700'>close</i>
                <p className='font-sans text-lg text-white'>Delete Section</p>
             </div>
-            <div onClick={() => console.log(item.id)} className='flex flex-row items-start gap-3 w-full p-3 cursor-pointer'>
+            <div
+               onClick={() => {
+                  setmenu(false);
+                  setrename(true);
+               }}
+               className='flex flex-row items-start gap-3 w-full p-3 cursor-pointer'
+            >
                <i className='material-icons text-3xl text-emerald-700'>drive_file_rename_outline</i>
                <p className='font-sans text-lg text-white'>Rename Section</p>
             </div>

@@ -1,8 +1,8 @@
 import { useContext, useRef, useState } from 'react';
-import { backendAPI } from '../../../index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PageContext } from '../../state/pageContext';
 import { updPageName } from './fetch';
+import { deletePage } from './fetch';
 
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
@@ -25,11 +25,10 @@ export default function PageItem({ item }: any) {
    const PutMutation = useMutation({
       mutationFn: (title: string) => updPageName(item.id, { title }),
       mutationKey: ['updatePageName'],
-      onSuccess: async (data) => {
+      onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
          setPageMenu(!pageMenu), setrename(false);
-         console.log(data);
       },
    });
 
@@ -96,16 +95,4 @@ export default function PageItem({ item }: any) {
          </div>
       </div>
    );
-}
-
-async function deletePage(id: string) {
-   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
-   const A = await fetch(backendAPI + 'delete/onepage/' + id, {
-      method: 'DELETE',
-      headers: {
-         'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return await A.json();
 }

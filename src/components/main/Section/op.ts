@@ -36,3 +36,15 @@ export const fetchNoteSection = async (id: string) => {
    });
    return id ? await A.json() : new Promise((res) => res([]));
 };
+
+export const updSectionName = async function (id: string, data: { title: string }) {
+   const A = await fetch(backendAPI + 'put/sectname/' + id, {
+      method: 'PUT',
+      headers: {
+         'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
+   });
+   return await A.json();
+};

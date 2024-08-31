@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { UtilFunc } from '../../..';
 import LoadingSectionList from './loading';
 import SectionList from './sectionList';
 import { useEffect, useContext, useMemo } from 'react';
@@ -47,10 +46,6 @@ export default function SectionContainer({ id }: { id: string }) {
          </div>
       );
    if (isSuccess && data) {
-      return (
-         data &&
-         (noteObj || id) &&
-         data.data.map((item: any, index: number) => <SectionList key={index} item={item} fn={UtilFunc.randomColor} />)
-      );
+      return data && (noteObj || id) && data.data.map((item: any, index: number) => <SectionList key={index} item={item} />);
    }
 }
