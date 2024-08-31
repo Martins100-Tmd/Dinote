@@ -52,7 +52,6 @@ function Input({ addMutation, body, setbody, currsection }: FormInt) {
    return (
       <input
          onBlur={() => {
-            console.log(body, currsection);
             body.title && currsection ? addMutation.mutate(body) : '';
          }}
          onChange={(e) => {
