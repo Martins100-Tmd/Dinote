@@ -5,15 +5,14 @@ import { useEffect, useContext, useMemo } from 'react';
 import createNoteState from '../../state/context';
 import { fetchNoteSection } from './op';
 import sectionContext from '../../state/sectContext';
+import { PageContext } from '../../state/pageContext';
 
 export default function SectionContainer({ id }: { id: string }) {
    let {
       state: { noteObj },
    } = useContext(createNoteState);
-   let {
-      setCurrSection,
-      sectionState: { currsection },
-   } = useContext(sectionContext);
+   let { setCurrSection } = useContext(sectionContext);
+   let { setNewPage } = useContext(PageContext);
 
    let ID = useMemo(() => (noteObj ? noteObj['id'] : ''), [noteObj]);
 
@@ -28,11 +27,15 @@ export default function SectionContainer({ id }: { id: string }) {
    });
 
    useEffect(() => {
+      let empty = JSON.stringify([]);
+      if (data && JSON.stringify(data['data']) == empty) {
+         setNewPage(false);
+         localStorage.setItem('sectpageid', '');
+         setCurrSection(localStorage.getItem('sectpageid') ?? '');
+      }
       if (isSuccess && data && data['data'] && data['data'][0]) {
-         if (!!currsection) {
-            localStorage.setItem('sectpageid', data['data'][0]['id']);
-            setCurrSection(localStorage.getItem('sectpageid') ?? '');
-         }
+         localStorage.setItem('sectpageid', data['data'][0]['id']);
+         setCurrSection(localStorage.getItem('sectpageid') ?? '');
       }
       if (isLoading) console.log('SectionContainer loading...');
    }, [status, data]);
