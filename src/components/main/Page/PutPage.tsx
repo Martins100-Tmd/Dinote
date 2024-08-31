@@ -1,13 +1,19 @@
 import { UseMutationResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getSolePage, updatePage } from './fetch';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { DateString } from '../../../utils/date';
 import { bodyReq } from '../../../types';
+import sectionContext from '../../state/sectContext';
+import { PageContext } from '../../state/pageContext';
 
 export default function PutPage() {
    const queryClient = useQueryClient();
-   let currsection = localStorage.getItem('sectpageid') ?? '';
-   let currpageid = localStorage.getItem('currpageid') ?? '';
+   let {
+      sectionState: { currsection },
+   } = useContext(sectionContext);
+   let {
+      notePageState: { currpageid },
+   } = useContext(PageContext);
 
    let [body, setbody] = useState<bodyReq>({
       title: '',
@@ -26,7 +32,7 @@ export default function PutPage() {
    });
 
    useEffect(() => {
-      if (getSolePageQuery.isSuccess) {
+      if (getSolePageQuery.isSuccess && getSolePageQuery.data && getSolePageQuery.data['data']) {
          let data = getSolePageQuery.data['data'];
          setbody((prev) => ({ ...prev, title: data['title'], content: data['content'] }));
       }

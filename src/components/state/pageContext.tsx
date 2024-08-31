@@ -27,7 +27,7 @@ export const PageContext = createContext<PageContextT>(defaultState);
 
 export const PageContextProvider = ({ children }: { children: ReactNode }) => {
    const [notePageState, setNotePageState] = useState<NotePageState>({
-      currpageid: '',
+      currpageid: localStorage.getItem('currpageid') ?? '',
       pagelistempty: true,
       sectpageid: '',
       newPage: false,

@@ -30,7 +30,7 @@ export default function NoteListFn() {
    const getCurrNote = (list: any[], id: string) => noteObjFn(list.find((item) => item.id === id));
 
    useEffect(() => {
-      if (noteQuery.isSuccess && noteQuery.data) setNoteData(noteQuery.data.getUserWithNote.notes);
+      if (noteQuery.isSuccess && noteQuery.data && noteQuery.data['getUserWithNote']) setNoteData(noteQuery.data.getUserWithNote.notes);
    }, [noteObj, signal]);
 
    useEffect(() => {
@@ -39,7 +39,11 @@ export default function NoteListFn() {
          console.log(noteQuery.data);
          getCurrNote(noteData, currnoteid);
          noteObjFn(noteData[0]);
-         setstate((s: any) => ({ ...s, signal: !signal, username: noteQuery.data.getUserWithNote.username }));
+         setstate((s: any) => ({
+            ...s,
+            signal: !signal,
+            username: !!noteQuery.data['getUserWithNote'] ? noteQuery.data.getUserWithNote.username : '',
+         }));
       }
    }, [noteQuery.status, noteQuery.data, currnoteid, noteData]);
 

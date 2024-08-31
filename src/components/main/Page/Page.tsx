@@ -17,7 +17,7 @@ const NotePage = function () {
          <section className='justify-end flex'>
             <div
                onClick={() => {
-                  setPageId(''), setNewPage(true);
+                  setPageId(''), setNewPage(false), setTimeout(() => setNewPage(true), 100);
                }}
                id='newPAGE'
                className='flex flex-row items-center cursor-pointer bg-red'

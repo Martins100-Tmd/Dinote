@@ -24,3 +24,15 @@ export async function delSection(id: string) {
 }
 
 export const newkey = Math.floor(Math.random() * 1000);
+
+export const fetchNoteSection = async (id: string) => {
+   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
+   const A = await fetch(backendAPI + 'get/section/' + id, {
+      method: 'GET',
+      headers: {
+         'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
+      },
+   });
+   return id ? await A.json() : new Promise((res) => res([]));
+};

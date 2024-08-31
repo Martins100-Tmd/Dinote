@@ -20,7 +20,7 @@ const sectionContext = createContext<sectionContextInt>({
 export const SectionContextProvider = ({ children }: { children: ReactNode }) => {
    let [sectionState, setSectionState] = useState<secStateInt>({
       sectionfirstborn: '',
-      currsection: '',
+      currsection: localStorage.getItem('sectpageid') ?? '',
    });
 
    const setFirstBorn = (id: string) => setSectionState((prev) => ({ ...prev, sectionfirstborn: id }));

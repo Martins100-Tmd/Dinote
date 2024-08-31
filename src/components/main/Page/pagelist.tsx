@@ -4,12 +4,17 @@ import PageItem from './Pageitem';
 import { useContext, useEffect } from 'react';
 import { fetchSectionPages } from './fetch';
 import { PageContext } from '../../state/pageContext';
+import sectionContext from '../../state/sectContext';
 
 export default function PageListContainer() {
-   let currsection = localStorage.getItem('sectpageid') ?? '';
-   let currpageid = localStorage.getItem('currpageid') ?? '';
+   let {
+      sectionState: { currsection },
+   } = useContext(sectionContext);
+   let {
+      notePageState: { currpageid },
+   } = useContext(PageContext);
 
-   let { setNewPage } = useContext(PageContext);
+   let { setNewPage, setPageId } = useContext(PageContext);
 
    let { isSuccess, isLoading, isError, error, data, status } = useQuery({
       queryKey: ['fetchSectionPages', currsection],
@@ -24,14 +29,15 @@ export default function PageListContainer() {
    let emptyData: string = '[]';
 
    useEffect(() => {
-      console.log(currsection);
-   }, [currsection]);
-
-   useEffect(() => {
       if (currpageid || (data && JSON.stringify(data['data']) == emptyData)) setNewPage(false);
-      data && isSuccess && !currpageid ? localStorage.setItem('currpageid', data['data'][0].id) : '';
-      console.log(data);
-   }, [currpageid, status, currsection]);
+      if (data && isSuccess) {
+         console.log(currpageid);
+         if (!currpageid) {
+            if (data['data'] && data['data'][0])
+               localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
+         }
+      }
+   }, [currpageid, status]);
 
    if (isLoading) return <LoadingPageList />;
    if (isError) return <>{error?.message}</>;

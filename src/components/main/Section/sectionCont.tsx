@@ -1,19 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import { UtilFunc, backendAPI } from '../../..';
+import { UtilFunc } from '../../..';
 import LoadingSectionList from './loading';
 import SectionList from './sectionList';
-import { useEffect, useContext, useMemo, useState } from 'react';
+import { useEffect, useContext, useMemo } from 'react';
 import createNoteState from '../../state/context';
+import { fetchNoteSection } from './op';
+import sectionContext from '../../state/sectContext';
 
 export default function SectionContainer({ id }: { id: string }) {
    let {
       state: { noteObj },
    } = useContext(createNoteState);
+   let {
+      setCurrSection,
+      sectionState: { currsection },
+   } = useContext(sectionContext);
 
    let ID = useMemo(() => (noteObj ? noteObj['id'] : ''), [noteObj]);
-   let [currsection, _] = useState(localStorage.getItem('sectpageid') ?? '');
-
-   useEffect(() => console.log(currsection), [currsection]);
 
    let { data, isSuccess, isLoading, isError, error, status } = useQuery({
       queryKey: ['sectionList', ID],
@@ -26,10 +29,14 @@ export default function SectionContainer({ id }: { id: string }) {
    });
 
    useEffect(() => {
-      if (isSuccess && data['data'] && data['data'][0]) localStorage.setItem('sectpageid', data['data'][0]['id']);
-      else localStorage.setItem('sectpageid', '');
+      if (isSuccess && data && data['data'] && data['data'][0]) {
+         if (!!currsection) {
+            localStorage.setItem('sectpageid', data['data'][0]['id']);
+            setCurrSection(localStorage.getItem('sectpageid') ?? '');
+         }
+      }
       if (isLoading) console.log('SectionContainer loading...');
-   }, [status, data]);
+   }, [status, data, currsection]);
 
    if (isLoading) return <LoadingSectionList />;
 
@@ -47,15 +54,3 @@ export default function SectionContainer({ id }: { id: string }) {
       );
    }
 }
-
-const fetchNoteSection = async (id: string) => {
-   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
-   const A = await fetch(backendAPI + 'get/section/' + id, {
-      method: 'GET',
-      headers: {
-         'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return id ? await A.json() : new Promise((res) => res([]));
-};

@@ -1,15 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { delSection } from './op';
+import sectionContext from '../../state/sectContext';
 
 export default function SectionList({ item, fn }: any) {
    const queryClient = useQueryClient();
    let [menu, setmenu] = useState(false);
-   let [sig, setsig] = useState(2);
-
-   let currsection = localStorage.getItem('sectpageid') ?? '';
-
-   useEffect(() => console.log(currsection), [currsection]);
+   let { setCurrSection } = useContext(sectionContext);
 
    const delSectMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
@@ -26,7 +23,7 @@ export default function SectionList({ item, fn }: any) {
          onContextMenu={() => setmenu(!menu)}
          onClick={() => {
             localStorage.setItem('sectpageid', item.id);
-            setsig(Math.floor(Math.random() * 1000));
+            setCurrSection(localStorage.getItem('sectpageid') ?? '');
          }}
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >

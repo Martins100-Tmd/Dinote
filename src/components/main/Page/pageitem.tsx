@@ -23,7 +23,7 @@ export default function PageItem({ item }: any) {
    return (
       <div
          onClick={() => {
-            setNewPage(false), setPageId(item.id), localStorage.setItem('currpageid', item.id);
+            setNewPage(false), localStorage.setItem('currpageid', item.id), setPageId(localStorage.getItem('currpageid') ?? '');
          }}
          className='relative flex flex-row w-full hover:bg-[#535353] items-center justify-between px-4 py-2 border-l-4 border-emerald-700 rounded-l-md'
       >
