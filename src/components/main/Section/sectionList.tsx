@@ -49,8 +49,8 @@ export default function SectionList({ item }: any) {
                         setSecText(target.value);
                      }}
                      onBlur={() => {
-                        PutMutation.mutate(secText);
                         setrename(false);
+                        PutMutation.mutate(secText);
                      }}
                      className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
