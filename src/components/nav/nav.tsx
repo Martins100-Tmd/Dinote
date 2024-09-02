@@ -7,7 +7,7 @@ const NoteNavComponent = function () {
    } = useContext(createNoteState);
 
    useEffect(() => {
-      console.log(username);
+      // console.log(username);
    }, [username]);
 
    return (
