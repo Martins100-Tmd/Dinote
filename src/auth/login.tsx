@@ -1,19 +1,17 @@
 import useGlobalReducer from '../utils/hooks/reducer';
 import { useMutation } from '@tanstack/react-query';
-import useLocalStorage from '../utils/hooks/localstorage';
 import { useNavigate } from 'react-router-dom';
 import { LoginFn } from '../utils/fetch';
 
 export default function Login() {
    let { handleChange, state } = useGlobalReducer();
-   let [_, setvalue] = useLocalStorage(':tk:', 'empty');
    const navigate = useNavigate();
 
    const mutation = useMutation({
       mutationFn: (data: any) => LoginFn(data),
       mutationKey: ['login'],
       onSuccess: (data) => {
-         setvalue(data.token ?? 'empty'), setTimeout(() => navigate('/home'), 200);
+         localStorage.setItem(':tk:', data.token), setTimeout(() => navigate('/home'), 200);
       },
       onError: (err) => console.log(err),
    });
