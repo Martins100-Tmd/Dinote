@@ -63,7 +63,6 @@ export const updPageName = async function (id: string, data: { title: string }) 
 };
 
 export async function deletePage(id: string) {
-   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
    const A = await fetch(backendAPI + 'delete/onepage/' + id, {
       method: 'DELETE',
       headers: {

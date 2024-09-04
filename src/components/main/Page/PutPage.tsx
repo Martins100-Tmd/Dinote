@@ -91,6 +91,7 @@ function TextArea({ body, updateMutation, setbody }: FormInt) {
       <textarea
          onBlur={() => (body.content ? updateMutation.mutate(body) : '')}
          onChange={(e) => {
+            console.log(body);
             const target = e.target as HTMLTextAreaElement;
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}

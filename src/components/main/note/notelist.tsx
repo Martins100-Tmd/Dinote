@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import createNoteState from '../../state/context';
 
 async function fetchNotes() {
-   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
+   const token = localStorage.getItem(':tk:') ?? 'empty';
    const A = await fetch(backendAPI + 'get/userwithnote', {
       method: 'GET',
       headers: {
