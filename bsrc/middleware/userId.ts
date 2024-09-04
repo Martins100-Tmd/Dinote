@@ -1,7 +1,6 @@
 import { Response, Request } from 'express';
 import jwt from 'jsonwebtoken';
 import { JWT } from '../util/jwt';
-import { EventEmitter } from 'stream';
 const JWT_SECRET = process.env.JWT_SECRET || 'ABCXXX123';
 
 interface JwtPayload {

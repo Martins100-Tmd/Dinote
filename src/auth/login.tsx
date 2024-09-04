@@ -11,7 +11,7 @@ export default function Login() {
       mutationFn: (data: any) => LoginFn(data),
       mutationKey: ['login'],
       onSuccess: (data) => {
-         localStorage.setItem(':tk:', data.token), setTimeout(() => navigate('/home'), 200);
+         localStorage.setItem(':tk:', data.token), data && data['token'] && setTimeout(() => navigate('/home'), 200) && console.log(data);
       },
       onError: (err) => console.log(err),
    });

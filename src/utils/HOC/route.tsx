@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AuthenticateUser } from './fetch';
 import { ReactNode, useEffect, useState } from 'react';
 import { Authentication } from '../..';
+import { useNavigate } from 'react-router-dom';
 
 interface RouteChildren {
    children: ReactNode;
@@ -13,10 +14,13 @@ const ProtectedRoute = ({ children }: RouteChildren) => {
       queryKey: ['authenticatedRoute'],
       queryFn: () => AuthenticateUser(),
    });
+   const navigate = useNavigate();
+
    useEffect(() => {
       if (authQuery.isSuccess) setAuthentication(true);
-      if (authQuery.isError) setAuthentication(false);
+      if (authQuery.isError) setAuthentication(false), navigate('/');
       if (authQuery.isLoading) console.log('....Loading');
+      console.log(authQuery.status);
    }, [authQuery.status]);
 
    if (!isAuthenticated) return <Authentication />;

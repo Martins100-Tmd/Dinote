@@ -1,5 +1,5 @@
 import { backendAPI } from '../../..';
-const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
+const token = localStorage.getItem(':tk:') ?? 'empty';
 export async function addSection(data: { title: string; noteId: string }) {
    const A = await fetch(backendAPI + 'post/newsection', {
       method: 'POST',

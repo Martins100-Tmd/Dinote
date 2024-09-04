@@ -1,5 +1,6 @@
 import { backendAPI } from '../../..';
-const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
+const token = localStorage.getItem(':tk:') ?? 'empty';
+
 export const fetchSectionPages = async function (id: string) {
    const A = await fetch(backendAPI + 'get/page/' + id, {
       method: 'GET',
