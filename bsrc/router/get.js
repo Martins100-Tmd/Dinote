@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getRouter = void 0;
+const cors_1 = __importDefault(require("cors"));
+const express_1 = __importDefault(require("express"));
+const get_1 = require("../controller/get");
+const userId_1 = __importDefault(require("../middleware/userId"));
+exports.getRouter = express_1.default.Router();
+exports.getRouter.use((0, cors_1.default)({ origin: '*' }));
+exports.getRouter.use(express_1.default.json({ limit: '500mb' }));
+exports.getRouter.use(express_1.default.urlencoded({ extended: true }));
+exports.getRouter.get('/users', get_1.getAllUsers);
+exports.getRouter.get('/userwithnote', userId_1.default, get_1.getUserWithNote);
+exports.getRouter.get('/auth', userId_1.default, get_1.routeAuth);
+exports.getRouter.get('/section/:id', userId_1.default, get_1.getNoteSections);
+exports.getRouter.get('/page/:id', userId_1.default, get_1.getSectionPages);
+exports.getRouter.get('/getpage/:id', userId_1.default, get_1.getPage);
