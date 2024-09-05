@@ -22,14 +22,14 @@ export const deleteNote = async function (req: Request, res: Response) {
 export const deleteSection = async function (req: Request, res: Response) {
    const { userId } = req.body;
    const id = req.params.id;
+   console.log('================\n', userId, id, '\n============ delSection');
    const user = await prisma.user.findUnique({ where: { id: userId } });
+   console.log(user, 'delSection');
    if (user) {
       const delSection = await prisma.section.delete({
-         where: {
-            id,
-         },
+         where: { id },
       });
-      console.log(delSection, ';;;;;;');
+      console.log(delSection, 'delSection ---');
       if (delSection) {
          res.status(200).json({ success: true, msg: `Section: ${delSection.title} deleted!` });
       } else res.status(400).json({ success: false, msg: `Error deleting Section` });
