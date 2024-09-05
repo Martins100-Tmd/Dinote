@@ -22,7 +22,6 @@ export const deleteNote = async function (req: Request, res: Response) {
 export const deleteSection = async function (req: Request, res: Response) {
    const { userId } = req.body;
    const id = req.params.id;
-   console.log('================\n', userId, id, '\n============ delSection');
    const user = await prisma.user.findUnique({ where: { id: userId } });
    console.log(user, 'delSection');
    if (user) {

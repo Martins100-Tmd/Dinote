@@ -28,7 +28,7 @@ model Note {
   title     String
   color     String
   userId    String
-  user      User      @relation("UserNotes", fields: [userId], references: [id])
+  user      User      @relation("UserNotes", fields: [userId], references: [id],onDelete: Cascade)
   sections  Section[] @relation("NoteSections")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -39,7 +39,7 @@ model Section {
   title     String
   color     String
   noteId    String
-  note      Note      @relation("NoteSections", fields: [noteId], references: [id])
+  note      Note      @relation("NoteSections", fields: [noteId], references: [id],onDelete: Cascade)
   pages     Page[]    @relation("SectionPages")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -50,7 +50,7 @@ model Page {
   title     String
   content   String
   sectionId String
-  section   Section   @relation("SectionPages", fields: [sectionId], references: [id])
+  section   Section   @relation("SectionPages", fields: [sectionId], references: [id],onDelete: Cascade)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
