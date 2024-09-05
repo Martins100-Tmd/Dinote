@@ -75,10 +75,7 @@ interface FormInt {
 function Input({ updateMutation, body, setbody }: FormInt) {
    return (
       <input
-         onBlur={() => {
-            console.log(body);
-            body.title ? updateMutation.mutate(body) : '';
-         }}
+         onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
             setbody((bd: any) => ({ ...bd, title: target.value }));
@@ -94,13 +91,8 @@ function Input({ updateMutation, body, setbody }: FormInt) {
 function TextArea({ body, updateMutation, setbody }: FormInt) {
    return (
       <textarea
-         onBlur={() => {
-            console.log(body);
-            body.content ? updateMutation.mutate(body) : '';
-         }}
+         onBlur={() => (body.content ? updateMutation.mutate(body) : '')}
          onChange={(e) => {
-            console.log(body);
-            console.log(e.target.value);
             const target = e.target as HTMLTextAreaElement;
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}

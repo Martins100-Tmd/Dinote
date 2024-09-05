@@ -16,7 +16,7 @@ export default function AddNoteSection() {
 
    useEffect(() => {
       if (addNoteMutation.isSuccess) setaddnote();
-      if (addNoteMutation.isError) console.log(addNoteMutation.error);
+      if (addNoteMutation.isError) console.log(addNoteMutation.error.message);
    }, [addNoteMutation.status]);
 
    return (

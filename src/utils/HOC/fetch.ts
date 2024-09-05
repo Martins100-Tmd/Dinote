@@ -1,7 +1,7 @@
 import { backendAPI } from '../..';
 
+const token = localStorage.getItem(':tk:') ?? 'empty';
 export const AuthenticateUser = async () => {
-   const token = localStorage.getItem(':tk:') ?? 'empty';
    const A = await fetch(backendAPI + 'get/auth', {
       method: 'GET',
       headers: {

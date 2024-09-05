@@ -48,7 +48,7 @@ export default function NoteItem({ item }: any) {
                      onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] }),
                   });
                }}
-               className='flex flex-row items-start gap-3 w-full p-3 cursor-pointer'
+               className='flex flex-row items-start gap-3 w-full p-2 cursor-pointer hover:bg-[#6f6f6f]'
             >
                <i className='material-icons text-3xl text-red-900'>close</i>
                <p className='font-sans text-lg text-white'>Delete Notebooks</p>
@@ -58,10 +58,10 @@ export default function NoteItem({ item }: any) {
                   e.stopPropagation();
                   setstate(!state);
                }}
-               className='flex flex-row items-start gap-3 w-full p-3 cursor-pointer'
+               className='flex flex-row items-start gap-3 w-full p-2 cursor-pointer hover:bg-[#6f6f6f]'
             >
                <i className='material-icons text-3xl text-emerald-700'>drive_file_rename_outline</i>
-               <p className='font-sans text-lg text-white'>Rename Notebook</p>
+               <p className='font-sans text-lg text-white'>Star Notebook</p>
             </div>
          </div>
 

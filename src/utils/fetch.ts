@@ -24,7 +24,7 @@ export const SignFn = async (data: any) => {
 };
 
 export async function addNoteFn(data: { title: string }) {
-   const token = JSON.parse(localStorage.getItem(':tk:') || '') ?? 'empty';
+   const token = localStorage.getItem(':tk:') ?? 'empty';
    const A = await fetch(backendAPI + 'post/newnote', {
       headers: {
          'Content-Type': 'application/json',

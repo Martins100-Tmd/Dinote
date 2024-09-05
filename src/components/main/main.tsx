@@ -1,9 +1,8 @@
-import { DateString } from '../../utils/date';
 import { useStore } from '../state/note';
 import { PageContext } from '../state/pageContext';
 import PageInterface from './Page/pageInterface';
 import Note from './note/notesect';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 const NoteMainComponent = function () {
    let [state, setstate] = useStore((state: any) => [state.slide, state.setSlide]);

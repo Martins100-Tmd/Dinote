@@ -15,7 +15,7 @@ export default function SectionList({ item }: any) {
       mutationFn: (id: string) => delSection(id),
       mutationKey: ['delSection'],
       onSuccess: async () => {
-         setmenu(!menu), await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
+         setmenu(false), await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
       },
       onError(error) {
          console.log(error);
@@ -26,7 +26,7 @@ export default function SectionList({ item }: any) {
       mutationKey: ['updatePageName'],
       onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
-         setmenu(!menu), setrename(false);
+         setmenu(false), setrename(false);
       },
    });
    return (
@@ -52,6 +52,9 @@ export default function SectionList({ item }: any) {
                         setrename(false);
                         PutMutation.mutate(secText);
                      }}
+                     onKeyDown={(e) => {
+                        e.key == 'Enter' && PutMutation.mutate(secText);
+                     }}
                      className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
                   />
@@ -66,21 +69,23 @@ export default function SectionList({ item }: any) {
          <div
             className={`${
                menu ? 'flex' : 'hidden'
-            } flex-col items-center  absolute p-2 shadow-xl gap-3 w-[135%] top-[35%] -right-[40%] bg-[#4e4e4e] z-50`}
+            } flex-col items-center  absolute shadow-xl gap-3 w-[135%] top-[35%] -right-[40%] bg-[#4e4e4e] z-50`}
          >
-            <div onClick={() => setmenu(!menu)} className='flex justify-end w-full cursor-pointer'>
+            <div onClick={() => setmenu(!menu)} className='flex justify-end w-full cursor-pointer px-2'>
                <i className='material-icons text-xl text-slate-200'>close</i>
             </div>
-            <div onClick={() => delSectMutation.mutate(item.id)} className='flex flex-row items-start gap-3 w-full p-3 cursor-pointer'>
+            <div
+               onClick={() => delSectMutation.mutate(item.id)}
+               className='flex flex-row hover:bg-[#6f6f6f] items-start gap-3 w-full p-2 cursor-pointer'
+            >
                <i className='material-icons text-3xl text-emerald-700'>close</i>
                <p className='font-sans text-lg text-white'>Delete Section</p>
             </div>
             <div
                onClick={() => {
-                  setmenu(false);
-                  setrename(true);
+                  setmenu(false), setrename(true);
                }}
-               className='flex flex-row items-start gap-3 w-full p-3 cursor-pointer'
+               className='flex flex-row hover:bg-[#686868] items-start gap-3 w-full p-2 cursor-pointer'
             >
                <i className='material-icons text-3xl text-emerald-700'>drive_file_rename_outline</i>
                <p className='font-sans text-lg text-white'>Rename Section</p>

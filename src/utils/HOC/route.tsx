@@ -20,7 +20,6 @@ const ProtectedRoute = ({ children }: RouteChildren) => {
       if (authQuery.isSuccess) setAuthentication(true);
       if (authQuery.isError) setAuthentication(false), navigate('/');
       if (authQuery.isLoading) console.log('....Loading');
-      console.log(authQuery.status);
    }, [authQuery.status]);
 
    if (!isAuthenticated) return <Authentication />;

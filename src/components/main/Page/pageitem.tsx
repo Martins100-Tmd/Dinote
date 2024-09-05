@@ -12,6 +12,7 @@ export default function PageItem({ item }: any) {
    const { setPageId, setNewPage } = useContext(PageContext);
 
    let ref = useRef(null);
+   let inpRef = useRef(null);
 
    const DelMutation = useMutation({
       mutationFn: (id: string) => deletePage(id),
@@ -19,7 +20,7 @@ export default function PageItem({ item }: any) {
       onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
-         setPageMenu(!pageMenu);
+         setPageMenu(false);
       },
    });
    const PutMutation = useMutation({
@@ -28,7 +29,7 @@ export default function PageItem({ item }: any) {
       onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
-         setPageMenu(!pageMenu), setrename(false);
+         setPageMenu(false), setrename(false);
       },
    });
 
@@ -45,12 +46,16 @@ export default function PageItem({ item }: any) {
                   <input
                      value={pageText}
                      type='text'
+                     ref={inpRef}
                      onChange={(e) => {
                         let target = e.target as HTMLInputElement;
                         setPageText(target.value);
                      }}
-                     onBlur={() => {
-                        PutMutation.mutate(pageText), setNewPage(false);
+                     onBlur={(e) => {
+                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false);
+                     }}
+                     onKeyDown={(e) => {
+                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false);
                      }}
                      className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
