@@ -84,7 +84,12 @@ export const createANewPage = async function (req: Request, res: Response) {
          const createPage = await prisma.page.create({
             data: { title, content, sectionId },
          });
-         if (createPage) res.status(201).json({ success: true, msg: `Note (${createPage.title}):${createPage.id}`, id: createPage.id });
+         if (createPage)
+            res.status(201).json({
+               success: true,
+               msg: `Note (${createPage.title}):${createPage.id}`,
+               id: createPage.id,
+            });
          else res.status(400).json({ success: false, msg: 'Unable to create page' });
       } else res.status(403).json({ success: false, msg: 'section or user does not exist' });
    }

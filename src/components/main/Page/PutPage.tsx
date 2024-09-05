@@ -51,6 +51,8 @@ export default function PutPage() {
       },
    });
 
+   useEffect(() => console.log('PutPage'), []);
+
    return (
       <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
@@ -73,7 +75,10 @@ interface FormInt {
 function Input({ updateMutation, body, setbody }: FormInt) {
    return (
       <input
-         onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
+         onBlur={() => {
+            console.log(body);
+            body.title ? updateMutation.mutate(body) : '';
+         }}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
             setbody((bd: any) => ({ ...bd, title: target.value }));
@@ -89,9 +94,13 @@ function Input({ updateMutation, body, setbody }: FormInt) {
 function TextArea({ body, updateMutation, setbody }: FormInt) {
    return (
       <textarea
-         onBlur={() => (body.content ? updateMutation.mutate(body) : '')}
+         onBlur={() => {
+            console.log(body);
+            body.content ? updateMutation.mutate(body) : '';
+         }}
          onChange={(e) => {
             console.log(body);
+            console.log(e.target.value);
             const target = e.target as HTMLTextAreaElement;
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}

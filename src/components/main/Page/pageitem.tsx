@@ -49,7 +49,9 @@ export default function PageItem({ item }: any) {
                         let target = e.target as HTMLInputElement;
                         setPageText(target.value);
                      }}
-                     onBlur={() => PutMutation.mutate(pageText)}
+                     onBlur={() => {
+                        PutMutation.mutate(pageText), setNewPage(false);
+                     }}
                      className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
                   />

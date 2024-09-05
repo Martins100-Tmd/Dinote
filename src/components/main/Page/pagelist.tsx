@@ -40,8 +40,10 @@ export default function PageListContainer() {
 
    useEffect(() => {
       let empty = JSON.stringify([]);
-      if (data && data['data'] && data['data'][0])
-         localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
+      if (data && data['data'] && data['data'][0]) {
+         if (!localStorage.getItem('currpageid')) localStorage.setItem('currpageid', data['data'][0].id);
+         setPageId(localStorage.getItem('currpageid') ?? '');
+      }
       if ((data && JSON.stringify(data['data']) == empty) || data == undefined)
          localStorage.setItem('currpageid', ''), setPageId(localStorage.getItem('currpageid') ?? '');
    }, [currsection]);

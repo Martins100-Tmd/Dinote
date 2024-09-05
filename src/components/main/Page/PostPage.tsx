@@ -1,9 +1,10 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DateString } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import sectionContext from '../../state/sectContext';
+import { PageContext } from '../../state/pageContext';
 
 export default function PostPage() {
    const queryClient = useQueryClient();
@@ -28,6 +29,8 @@ export default function PostPage() {
       },
    });
 
+   useEffect(() => console.log('PostPage'), []);
+
    return (
       <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
@@ -49,9 +52,11 @@ interface FormInt {
 }
 
 function Input({ addMutation, body, setbody, currsection }: FormInt) {
+   let { setNewPage } = useContext(PageContext);
    return (
       <input
          onBlur={() => {
+            setNewPage(false);
             body.title && currsection ? addMutation.mutate(body) : '';
          }}
          onChange={(e) => {
