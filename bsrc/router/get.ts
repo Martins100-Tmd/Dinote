@@ -6,6 +6,7 @@ import userAuthMiddleWare from '../middleware/userId';
 export const getRouter = express.Router();
 
 getRouter.use(cors({ origin: '*' }));
+
 getRouter.use(express.json({ limit: '500mb' }));
 getRouter.use(express.urlencoded({ extended: true }));
 
