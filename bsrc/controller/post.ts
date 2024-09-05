@@ -26,7 +26,6 @@ export const createANewUser = async function (req: Request, res: Response) {
 //:NOTE
 export const createANewNote = async function (req: Request, res: Response) {
    let { userId, title } = req.body;
-   console.log(userId, title);
    const createNote = await prisma.note.create({
       data: {
          title,
@@ -79,17 +78,11 @@ export const createANewPage = async function (req: Request, res: Response) {
    if (userId) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
       const section = await prisma.section.findUnique({ where: { id: sectionId } });
-      console.log(user, section);
       if (user && section) {
          const createPage = await prisma.page.create({
             data: { title, content, sectionId },
          });
-         if (createPage)
-            res.status(201).json({
-               success: true,
-               msg: `Note (${createPage.title}):${createPage.id}`,
-               id: createPage.id,
-            });
+         if (createPage) res.status(201).json({ success: true, msg: `Note (${createPage.title}):${createPage.id}`, id: createPage.id });
          else res.status(400).json({ success: false, msg: 'Unable to create page' });
       } else res.status(403).json({ success: false, msg: 'section or user does not exist' });
    }
