@@ -40,6 +40,7 @@ export const routeAuth = async function (req: Request, res: Response) {
    const { userId } = req.body;
    if (userId) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
+
       if (user) {
          res.status(200).json({ success: true, message: 'allow user' });
       } else {
