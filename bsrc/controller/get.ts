@@ -74,6 +74,7 @@ export const getSectionPages = async function (req: Request, res: Response) {
    if (userId && id) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
       const section = await prisma.section.findUnique({ where: { id } });
+
       if (user && section) {
          Pages = await prisma.page.findMany({
             where: {
