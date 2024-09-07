@@ -1,5 +1,4 @@
-import cors from 'cors';
-import express, { Response, Request } from 'express';
+import { Response, Request } from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
