@@ -20,6 +20,7 @@ export const getUserNotes = async function (req: Request, res: Response) {
 //:user with notes
 export const getUserWithNote = async function (req: Request, res: Response) {
    const { userId } = req.body;
+
    const authUser = userId && prisma.user.findUnique({ where: { id: userId } });
    if (authUser) {
       const getUserWithNote = await prisma.user.findUnique({
