@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:2000"
+    environment:
+      DATABASE_URL: postgresql://postgres:10001010x7d3-tmd@localhost:5432/onenote?schema=public
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    command: npm run dev
+
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 10001010x7d3-tmd
+      POSTGRES_DB: onenote
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
