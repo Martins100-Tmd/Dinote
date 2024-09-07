@@ -88,6 +88,7 @@ export const getSectionPages = async function (req: Request, res: Response) {
 
 export const getPage = async function (req: Request, res: Response) {
    let [{ userId }, pageId] = [req.body, req.params.id];
+
    if (userId && pageId) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (user) {
