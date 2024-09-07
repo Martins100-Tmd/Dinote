@@ -54,6 +54,7 @@ export const getNoteSections = async function (req: Request, res: Response) {
       Section;
    if (userId && id) {
       const user = await prisma.user.findUnique({ where: { id: userId } });
+
       const note = await prisma.note.findUnique({ where: { id } });
       if (user && note) {
          Section = await prisma.section.findMany({
