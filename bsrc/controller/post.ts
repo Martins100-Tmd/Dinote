@@ -59,6 +59,7 @@ export const createANewSection = async function (req: Request, res: Response) {
 export const authenticateUser = async function (req: Request, res: Response) {
    const { email, password } = req.body;
    let userHasAccount, token;
+   console.log(email, password);
    if (email && password) {
       userHasAccount = await prisma.user.findUnique({
          where: {

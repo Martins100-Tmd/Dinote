@@ -7,8 +7,12 @@ import { putRouter } from './router/put';
 
 const app: Express = express();
 
-app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '500mb' }));
+app.use(
+   cors({
+      origin: '*',
+   })
+);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/get', getRouter);

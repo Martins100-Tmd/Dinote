@@ -5,6 +5,7 @@ export async function addSection(data: { title: string; noteId: string }) {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(data),
@@ -17,6 +18,7 @@ export async function delSection(id: string) {
       method: 'DELETE',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });
@@ -30,6 +32,7 @@ export const fetchNoteSection = async (id: string) => {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });
@@ -41,6 +44,7 @@ export const updSectionName = async function (id: string, data: { title: string 
       method: 'PUT',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),

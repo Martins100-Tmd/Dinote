@@ -5,10 +5,12 @@ export const LoginFn = async (data: any) => {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email: data.email, password: data.password }),
    });
    const B = await A.json();
+   console.log(B);
    return B;
 };
 
@@ -17,6 +19,7 @@ export const SignFn = async (data: any) => {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({ ...data, type: 'signup' }),
    });
@@ -28,6 +31,7 @@ export async function addNoteFn(data: { title: string }) {
    const A = await fetch(backendAPI + 'post/newnote', {
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
       method: 'POST',

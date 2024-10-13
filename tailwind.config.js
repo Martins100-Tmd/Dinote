@@ -6,6 +6,7 @@ export default {
          fontFamily: {
             raj: ['Rajdhani'],
             redit: ['Reddit Sans'],
+            sand: ['Quicksand'],
          },
       },
    },

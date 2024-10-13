@@ -41,6 +41,7 @@ export interface bodyReq {
    title: string;
    content: string;
    sectionId: string;
+   updatedAt?: string;
 }
 
 export interface bodyReq {

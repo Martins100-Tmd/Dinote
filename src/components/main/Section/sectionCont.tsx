@@ -45,7 +45,7 @@ export default function SectionContainer({ id }: { id: string }) {
    if (isError)
       return (
          <div className='w-full flex justify-center p-4 rounded shadow'>
-            <p className='font-raj text-base text-center text-white'>{error?.message}</p>
+            <p className='font-sand text-base text-center text-white'>{error?.message}</p>
          </div>
       );
    if (isSuccess && data) {

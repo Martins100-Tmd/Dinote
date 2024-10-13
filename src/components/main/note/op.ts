@@ -7,6 +7,7 @@ export async function delNote(id: string) {
       method: 'DELETE',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });

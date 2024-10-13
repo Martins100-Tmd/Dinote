@@ -2,6 +2,8 @@ import useGlobalReducer from '../utils/hooks/reducer';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { LoginFn } from '../utils/fetch';
+import { backendAPI } from '..';
+// import createNoteState from '../components/state/context';
 
 export default function Login() {
    let { handleChange, state } = useGlobalReducer();
@@ -11,7 +13,8 @@ export default function Login() {
       mutationFn: (data: any) => LoginFn(data),
       mutationKey: ['login'],
       onSuccess: (data) => {
-         localStorage.setItem(':tk:', data.token), data && data['token'] && setTimeout(() => navigate('/home'), 200) && console.log(data);
+         console.log(data);
+         localStorage.setItem(':tk:', data.token), data && data['token'] && setTimeout(() => (location.href = '/home'), 200);
       },
       onError: (err) => console.log(err),
    });
@@ -50,7 +53,10 @@ export default function Login() {
             </div>
             <section className='sm:mb-[10%] mb-[5%] w-full flex justify-center'>
                <button
-                  onClick={() => {
+                  onClick={async () => {
+                     // console.log(state.credentials);
+
+                     // console.log(await A.json());
                      state.credentials.email && state.credentials.password
                         ? mutation.mutate(state.credentials)
                         : console.log('Make sure all field are filled');

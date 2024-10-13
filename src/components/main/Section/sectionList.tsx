@@ -55,7 +55,7 @@ export default function SectionList({ item }: any) {
                      onKeyDown={(e) => {
                         e.key == 'Enter' && PutMutation.mutate(secText);
                      }}
-                     className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
+                     className='w-full font-sand text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
                   />
                   <i onClick={() => setrename(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
@@ -63,7 +63,7 @@ export default function SectionList({ item }: any) {
                   </i>
                </>
             ) : (
-               <p className='font-redit text-slate-100 font-medium self-center text-base'>{item.title}</p>
+               <p className='font-sand text-slate-100 font-medium self-center text-sm'>{item.title}</p>
             )}
          </>
          <div
@@ -79,7 +79,7 @@ export default function SectionList({ item }: any) {
                className='flex flex-row hover:bg-[#6f6f6f] items-start gap-3 w-full p-2 cursor-pointer'
             >
                <i className='material-icons text-3xl text-emerald-700'>close</i>
-               <p className='font-sans text-lg text-white'>Delete Section</p>
+               <p className='font-sand text-lg text-white'>Delete Section</p>
             </div>
             <div
                onClick={() => {
@@ -88,7 +88,7 @@ export default function SectionList({ item }: any) {
                className='flex flex-row hover:bg-[#686868] items-start gap-3 w-full p-2 cursor-pointer'
             >
                <i className='material-icons text-3xl text-emerald-700'>drive_file_rename_outline</i>
-               <p className='font-sans text-lg text-white'>Rename Section</p>
+               <p className='font-sand text-lg text-white'>Rename Section</p>
             </div>
          </div>
       </div>

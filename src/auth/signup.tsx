@@ -16,6 +16,7 @@ export default function SignUp() {
 
    const mutateFn = () => {
       let { name, email, password } = state.credentials;
+      console.log(name, email, password);
       name && email && password
          ? mutation.mutate({
               email,
@@ -26,7 +27,7 @@ export default function SignUp() {
    };
 
    return (
-      <section className='w-full h-full flex flex-col items-start gap-10'>
+      <section className='w-full h-auto flex flex-col items-start gap-10'>
          <div className='w-full flex justify-start'>
             <p className='font-raj text-3xl font-semibold text-white'>Sign up</p>
          </div>

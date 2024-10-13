@@ -23,4 +23,4 @@ export { default as Signup } from './auth/signup';
 // ===== Layout =====
 export { default as Layout } from './components/Layout';
 
-export const backendAPI = 'http://localhost:3001/';
+export const backendAPI = 'https://dinote-api.onrender.com/';

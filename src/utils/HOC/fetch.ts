@@ -6,9 +6,11 @@ export const AuthenticateUser = async () => {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });
    const B = await A.json();
+   console.log(B);
    return B;
 };

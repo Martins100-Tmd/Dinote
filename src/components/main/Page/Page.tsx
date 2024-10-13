@@ -17,10 +17,10 @@ const NotePage = function () {
                id='newPAGE'
                className='flex flex-row items-center cursor-pointer bg-red'
             >
-               <i id='newPAGE' className='material-icons text-4xl text-emerald-200 font-thin'>
+               <i id='newPAGE' className='material-icons text-2xl text-emerald-200  font-thin'>
                   add
                </i>
-               <p id='newPAGE' className='font-sans text-base text-left text-emerald-100 font-semibold'>
+               <p id='newPAGE' className='text-sm text-left font-sand text-emerald-100 font-medium'>
                   Add Page
                </p>
             </div>

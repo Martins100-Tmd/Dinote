@@ -32,11 +32,11 @@ export default function PostPage() {
    useEffect(() => console.log('PostPage'), []);
 
    return (
-      <section className='w-full h-full bg-[#2c2c2c] flex flex-col items-start p-10 gap-10'>
+      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
             <Input addMutation={addMutation} body={body} setbody={setbody} currsection={currsection} />
             <div className='flex items-center w-full justify-start'>
-               <p className='text-start w-full font-raj text-slate-200'>{DateString}</p>
+               <p className='text-start w-full font-sand text-slate-200'>{DateString}</p>
             </div>
          </section>
          <TextArea addMutation={addMutation} body={body} setbody={setbody} />
@@ -65,7 +65,7 @@ function Input({ addMutation, body, setbody, currsection }: FormInt) {
          }}
          value={body.title}
          type='text'
-         className='w-full outline-none border-b bg-transparent border-slate-200 font-raj text-slate-100 text-3xl font-medium'
+         className='w-full outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium'
          autoFocus
       />
    );
@@ -82,7 +82,7 @@ function TextArea({ body, addMutation, setbody, currsection }: FormInt) {
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}
          value={body.content}
-         className='text-slate-100 text-xl w-full h-full font-raj text-start bg-transparent outline-none border-none'
+         className='text-slate-100 text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none'
       ></textarea>
    );
 }

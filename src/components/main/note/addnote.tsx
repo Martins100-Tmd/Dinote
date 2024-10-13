@@ -24,7 +24,7 @@ export default function AddNoteSection() {
          <div className='bg-black bg-opacity-50 w-screen h-full fixed inset-0 z-0'></div>
          <div className={`bg-[#3b3b3b] fixed top-1/4 left-1/4 flex flex-col items-center sm:w-1/2 mx-auto p-7 gap-7 z-50`}>
             <div className='flex justify-start w-full mb-3'>
-               <p className='font-raj text-3xl text-slate-200 font-medium'>New Notebook</p>
+               <p className='font-raj text-2xl text-slate-200 font-medium'>New Notebook</p>
             </div>
             <input
                onInput={(e) => {
@@ -41,11 +41,16 @@ export default function AddNoteSection() {
                   disabled={false}
                   className={`${
                      notename.length > 0 ? 'bg-[#646464]' : 'bg-[#3d3d3d] text-stone-500'
-                  } w-full shadow p-4 font-raj text-center text-xl text-slate-100`}
+                  } w-full shadow p-4 font-raj text-center text-lg
+                   text-slate-100`}
                >
                   Create Notebook
                </button>
-               <button onClick={setaddnote} className='w-full shadow p-4 font-raj text-center text-xl bg-[#646464] text-slate-100'>
+               <button
+                  onClick={setaddnote}
+                  className='w-full shadow p-4 font-raj text-center text-lg
+                bg-[#646464] text-slate-100'
+               >
                   Cancel
                </button>
             </div>

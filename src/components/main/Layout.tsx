@@ -14,7 +14,7 @@ const NoteLayout = function () {
    }, [noteObj]);
 
    return (
-      <section className='flex flex-row w-full h-[93%]'>
+      <section className='flex flex-row w-full h-[93%] bg-[rgba(54,54,54,0.9)]'>
          <NoteSection id={id} />
          <NotePage />
       </section>

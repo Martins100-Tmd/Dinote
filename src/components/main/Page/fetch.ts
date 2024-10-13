@@ -6,6 +6,7 @@ export const fetchSectionPages = async function (id: string) {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });
@@ -21,6 +22,7 @@ export const addPage = async function (data: dataInt) {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(data),
@@ -32,6 +34,7 @@ export const updatePage = async function (data: dataInt, id: string) {
       method: 'PUT',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
@@ -44,6 +47,7 @@ export const getSolePage = async function (id: string) {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });
@@ -55,6 +59,7 @@ export const updPageName = async function (id: string, data: { title: string }) 
       method: 'PUT',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
@@ -67,6 +72,7 @@ export async function deletePage(id: string) {
       method: 'DELETE',
       headers: {
          'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
          Authorization: 'Bearer ' + token,
       },
    });

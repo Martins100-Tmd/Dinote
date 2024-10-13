@@ -21,7 +21,7 @@ const NoteSection = ({ id }: { id: string }) => {
    });
 
    return (
-      <section className='flex flex-col items-start w-full border-r border-[#222222] justify-between h-full'>
+      <section className='flex flex-col items-start w-full border-r border-[#222222] justify-between h-full p-2'>
          <section className='flex flex-col gap-2 items-start w-full'>
             <SectionContainer id={id} />
             <div className={`${state.createSection ? 'flex' : 'hidden'} flex-row items-center w-full p-2`}>
@@ -59,8 +59,8 @@ const NoteSection = ({ id }: { id: string }) => {
                className='flex flex-row items-center cursor-pointer'
                onClick={() => setstate((prev) => ({ ...prev, createSection: state.createSection ? false : true }))}
             >
-               <i className='material-icons text-4xl text-emerald-200 font-thin'>add</i>
-               <p className='font-sans text-base text-left text-emerald-100 font-semibold'>Add Section</p>
+               <i className='material-icons text-2xl text-emerald-200 font-thin'>add</i>
+               <p className='font-sand text-sm text-left text-emerald-100 font-medium'>Add Section</p>
             </div>
          </section>
       </section>
