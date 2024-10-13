@@ -26,28 +26,41 @@ export function NoteHeadFn() {
             </div>
          </div>
          <div className={`flex justify-end self-center p-3 w-[25%] hover:bg-[#4e4e4e] relative`}>
-            <ArrowDownWideNarrow className={`material-icons text-slate-200 cursor-pointer`} onClick={() => setsort(!sort)} />
-            <div
+            <ArrowDownWideNarrow
+               className={`material-icons text-slate-200 cursor-pointer`}
+               onClick={() => {
+                  setsort(true);
+                  const sortBTN = document.getElementById('sortbtn') as HTMLButtonElement;
+                  sortBTN.focus();
+                  sortBTN.click();
+               }}
+            />
+            <button
+               tabIndex={0}
+               id='sortbtn'
+               onClick={() => console.log('Clicked!')}
+               onFocus={() => console.log("I'm focus")}
+               onBlur={() => setsort(false)}
                className={`min-w-[150px] min-h-[120px] -right-[150%] border-[0.1px] border-opacity-20 border-gray-100 rounded top-8 ${
                   sort ? 'flex' : 'hidden'
-               } flex-col items-start absolute bg-[#323232] z-50`}
+               } flex-col items-start justify-start absolute bg-[#323232] z-50`}
             >
                <p className='w-full flex justify-start p-2 text-sm font-medium font-sand text-gray-50 bg-[#2d2d2d] rounded'>Sort By</p>
                <div className='flex flex-col items-start w-full gap-1.5'>
-                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-xs text-gray-100'>
+                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-start text-xs text-gray-100'>
                      None
                   </p>
-                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-xs text-gray-100'>
+                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-start text-xs text-gray-100'>
                      Alphabetical
                   </p>
-                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-xs text-gray-100'>
+                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-start text-xs text-gray-100'>
                      Date Created
                   </p>
-                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-xs text-gray-100'>
+                  <p className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-start text-xs text-gray-100'>
                      Date Modified
                   </p>
                </div>
-            </div>
+            </button>
          </div>
       </section>
    );
