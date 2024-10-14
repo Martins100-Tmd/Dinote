@@ -62,7 +62,7 @@ export default function PageItem({ item }: any) {
                      onClick={() => {
                         setNewPage(false), localStorage.setItem('currpageid', item.id), setPageId(localStorage.getItem('currpageid') ?? '');
                      }}
-                     className='outline-none border-none w-full text-[12px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
+                     className='outline-none border-none w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
                   >
                      {item.title.substring(0, 15) + '...'}
                   </p>
