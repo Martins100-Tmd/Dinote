@@ -55,7 +55,7 @@ export default function PageListContainer() {
 
    useEffect(() => {
       data && data['data'] && SETDATA(sortFunctions[action](data['data']));
-   }, [action]);
+   }, [action, currsection]);
 
    if (isLoading) return <LoadingPageList />;
    if (isError) return <>{error?.message}</>;
