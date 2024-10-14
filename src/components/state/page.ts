@@ -7,22 +7,12 @@ export const PageStore = create((set) => ({
    setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: val ?? !state.newPage })),
 }));
 
-let sortFunctions = {
-   None: (list: any) => {
-      return list;
-   },
-   Alphabet: (list: any) => {
-      return list.sort((a, b) => a[0] - b[0]);
-   },
-   Created: (list: any) => {
-      return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-   },
-   Updated: (list: any) => {
-      return list.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
-   },
-};
-export const SortBy = create((set) => ({
-   key: 'None',
-   setKey: (val: string) => set((state: any) => ({ ...state, key: val ?? 'None', action: sortFunctions[state.key] })),
-   action: () => {},
+interface sortType {
+   action: string;
+   setAction: (val: string) => void; // setAction should return void, not {}
+}
+
+export const sortAction = create<sortType>((set) => ({
+   action: 'None', // This is the initial state
+   setAction: (val: string) => set((state) => ({ ...state, action: val })), // Action to update state
 }));

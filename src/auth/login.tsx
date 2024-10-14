@@ -1,13 +1,9 @@
 import useGlobalReducer from '../utils/hooks/reducer';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { LoginFn } from '../utils/fetch';
-import { backendAPI } from '..';
-// import createNoteState from '../components/state/context';
 
 export default function Login() {
    let { handleChange, state } = useGlobalReducer();
-   const navigate = useNavigate();
 
    const mutation = useMutation({
       mutationFn: (data: any) => LoginFn(data),

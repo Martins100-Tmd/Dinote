@@ -49,3 +49,10 @@ export interface bodyReq {
    content: string;
    sectionId: string;
 }
+
+export interface SortFunctions {
+   [key: string]: (list: any[]) => any[];
+}
+
+// Define the allowed keys
+export type SortKeys = keyof SortFunctions;

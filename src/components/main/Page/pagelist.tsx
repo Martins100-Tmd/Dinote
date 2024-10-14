@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import LoadingPageList from './loadingpages';
 import PageItem from './Pageitem';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { fetchSectionPages } from './fetch';
 import { PageContext } from '../../state/pageContext';
 import sectionContext from '../../state/sectContext';
+import { sortAction } from '../../state/page';
+import { sortFunctions } from './fetch';
+import createNoteState from '../../state/context';
 
 export default function PageListContainer() {
    let {
@@ -15,6 +18,8 @@ export default function PageListContainer() {
    } = useContext(PageContext);
 
    let { setNewPage, setPageId } = useContext(PageContext);
+   let { action } = sortAction();
+   let [DATA, SETDATA] = useState<any[]>([]);
 
    let { isSuccess, isLoading, isError, error, data, status } = useQuery({
       queryKey: ['fetchSectionPages', currsection],
@@ -48,10 +53,18 @@ export default function PageListContainer() {
          localStorage.setItem('currpageid', ''), setPageId(localStorage.getItem('currpageid') ?? '');
    }, [currsection]);
 
+   useEffect(() => {
+      data && data['data'] && SETDATA(sortFunctions[action](data['data']));
+   }, [action]);
+
    if (isLoading) return <LoadingPageList />;
    if (isError) return <>{error?.message}</>;
    if (isSuccess) {
       if (JSON.stringify(data['data']) == emptyData) {
-      } else return data['data'] && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
+      } else {
+         return DATA.length > 0
+            ? DATA.map((item: any, index: number) => <PageItem item={item} key={index} />)
+            : data['data'] && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
+      }
    }
 }

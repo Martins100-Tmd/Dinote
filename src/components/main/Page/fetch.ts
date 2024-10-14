@@ -1,4 +1,5 @@
 import { backendAPI } from '../../..';
+import { SortFunctions } from '../../../types';
 const token = localStorage.getItem(':tk:') ?? 'empty';
 
 export const fetchSectionPages = async function (id: string) {
@@ -78,3 +79,18 @@ export async function deletePage(id: string) {
    });
    return await A.json();
 }
+
+export let sortFunctions: SortFunctions = {
+   None: (list: any[]) => {
+      return list;
+   },
+   Alphabet: (list: any[]) => {
+      return list.sort((a, b) => a[0] - b[0]);
+   },
+   Created: (list: any[]) => {
+      return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+   },
+   Updated: (list: any[]) => {
+      return list.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+   },
+};
