@@ -29,47 +29,47 @@ export default function SignUp() {
    return (
       <section className='w-full h-auto flex flex-col items-start gap-10'>
          <div className='w-full flex justify-start'>
-            <p className='font-raj text-3xl font-semibold text-white'>Sign up</p>
+            <p className='font-sand text-3xl font-semibold text-white'>Sign up</p>
          </div>
          <section className='flex flex-col items-center w-full gap-5'>
             <div className='flex flex-col items-start w-full gap-4'>
-               <label htmlFor='email' className='font-raj font-semibold sm:text-base text-xs text-slate-200'>
+               <label htmlFor='email' className='font-sand font-semibold sm:text-base text-xs text-slate-200'>
                   Username
                </label>
                <input
                   onChange={handleChange}
                   type='text'
                   name='name'
-                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-raj'
+                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-sand'
                   alt='text'
                />
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-raj font-semibold sm:text-base text-xs text-slate-200'>
+               <label htmlFor='email' className='font-sand font-semibold sm:text-base text-xs text-slate-200'>
                   Your Email
                </label>
                <input
                   onChange={handleChange}
                   type='email'
                   name='email'
-                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-raj'
+                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-sand'
                   alt='email'
                />
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-raj font-semibold sm:text-base text-xs text-slate-200'>
+               <label htmlFor='email' className='font-sand font-semibold sm:text-base text-xs text-slate-200'>
                   Password
                </label>
                <input
                   name='password'
                   onChange={handleChange}
                   type='password'
-                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-raj'
+                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-sand'
                   alt='password'
                />
             </div>
             <section className='w-full mt-[5%] flex justify-center'>
-               <button onClick={mutateFn} className='rounded-2xl shadow p-4 w-full mx-auto font-raj font-semibold text-xl bg-[#555555]'>
+               <button onClick={mutateFn} className='rounded-2xl shadow p-4 w-full mx-auto font-sand font-semibold text-xl bg-[#555555]'>
                   Submit
                </button>
             </section>

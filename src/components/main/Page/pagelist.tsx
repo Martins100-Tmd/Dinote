@@ -7,7 +7,6 @@ import { PageContext } from '../../state/pageContext';
 import sectionContext from '../../state/sectContext';
 import { sortAction } from '../../state/page';
 import { sortFunctions } from './fetch';
-import createNoteState from '../../state/context';
 
 export default function PageListContainer() {
    let {
