@@ -57,12 +57,12 @@ export default function PageItem({ item }: any) {
                   </i>
                </div>
             ) : (
-               <div className='flex flex-row items-center p-2 w-full justify-between hover:bg-[#535353]'>
+               <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
                      onClick={() => {
                         setNewPage(false), localStorage.setItem('currpageid', item.id), setPageId(localStorage.getItem('currpageid') ?? '');
                      }}
-                     className='outline-none border-none w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
+                     className='outline-none border-none p-2 w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
                   >
                      {item.title.substring(0, 15) + '...'}
                   </p>
@@ -72,7 +72,7 @@ export default function PageItem({ item }: any) {
                         const button = document.getElementById('popmenu') as HTMLButtonElement;
                         button.focus();
                      }}
-                     className='material-icons text-lg cursor-pointer self-center text-slate-100 text-end'
+                     className='material-icons text-lg py-2 cursor-pointer self-center text-slate-100 text-end'
                   >
                      more_horiz
                   </i>

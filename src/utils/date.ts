@@ -5,3 +5,13 @@ function dateFunc(date: any) {
 const now = new Date();
 
 export const DateString = dateFunc(now).replace('day', '');
+
+export function formattedDate(updateTime: Date) {
+   return updateTime.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+   });
+}

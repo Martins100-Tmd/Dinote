@@ -17,7 +17,7 @@ export default function PageListContainer() {
    } = useContext(PageContext);
 
    let { setNewPage, setPageId } = useContext(PageContext);
-   let { action } = sortAction();
+   let { action, setAction } = sortAction();
    let [DATA, SETDATA] = useState<any[]>([]);
 
    let { isSuccess, isLoading, isError, error, data, status } = useQuery({
@@ -33,37 +33,32 @@ export default function PageListContainer() {
    let emptyData: string = '[]';
 
    useEffect(() => {
-      if (currpageid || (data && JSON.stringify(data['data']) == emptyData)) setNewPage(false);
-      if (data && isSuccess) {
-         if (!currpageid) {
-            if (data['data'] && data['data'][0])
-               localStorage.setItem('currpageid', data['data'][0].id), setPageId(localStorage.getItem('currpageid') ?? '');
-         }
+      if (currpageid || (data && JSON.stringify(data.data) == emptyData)) setNewPage(false);
+      if (data && isSuccess && !currpageid && data.data && data.data[0]) {
+         localStorage.setItem('currpageid', data.data[0].id), setPageId(localStorage.getItem('currpageid') ?? '');
       }
    }, [currpageid, status]);
 
    useEffect(() => {
-      let empty = JSON.stringify([]);
-      if (data && data['data'] && data['data'][0]) {
-         if (!localStorage.getItem('currpageid')) localStorage.setItem('currpageid', data['data'][0].id);
+      if (data && data.data && data.data[0]) {
+         if (!localStorage.getItem('currpageid')) localStorage.setItem('currpageid', data.data[0].id);
          setPageId(localStorage.getItem('currpageid') ?? '');
       }
-      if ((data && JSON.stringify(data['data']) == empty) || data == undefined)
+      if ((data && JSON.stringify(data.data) == emptyData) || data == undefined)
          localStorage.setItem('currpageid', ''), setPageId(localStorage.getItem('currpageid') ?? '');
    }, [currsection]);
 
    useEffect(() => {
-      data && data['data'] && SETDATA(sortFunctions[action](data['data']));
+      setAction('None');
+      data && data.data && SETDATA(sortFunctions[action](data.data));
    }, [action, currsection]);
 
    if (isLoading) return <LoadingPageList />;
    if (isError) return <>{error?.message}</>;
    if (isSuccess) {
-      if (JSON.stringify(data['data']) == emptyData) {
-      } else {
+      if (JSON.stringify(data.data) !== emptyData)
          return DATA.length > 0
             ? DATA.map((item: any, index: number) => <PageItem item={item} key={index} />)
-            : data['data'] && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
-      }
+            : data.data && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
    }
 }

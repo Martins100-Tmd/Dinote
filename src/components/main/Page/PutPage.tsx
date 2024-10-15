@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { bodyReq } from '../../../types';
 import sectionContext from '../../state/sectContext';
 import { PageContext } from '../../state/pageContext';
+import { formattedDate } from '../../../utils/date';
 
 export default function PutPage() {
    const queryClient = useQueryClient();
@@ -35,17 +36,9 @@ export default function PutPage() {
 
    useEffect(() => {
       if (getSolePageQuery.isSuccess && getSolePageQuery.data && getSolePageQuery.data['data']) {
-         let data = getSolePageQuery.data['data'];
-         console.log(data);
-         const updateTime = new Date(data['createdAt']);
-         const formattedDate = updateTime.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-         });
-         setbody((prev) => ({ ...prev, title: data['title'], content: data['content'], updatedAt: formattedDate }));
+         let data = getSolePageQuery.data.data;
+         const formatDate = formattedDate(new Date(data.createdAt));
+         setbody((prev) => ({ ...prev, title: data['title'], content: data['content'], updatedAt: formatDate }));
       }
    }, [getSolePageQuery.status, currpageid]);
 
@@ -61,8 +54,6 @@ export default function PutPage() {
          console.log(error);
       },
    });
-
-   useEffect(() => console.log('PutPage'), []);
 
    return (
       <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start px-10 py-7 gap-10'>

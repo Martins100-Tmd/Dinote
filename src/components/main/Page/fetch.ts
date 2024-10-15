@@ -3,15 +3,20 @@ import { SortFunctions } from '../../../types';
 const token = localStorage.getItem(':tk:') ?? 'empty';
 
 export const fetchSectionPages = async function (id: string) {
-   const A = await fetch(backendAPI + 'get/page/' + id, {
-      method: 'GET',
-      headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return await A.json();
+   try {
+      const response = await fetch(`${backendAPI}/get/page/${id}`, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+      });
+      if (!response.ok) throw new Error(`Error: ${response.status} ${response.statusText}`);
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
 };
 
 interface dataInt {
@@ -19,65 +24,89 @@ interface dataInt {
    content: string;
 }
 export const addPage = async function (data: dataInt) {
-   const A = await fetch(backendAPI + 'post/newpage', {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-         Authorization: 'Bearer ' + token,
-      },
-      body: JSON.stringify(data),
-   });
-   return await A.json();
+   try {
+      const response = await fetch(`${backendAPI}/post/newpage`, {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+         body: JSON.stringify(data),
+      });
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
 };
 export const updatePage = async function (data: dataInt, id: string) {
-   const A = await fetch(backendAPI + 'put/onepage/' + id, {
-      method: 'PUT',
-      headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-         Authorization: 'Bearer ' + token,
-      },
-      body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
-   });
-   return await A.json();
+   try {
+      const response = await fetch(`${backendAPI}/put/onepage/${id}`, {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+         body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
+      });
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
 };
 
 export const getSolePage = async function (id: string) {
-   const A = await fetch(backendAPI + 'get/getpage/' + id, {
-      method: 'GET',
-      headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return await A.json();
+   try {
+      const response = await fetch(`${backendAPI}/get/getpage/${id}`, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+      });
+      if (!response.ok) throw new Error(`Error: ${response.status} ${response.statusText}`);
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
 };
 
 export const updPageName = async function (id: string, data: { title: string }) {
-   const A = await fetch(backendAPI + 'put/pagename/' + id, {
-      method: 'PUT',
-      headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-         Authorization: 'Bearer ' + token,
-      },
-      body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
-   });
-   return await A.json();
+   try {
+      const response = await fetch(`${backendAPI}/put/pagename/${id}`, {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+         body: JSON.stringify({ ...data, title: data.title ?? 'untitled' }),
+      });
+
+      if (!response.ok) throw new Error(`Error: ${response.status} ${response.statusText}`);
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
 };
 
 export async function deletePage(id: string) {
-   const A = await fetch(backendAPI + 'delete/onepage/' + id, {
-      method: 'DELETE',
-      headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return await A.json();
+   try {
+      const response = await fetch(`${backendAPI}/delete/onepage/${id}`, {
+         method: 'DELETE',
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+      });
+      if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
 }
 
 export let sortFunctions: SortFunctions = {
@@ -85,7 +114,7 @@ export let sortFunctions: SortFunctions = {
       return list;
    },
    Alphabet: (list: any[]) => {
-      return list.sort((a, b) => a[0] - b[0]);
+      return list.sort((a, b) => a.title[0].charCodeAt() - b.title[0].charCodeAt());
    },
    Created: (list: any[]) => {
       return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());

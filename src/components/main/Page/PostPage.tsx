@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
 import { useContext, useEffect, useState } from 'react';
-import { DateString } from '../../../utils/date';
+import { DateString, formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import sectionContext from '../../state/sectContext';
 import { PageContext } from '../../state/pageContext';
@@ -36,7 +36,7 @@ export default function PostPage() {
          <section className='flex flex-col items-center gap-3'>
             <Input addMutation={addMutation} body={body} setbody={setbody} currsection={currsection} />
             <div className='flex items-center w-full justify-start'>
-               <p className='text-start w-full font-sand text-slate-200'>{DateString}</p>
+               <p className='text-start w-full font-sand text-slate-200'>{formattedDate(new Date())}</p>
             </div>
          </section>
          <TextArea addMutation={addMutation} body={body} setbody={setbody} />
