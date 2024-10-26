@@ -8,7 +8,7 @@ import createNoteState from '../../state/context';
 
 async function fetchNotes() {
    const token = localStorage.getItem(':tk:') ?? 'empty';
-   const A = await fetch(backendAPI + 'get/userwithnote', {
+   const A = await fetch(backendAPI + '/get/userwithnote', {
       method: 'GET',
       headers: {
          'Content-Type': 'application/json',

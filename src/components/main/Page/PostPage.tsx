@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
 import { useContext, useEffect, useState } from 'react';
-import { DateString, formattedDate } from '../../../utils/date';
+import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import sectionContext from '../../state/sectContext';
 import { PageContext } from '../../state/pageContext';
