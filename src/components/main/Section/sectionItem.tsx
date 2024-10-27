@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { delSection } from './op';
-import sectionContext from '../../state/sectContext';
 import { updSectionName } from './op';
 import { sectionId, sectionIdStore } from '../../state/section';
 
@@ -10,7 +9,6 @@ export default function SectionItem({ item }: any) {
    let [menu, setmenu] = useState(false);
    let [sectionRenameText, setSectionRenameText] = useState(item.title);
    let [renameAction, setRenameAction] = useState(false);
-   let { setCurrSection } = useContext(sectionContext);
    let setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
 
    const delSectMutation = useMutation({
@@ -33,11 +31,7 @@ export default function SectionItem({ item }: any) {
    return (
       <div
          onContextMenu={() => setmenu(!menu)}
-         onClick={() => {
-            localStorage.setItem('sectpageid', item.id);
-            setCurrSection(localStorage.getItem('sectpageid') ?? '');
-            setSectionId(item.id);
-         }}
+         onClick={() => setSectionId(item.id)}
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >
          <>

@@ -14,8 +14,6 @@ export default function PageListContainer() {
    let { action, setAction } = sortAction();
    let [pageId, setPageId] = PageCurrentId((state: PageIdState) => [state.pageId, state.setPageId]);
 
-   useEffect(() => console.log(pageId), [pageId]);
-
    let { isSuccess, isLoading, isError, error, data, status } = useQuery({
       queryKey: ['fetchSectionPages', sectionId],
       queryFn: () => fetchSectionPages(sectionId),
@@ -27,6 +25,7 @@ export default function PageListContainer() {
    });
 
    let isDataEmpty = useMemo(() => data && JSON.stringify(data.data) == '[]', [data]);
+
    let DATA = useMemo(() => {
       setAction('None');
       if (data && data.data) return sortFunctions[action](data.data).length > 0 ? sortFunctions[action](data.data) : data.data;

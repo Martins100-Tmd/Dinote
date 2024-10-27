@@ -1,23 +1,19 @@
 import { UseMutationResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getSolePage, updatePage } from './fetch';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { bodyReq } from '../../../types';
-import sectionContext from '../../state/sectContext';
 import { formattedDate } from '../../../utils/date';
+import { sectionId, sectionIdStore } from '../../state/section';
 
 export default function PutPage({ pageId }: { pageId: string }) {
    const queryClient = useQueryClient();
-   let {
-      sectionState: { currsection },
-   } = useContext(sectionContext);
+   let sectionId = sectionIdStore((state: sectionId) => state.sectionId);
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
-      sectionId: currsection,
+      sectionId,
       updatedAt: '',
    });
-
-   useEffect(() => console.log(pageId), [pageId]);
 
    const getSolePageQuery = useQuery({
       queryKey: ['getPageContent', pageId],

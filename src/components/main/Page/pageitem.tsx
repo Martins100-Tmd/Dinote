@@ -10,6 +10,7 @@ export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
    let [rename, setrename] = useState(false);
    let [pageText, setPageText] = useState(item.title);
+
    const queryClient = useQueryClient();
    const { setNewPage } = useContext(PageContext);
    let [_, setPageId] = PageCurrentId((s: PageIdState) => [s.pageId, s.setPageId]);
