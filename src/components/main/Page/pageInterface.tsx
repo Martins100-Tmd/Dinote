@@ -1,13 +1,10 @@
-import { useContext } from 'react';
-import { PageContext } from '../../state/pageContext';
 import PostPage from './PostPage';
 import PutPage from './PutPage';
+import { PageCurrentId, PageIdState } from '../../state/page';
 
 export default function PageInterface({ init }: { init: boolean }) {
-   let {
-      notePageState: { currpageid },
-   } = useContext(PageContext);
-   return init ? <PostPage /> : currpageid ? <PutPage /> : <NoPage />;
+   let pageId = PageCurrentId((s: PageIdState) => s.pageId);
+   return init ? <PostPage /> : pageId ? <PutPage pageId={pageId} /> : <NoPage />;
 }
 
 function NoPage() {

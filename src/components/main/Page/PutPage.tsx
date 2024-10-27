@@ -3,18 +3,13 @@ import { getSolePage, updatePage } from './fetch';
 import { useState, useEffect, useContext } from 'react';
 import { bodyReq } from '../../../types';
 import sectionContext from '../../state/sectContext';
-import { PageContext } from '../../state/pageContext';
 import { formattedDate } from '../../../utils/date';
 
-export default function PutPage() {
+export default function PutPage({ pageId }: { pageId: string }) {
    const queryClient = useQueryClient();
    let {
       sectionState: { currsection },
    } = useContext(sectionContext);
-   let {
-      notePageState: { currpageid },
-   } = useContext(PageContext);
-
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
@@ -22,12 +17,12 @@ export default function PutPage() {
       updatedAt: '',
    });
 
-   useEffect(() => console.log(currpageid), [currpageid]);
+   useEffect(() => console.log(pageId), [pageId]);
 
    const getSolePageQuery = useQuery({
-      queryKey: ['getPageContent', currpageid],
-      queryFn: () => getSolePage(currpageid),
-      enabled: !!currpageid,
+      queryKey: ['getPageContent', pageId],
+      queryFn: () => getSolePage(pageId),
+      enabled: !!pageId,
       refetchOnWindowFocus: false,
       retry: 2,
       staleTime: 10000,
@@ -40,11 +35,11 @@ export default function PutPage() {
          const formatDate = formattedDate(new Date(data.createdAt));
          setbody((prev) => ({ ...prev, title: data['title'], content: data['content'], updatedAt: formatDate }));
       }
-   }, [getSolePageQuery.status, currpageid]);
+   }, [getSolePageQuery.status, pageId]);
 
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
-      mutationFn: (body: bodyReq) => updatePage(body, currpageid),
+      mutationFn: (body: bodyReq) => updatePage(body, pageId),
       onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });

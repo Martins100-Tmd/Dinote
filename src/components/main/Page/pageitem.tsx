@@ -4,13 +4,15 @@ import { PageContext } from '../../state/pageContext';
 import { updPageName } from './fetch';
 import { deletePage } from './fetch';
 import { Trash2, Pencil } from 'lucide-react';
+import { PageCurrentId, PageIdState } from '../../state/page';
 
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
    let [rename, setrename] = useState(false);
    let [pageText, setPageText] = useState(item.title);
    const queryClient = useQueryClient();
-   const { setPageId, setNewPage } = useContext(PageContext);
+   const { setNewPage } = useContext(PageContext);
+   let [_, setPageId] = PageCurrentId((s: PageIdState) => [s.pageId, s.setPageId]);
 
    const DelMutation = useMutation({
       mutationFn: (id: string) => deletePage(id),
@@ -60,7 +62,7 @@ export default function PageItem({ item }: any) {
                <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
                      onClick={() => {
-                        setNewPage(false), localStorage.setItem('currpageid', item.id), setPageId(localStorage.getItem('currpageid') ?? '');
+                        setNewPage(false), setPageId(item.id ?? '');
                      }}
                      className='outline-none border-none p-2 w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
                   >
