@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { delSection } from './op';
 import { updSectionName } from './op';
 import { sectionId, sectionIdStore } from '../../state/section';
-import { Pencil, Trash2 } from 'lucide-react';
 import PopUpMenu from '../../../utils/Popmenu';
 
 export default function SectionItem({ item }: any) {

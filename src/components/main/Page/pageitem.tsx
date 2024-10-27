@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PageContext } from '../../state/pageContext';
 import { updPageName } from './fetch';
 import { deletePage } from './fetch';
-import { Trash2, Pencil } from 'lucide-react';
 import { PageCurrentId, PageIdState } from '../../state/page';
 import PopUpMenu from '../../../utils/Popmenu';
 
