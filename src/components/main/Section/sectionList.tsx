@@ -7,8 +7,8 @@ import { updSectionName } from './op';
 export default function SectionList({ item }: any) {
    const queryClient = useQueryClient();
    let [menu, setmenu] = useState(false);
-   let [secText, setSecText] = useState(item.title);
-   let [rename, setrename] = useState(false);
+   let [sectionRenameText, setSectionRenameText] = useState(item.title);
+   let [renameAction, setRenameAction] = useState(false);
    let { setCurrSection } = useContext(sectionContext);
 
    const delSectMutation = useMutation({
@@ -17,16 +17,14 @@ export default function SectionList({ item }: any) {
       onSuccess: async () => {
          setmenu(false), await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
       },
-      onError(error) {
-         console.log(error);
-      },
+      onError: (error) => console.log(error),
    });
    const PutMutation = useMutation({
       mutationFn: (title: string) => updSectionName(item.id, { title }),
       mutationKey: ['updatePageName'],
       onSuccess: async () => {
          await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
-         setmenu(false), setrename(false);
+         setmenu(false), setRenameAction(false);
       },
    });
    return (
@@ -39,26 +37,26 @@ export default function SectionList({ item }: any) {
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >
          <>
-            {rename ? (
+            {renameAction ? (
                <>
                   <input
-                     value={secText}
+                     value={sectionRenameText}
                      type='text'
                      onChange={(e) => {
                         let target = e.target as HTMLInputElement;
-                        setSecText(target.value);
+                        setSectionRenameText(target.value);
                      }}
                      onBlur={() => {
-                        setrename(false);
-                        PutMutation.mutate(secText);
+                        setRenameAction(false);
+                        PutMutation.mutate(sectionRenameText);
                      }}
                      onKeyDown={(e) => {
-                        e.key == 'Enter' && PutMutation.mutate(secText);
+                        e.key == 'Enter' && PutMutation.mutate(sectionRenameText);
                      }}
                      className='w-full font-sand text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
                   />
-                  <i onClick={() => setrename(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
+                  <i onClick={() => setRenameAction(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
                      close
                   </i>
                </>
@@ -83,7 +81,7 @@ export default function SectionList({ item }: any) {
             </div>
             <div
                onClick={() => {
-                  setmenu(false), setrename(true);
+                  setmenu(false), setRenameAction(true);
                }}
                className='flex flex-row hover:bg-[#686868] items-start gap-3 w-full p-2 cursor-pointer'
             >

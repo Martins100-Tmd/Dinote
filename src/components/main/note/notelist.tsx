@@ -1,22 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { backendAPI } from '../../..';
 import NoteItem from './noteitem';
 import LoadingNoteList from './loadingnote';
 import { storeB } from '../../state/sectnpage';
 import { useContext, useEffect, useState } from 'react';
 import createNoteState from '../../state/context';
+import { fetchNotes } from './op';
 
-async function fetchNotes() {
-   const token = localStorage.getItem(':tk:') ?? 'empty';
-   const A = await fetch(backendAPI + '/get/userwithnote', {
-      method: 'GET',
-      headers: {
-         'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + token,
-      },
-   });
-   return await A.json();
-}
 export default function NoteListFn() {
    const noteQuery = useQuery({ queryKey: ['fetchNotes'], queryFn: fetchNotes, refetchOnMount: 'always' });
    let [noteData, setNoteData] = useState<any[]>([]);

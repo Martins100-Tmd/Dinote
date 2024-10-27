@@ -4,6 +4,7 @@ import { delNote } from './op';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../state/note';
+import { NoteStore, NoteStoreState } from '../../state/_note';
 
 export default function NoteItem({ item }: any) {
    const queryClient = useQueryClient();
@@ -11,6 +12,7 @@ export default function NoteItem({ item }: any) {
    let [_, setCurrNoteId] = storeB((s: any) => [s.currNoteId, s.setCurrNoteId]);
    let navigate = useNavigate();
    let [__, setNoteDrop] = useStore((state: any) => [state.action, state.setAction]);
+   let setNOTEID = NoteStore((s: NoteStoreState) => s.setCurrNoteId);
 
    const delNoteMutation = useMutation({
       mutationFn: (id: string) => delNote(id),
@@ -29,6 +31,7 @@ export default function NoteItem({ item }: any) {
          onClick={(event: any) => {
             setNoteDrop();
             event.stopPropagation(), setCurrNoteId(item.id);
+            setNOTEID(item.id);
          }}
          className='flex flex-row items-center cursor-pointer justify-start relative w-full gap-4 hover:bg-[#5e5e5e] p-2'
       >

@@ -18,3 +18,19 @@ export async function delNote(id: string) {
       throw error;
    }
 }
+
+export async function fetchNotes() {
+   try {
+      const response = await fetch(backendAPI + '/get/userwithnote', {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
+         },
+      });
+      if (!response.ok) throw new Error(`Error: ${response.status} ${response.statusText}`);
+      return await response.json();
+   } catch (error) {
+      throw error;
+   }
+}
