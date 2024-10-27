@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { delSection } from './op';
 import { updSectionName } from './op';
 import { sectionId, sectionIdStore } from '../../state/section';
+import { Pencil, Trash2 } from 'lucide-react';
+import PopUpMenu from '../../../utils/Popmenu';
 
 export default function SectionItem({ item }: any) {
    const queryClient = useQueryClient();
@@ -62,31 +64,7 @@ export default function SectionItem({ item }: any) {
                <p className='font-sand text-slate-100 font-medium self-center text-sm'>{item.title}</p>
             )}
          </>
-         <div
-            className={`${
-               menu ? 'flex' : 'hidden'
-            } flex-col items-center  absolute shadow-xl gap-3 w-[135%] top-[35%] -right-[40%] bg-[#4e4e4e] z-50`}
-         >
-            <div onClick={() => setmenu(!menu)} className='flex justify-end w-full cursor-pointer px-2'>
-               <i className='material-icons text-xl text-slate-200'>close</i>
-            </div>
-            <div
-               onClick={() => delSectMutation.mutate(item.id)}
-               className='flex flex-row hover:bg-[#6f6f6f] items-start gap-3 w-full p-2 cursor-pointer'
-            >
-               <i className='material-icons text-3xl text-emerald-700'>close</i>
-               <p className='font-sand text-lg text-white'>Delete Section</p>
-            </div>
-            <div
-               onClick={() => {
-                  setmenu(false), setRenameAction(true);
-               }}
-               className='flex flex-row hover:bg-[#686868] items-start gap-3 w-full p-2 cursor-pointer'
-            >
-               <i className='material-icons text-3xl text-emerald-700'>drive_file_rename_outline</i>
-               <p className='font-sand text-lg text-white'>Rename Section</p>
-            </div>
-         </div>
+         <PopUpMenu setswitch={setmenu} Switch={menu} DelAction={delSectMutation} id={item.id} setrename={setRenameAction} />
       </div>
    );
 }

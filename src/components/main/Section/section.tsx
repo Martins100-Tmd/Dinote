@@ -12,11 +12,10 @@ const NoteSection = ({ id }: { id: string }) => {
       mutationFn: (data: any) => addSection(data),
       mutationKey: ['addSection'],
       async onSuccess(data) {
-         console.log(data);
          await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
       },
       onError(err) {
-         console.log(err);
+         throw err;
       },
    });
 
@@ -34,12 +33,6 @@ const NoteSection = ({ id }: { id: string }) => {
                      if (sectVal && id) {
                         addSectMutation.mutate({ title: sectVal, noteId: id });
                         setstate((prev) => ({ ...prev, createSection: false }));
-                        e.target.value = '';
-                     }
-                  }}
-                  onKeyPress={(e: any) => {
-                     if (e.key === 'Enter' && sectVal && id) {
-                        addSectMutation.mutate({ title: sectVal, noteId: id }), setstate((prev) => ({ ...prev, createSection: false }));
                         e.target.value = '';
                      }
                   }}
