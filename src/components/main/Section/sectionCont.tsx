@@ -2,25 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 import LoadingSectionList from './loading';
 import SectionItem from './sectionItem';
 import { useEffect, useContext, useMemo } from 'react';
-import createNoteState from '../../state/context';
 import { fetchNoteSection } from './op';
 import { PageContext } from '../../state/pageContext';
 import { sectionId, sectionIdStore } from '../../state/section';
 
 export default function SectionContainer({ id }: { id: string }) {
-   let {
-      state: { noteObj },
-   } = useContext(createNoteState);
    let { setNewPage } = useContext(PageContext);
    let setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
 
-   let ID = useMemo(() => (noteObj ? noteObj['id'] : ''), [noteObj]);
-
    let { data, isSuccess, isLoading, isError, error, status } = useQuery({
-      queryKey: ['sectionList', ID],
-      queryFn: () => fetchNoteSection(noteObj ? ID : id),
+      queryKey: ['sectionList', id],
+      queryFn: () => fetchNoteSection(id ?? ''),
       refetchOnMount: false,
-      enabled: !!ID,
+      enabled: !!id,
       refetchOnWindowFocus: false,
       retry: false,
       staleTime: 10000,
@@ -42,6 +36,6 @@ export default function SectionContainer({ id }: { id: string }) {
          </div>
       );
    if (isSuccess && data) {
-      return data && (noteObj || id) && data.data.map((item: any, index: number) => <SectionItem key={index} item={item} />);
+      return data && id && data.data.map((item: any, index: number) => <SectionItem key={index} item={item} />);
    }
 }
