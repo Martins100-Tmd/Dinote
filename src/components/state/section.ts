@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 
-export const sectionId = create((set) => ({
-   currSectId: '',
-   setCurrSectId: (id: string) => set((s: any) => ({ ...s, currSectId: id })),
+export interface sectionId {
+   sectionId: string;
+   setSectionId: (id: string) => void;
+}
+
+export const sectionIdStore = create<sectionId>()((set) => ({
+   sectionId: '',
+   setSectionId: (id: string) => set((s) => ({ ...s, sectionId: id })),
 }));

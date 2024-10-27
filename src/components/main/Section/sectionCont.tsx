@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import LoadingSectionList from './loading';
-import SectionList from './sectionList';
+import SectionItem from './sectionItem';
 import { useEffect, useContext, useMemo } from 'react';
 import createNoteState from '../../state/context';
 import { fetchNoteSection } from './op';
@@ -49,6 +49,6 @@ export default function SectionContainer({ id }: { id: string }) {
          </div>
       );
    if (isSuccess && data) {
-      return data && (noteObj || id) && data.data.map((item: any, index: number) => <SectionList key={index} item={item} />);
+      return data && (noteObj || id) && data.data.map((item: any, index: number) => <SectionItem key={index} item={item} />);
    }
 }

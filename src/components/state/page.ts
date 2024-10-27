@@ -16,3 +16,13 @@ export const sortAction = create<sortType>((set) => ({
    action: 'None', // This is the initial state
    setAction: (val: string) => set((state) => ({ ...state, action: val })), // Action to update state
 }));
+
+export interface PageIdState {
+   pageId: string;
+   setPageId: (id: string) => void;
+}
+
+export const PageCurrentId = create<PageIdState>()((set) => ({
+   pageId: '',
+   setPageId: (id: string) => set((state) => ({ ...state, pageId: id })),
+}));

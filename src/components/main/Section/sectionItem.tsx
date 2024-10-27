@@ -3,13 +3,15 @@ import { useContext, useState } from 'react';
 import { delSection } from './op';
 import sectionContext from '../../state/sectContext';
 import { updSectionName } from './op';
+import { sectionId, sectionIdStore } from '../../state/section';
 
-export default function SectionList({ item }: any) {
+export default function SectionItem({ item }: any) {
    const queryClient = useQueryClient();
    let [menu, setmenu] = useState(false);
    let [sectionRenameText, setSectionRenameText] = useState(item.title);
    let [renameAction, setRenameAction] = useState(false);
    let { setCurrSection } = useContext(sectionContext);
+   let setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
 
    const delSectMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
@@ -19,6 +21,7 @@ export default function SectionList({ item }: any) {
       },
       onError: (error) => console.log(error),
    });
+
    const PutMutation = useMutation({
       mutationFn: (title: string) => updSectionName(item.id, { title }),
       mutationKey: ['updatePageName'],
@@ -33,6 +36,7 @@ export default function SectionList({ item }: any) {
          onClick={() => {
             localStorage.setItem('sectpageid', item.id);
             setCurrSection(localStorage.getItem('sectpageid') ?? '');
+            setSectionId(item.id);
          }}
          className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
       >
