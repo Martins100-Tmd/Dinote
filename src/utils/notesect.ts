@@ -6,7 +6,6 @@ export function addNoteLogicFn(notename: string, addNoteMutation: UseMutationRes
    const regExpNote = /^[a-zA-Z0-9 ]{3,20}/;
    console.log(notename, regExpNote.test(notename));
    if (notename && regExpNote.test(notename)) {
-      console.log('Passed!');
       addNoteMutation.mutate(notename, {
          onSuccess(data: any) {
             console.log(data);
