@@ -17,7 +17,7 @@ export default function PutPage({ pageId }: { pageId: string }) {
       updatedAt: '',
    });
 
-   const getSolePageQuery = useQuery({
+   const { isSuccess, data, status } = useQuery({
       queryKey: ['getPageContent', pageId, Sig],
       queryFn: () => getSolePage(pageId),
       enabled: !!pageId,
@@ -28,12 +28,11 @@ export default function PutPage({ pageId }: { pageId: string }) {
    });
 
    useEffect(() => {
-      if (getSolePageQuery.isSuccess && getSolePageQuery.data && getSolePageQuery.data['data']) {
-         let data = getSolePageQuery.data.data;
-         const formatDate = formattedDate(new Date(data.createdAt));
-         setbody((prev) => ({ ...prev, title: data['title'], content: data['content'], updatedAt: formatDate }));
+      if (isSuccess && data && data['data']) {
+         const formatDate = formattedDate(new Date(data.data.createdAt));
+         setbody((prev) => ({ ...prev, title: data.data['title'], content: data.data['content'], updatedAt: formatDate }));
       }
-   }, [getSolePageQuery.status, pageId]);
+   }, [status, pageId]);
 
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
