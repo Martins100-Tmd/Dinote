@@ -22,7 +22,7 @@ export default function NoteItem({ item }: any) {
          if (data && data.message == 'Token is not valid') navigate('/'), await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] });
       },
       onError(err) {
-         console.log(err);
+         throw err;
       },
    });
 
