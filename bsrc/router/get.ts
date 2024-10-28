@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import { getAllUsers, getNoteSections, getPage, getSectionPages, getUserNotes, getUserWithNote, routeAuth } from '../controller/get';
+import { getAllUsers, getNoteSections, getPage, getSectionPages, getUserWithNote, routeAuth } from '../controller/get';
 import userAuthMiddleWare from '../middleware/userId';
 
 export const getRouter = express.Router();

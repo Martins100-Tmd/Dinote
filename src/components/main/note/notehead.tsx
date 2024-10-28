@@ -9,11 +9,7 @@ export function NoteHeadFn() {
    let { state } = useContext(createNoteState);
    let [title, settitle] = useState('Martins Notebook');
    let [sort, setsort] = useState(false);
-   let { action, setAction } = sortAction();
-
-   useEffect(() => {
-      console.log(action);
-   }, [action]);
+   let { setAction } = sortAction();
 
    useEffect(() => {
       settitle(state.noteObj ? state.noteObj.title : 'Notebook');
@@ -59,11 +55,19 @@ export function NoteHeadFn() {
                   </p>
                   <p
                      onClick={() => {
-                        setAction('Alphabet'), setsort(false);
+                        setAction('sortAZ'), setsort(false);
                      }}
                      className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-start text-xs text-gray-100'
                   >
-                     Alphabetical
+                     Alphabetical (A - Z)
+                  </p>
+                  <p
+                     onClick={() => {
+                        setAction('sortZA'), setsort(false);
+                     }}
+                     className='pl-5 py-2 hover:bg-[#4e4e4e] hover:bg-opacity-60 w-full cursor-pointer font-sand text-start text-xs text-gray-100'
+                  >
+                     Alphabetical (Z - A)
                   </p>
                   <p
                      onClick={() => {

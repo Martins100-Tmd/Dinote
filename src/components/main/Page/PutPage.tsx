@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 import { bodyReq } from '../../../types';
 import { formattedDate } from '../../../utils/date';
 import { sectionId, sectionIdStore } from '../../state/section';
+import { PageCurrentId, PageIdState } from '../../state/page';
 
 export default function PutPage({ pageId }: { pageId: string }) {
    const queryClient = useQueryClient();
    let sectionId = sectionIdStore((state: sectionId) => state.sectionId);
+   let Sig = PageCurrentId((s: PageIdState) => s.getSignal);
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
@@ -16,7 +18,7 @@ export default function PutPage({ pageId }: { pageId: string }) {
    });
 
    const getSolePageQuery = useQuery({
-      queryKey: ['getPageContent', pageId],
+      queryKey: ['getPageContent', pageId, Sig],
       queryFn: () => getSolePage(pageId),
       enabled: !!pageId,
       refetchOnWindowFocus: false,

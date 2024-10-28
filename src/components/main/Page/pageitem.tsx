@@ -13,7 +13,7 @@ export default function PageItem({ item }: any) {
 
    const queryClient = useQueryClient();
    const { setNewPage } = useContext(PageContext);
-   let [_, setPageId] = PageCurrentId((s: PageIdState) => [s.pageId, s.setPageId]);
+   let [setSignal, setPageId] = PageCurrentId((s: PageIdState) => [s.setSignal, s.setPageId]);
 
    const DelMutation = useMutation({
       mutationFn: (id: string) => deletePage(id),
@@ -47,10 +47,10 @@ export default function PageItem({ item }: any) {
                         setPageText(target.value);
                      }}
                      onBlur={(e) => {
-                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false);
+                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
                      }}
                      onKeyDown={(e) => {
-                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false);
+                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
                      }}
                      className='w-full font-raj text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus

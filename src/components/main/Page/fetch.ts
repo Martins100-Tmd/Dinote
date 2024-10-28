@@ -113,8 +113,11 @@ export let sortFunctions: SortFunctions = {
    None: (list: any[]) => {
       return list;
    },
-   Alphabet: (list: any[]) => {
+   sortAZ: (list: any[]) => {
       return list.sort((a, b) => a.title[0].charCodeAt() - b.title[0].charCodeAt());
+   },
+   sortZA: (list: any[]) => {
+      return list.sort((a, b) => b.title[0].charCodeAt() - a.title[0].charCodeAt());
    },
    Created: (list: any[]) => {
       return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
