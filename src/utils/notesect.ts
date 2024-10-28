@@ -12,7 +12,7 @@ export function addNoteLogicFn(notename: string, addNoteMutation: UseMutationRes
             addNote();
          },
          onError(err: any) {
-            console.log(err.message);
+            throw err;
          },
       });
    }
