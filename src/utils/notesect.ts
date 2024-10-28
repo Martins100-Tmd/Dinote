@@ -7,8 +7,7 @@ export function addNoteLogicFn(notename: string, addNoteMutation: UseMutationRes
    console.log(notename, regExpNote.test(notename));
    if (notename && regExpNote.test(notename)) {
       addNoteMutation.mutate(notename, {
-         onSuccess(data: any) {
-            console.log(data);
+         onSuccess() {
             addNote();
          },
          onError(err: any) {
