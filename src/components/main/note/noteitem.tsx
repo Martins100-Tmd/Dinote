@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../state/note';
 import { NoteStore, NoteStoreState } from '../../state/_note';
+import { Pencil, Trash2 } from 'lucide-react';
 
 export default function NoteItem({ item }: any) {
    const queryClient = useQueryClient();
@@ -35,38 +36,38 @@ export default function NoteItem({ item }: any) {
          }}
          className='flex flex-row items-center cursor-pointer justify-start relative w-full gap-4 hover:bg-[#5e5e5e] p-2'
       >
-         <div
-            className={`${
-               state ? 'flex' : 'hidden'
-            } flex-col items-center w-[65%] top-[25%] justify-center bg-[#4e4e4e] right-0 absolute shadow z-50 p-2`}
+         <button
+            id='popmenu'
+            className={`w-[50%] rounded-2xl top-[40%] absolute left-[40%] sm:-right-[30%] shadow-2xl z-20 bg-[#2f2f2f] ${
+               state ? 'flex flex-col justify-end' : 'hidden'
+            }`}
          >
-            <div onClick={() => setstate(!state)} className='flex justify-end w-full cursor-pointer'>
-               <i className='material-icons text-lg text-slate-200'>close</i>
-            </div>
-            <div
-               onClick={(e) => {
-                  e.stopPropagation();
-                  setstate(!state);
-                  delNoteMutation.mutate(item.id, {
-                     onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] }),
-                  });
-               }}
-               className='flex flex-row items-start gap-3 w-full p-2 cursor-pointer hover:bg-[#6f6f6f]'
-            >
-               <i className='material-icons text-2xl text-red-900'>close</i>
-               <p className='font-sand text-base text-white'>Delete Notebooks</p>
-            </div>
-            <div
-               onClick={(e) => {
-                  e.stopPropagation();
-                  setstate(!state);
-               }}
-               className='flex flex-row items-start gap-3 w-full p-2 cursor-pointer hover:bg-[#6f6f6f]'
-            >
-               <i className='material-icons text-2xl text-gray-700'>drive_file_rename_outline</i>
-               <p className='font-sand text-base text-white'>Star Notebook</p>
-            </div>
-         </div>
+            <div className='w-screen min-h-screen fixed z-10 inset-0' onClick={() => setstate(!state)}></div>
+            <ul className='w-full flex flex-col items-stretch justify-center z-20 border-[0.1px] border-opacity-20 border-gray-100 gap-3 py-4 bg-[#2f2f2f] rounded-2xl'>
+               <li
+                  onClick={(e) => {
+                     e.stopPropagation();
+                     setstate(!state);
+                     delNoteMutation.mutate(item.id, {
+                        onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] }),
+                     });
+                  }}
+                  className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'
+               >
+                  <Trash2 className='text-red-600 self-center' size={'1.1rem'} />
+                  <span className='font-san text-base font-medium text-red-600 self-center'>Delete</span>
+               </li>
+               <li
+                  onClick={(e) => {
+                     e.stopPropagation(), setstate(false);
+                  }}
+                  className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'
+               >
+                  <Pencil className='text-lg text-slate-50 self-center' size={'1.1rem'} />
+                  <span className='font-raj text-sm font-medium text-gray-100 self-center'>Rename page</span>
+               </li>
+            </ul>
+         </button>
          <i className='material-icons text-xl self-center text-gray-200 opacity-65'>library_books</i>
          <p className='font-sand text-sm font-thin text-white w-full'>{item.title}</p>
       </div>

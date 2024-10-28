@@ -5,6 +5,7 @@ import { updPageName } from './fetch';
 import { deletePage } from './fetch';
 import { PageCurrentId, PageIdState } from '../../state/page';
 import PopUpMenu from '../../../utils/Popmenu';
+import { useStore } from '../../state/note';
 
 export default function PageItem({ item }: any) {
    let [pageMenu, setPageMenu] = useState(false);
@@ -14,6 +15,7 @@ export default function PageItem({ item }: any) {
    const queryClient = useQueryClient();
    const { setNewPage } = useContext(PageContext);
    let [setSignal, setPageId] = PageCurrentId((s: PageIdState) => [s.setSignal, s.setPageId]);
+   let setstate = useStore((state: any) => state.setSlide);
 
    const DelMutation = useMutation({
       mutationFn: (id: string) => deletePage(id),
@@ -63,7 +65,7 @@ export default function PageItem({ item }: any) {
                <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
                      onClick={() => {
-                        setNewPage(false), setPageId(item.id ?? '');
+                        setNewPage(false), setPageId(item.id ?? ''), setstate();
                      }}
                      className='outline-none border-none p-2 w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
                   >

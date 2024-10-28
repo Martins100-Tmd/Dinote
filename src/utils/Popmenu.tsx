@@ -14,7 +14,7 @@ export default function PopUpMenu({ Switch, setswitch, setrename, id, DelAction 
    return (
       <button
          id='popmenu'
-         className={`w-full top-[40%] absolute -right-[30%] shadow-2xl z-20 bg-[#2f2f2f] ${
+         className={`w-full top-[40%] absolute rounded-2xl -right-[30%] shadow-2xl z-20 bg-[#2f2f2f] ${
             Switch ? 'flex flex-col justify-end' : 'hidden'
          }`}
       >

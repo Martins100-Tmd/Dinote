@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { PageContext } from '../../state/pageContext';
 import PageListContainer from './pagelist';
+import { useStore } from '../../state/note';
 const NotePage = function () {
    let { setNewPage, setPageId } = useContext(PageContext);
+   let setstate = useStore((state: any) => state.setSlide);
 
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] p-2 justify-between h-full'>
@@ -12,7 +14,7 @@ const NotePage = function () {
          <section className='justify-end flex'>
             <div
                onClick={() => {
-                  setPageId(''), setNewPage(false), setTimeout(() => setNewPage(true), 100);
+                  setPageId(''), setNewPage(false), setTimeout(() => setNewPage(true), 100), setstate();
                }}
                id='newPAGE'
                className='flex flex-row items-center cursor-pointer bg-red'

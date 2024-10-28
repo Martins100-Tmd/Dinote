@@ -39,7 +39,7 @@ export function NoteHeadFn() {
                ref={buttonRef}
                tabIndex={0}
                onBlur={() => setsort(false)}
-               className={`min-w-[150px] min-h-[120px] -right-[150%] border-[0.1px] border-opacity-20 border-gray-100 rounded top-8 ${
+               className={`min-w-[150px] min-h-[120px] -left-[100%] sm:-right-[150%] border-[0.1px] border-opacity-20 border-gray-100 rounded top-8 ${
                   sort ? 'flex' : 'hidden'
                } flex-col items-start justify-start absolute bg-[#323232] z-50`}
             >

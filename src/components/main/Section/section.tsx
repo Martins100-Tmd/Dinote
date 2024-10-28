@@ -11,7 +11,7 @@ const NoteSection = ({ id }: { id: string }) => {
    let addSectMutation = useMutation({
       mutationFn: (data: any) => addSection(data),
       mutationKey: ['addSection'],
-      async onSuccess(data) {
+      async onSuccess() {
          await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
       },
       onError(err) {
@@ -20,7 +20,7 @@ const NoteSection = ({ id }: { id: string }) => {
    });
 
    return (
-      <section className='flex flex-col items-start w-full border-r border-[#222222] justify-between h-full p-2'>
+      <section className='flex flex-col items-start w-[70%] sm:w-full border-r border-[#222222] justify-between h-full p-2'>
          <section className='flex flex-col gap-2 items-start w-full'>
             <SectionContainer id={id} />
             <div className={`${state.createSection ? 'flex' : 'hidden'} flex-row items-center w-full p-2`}>

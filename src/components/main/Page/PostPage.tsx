@@ -30,7 +30,7 @@ export default function PostPage() {
       },
    });
    return (
-      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-10 gap-10'>
+      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:p-10 gap-10'>
          <section className='flex flex-col items-center gap-3'>
             <Input addMutation={addMutation} body={body} setbody={setbody} sectionId={sectionId} />
             <div className='flex items-center w-full justify-start'>
