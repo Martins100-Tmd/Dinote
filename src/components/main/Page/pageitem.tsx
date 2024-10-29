@@ -67,7 +67,7 @@ export default function PageItem({ item }: any) {
                      onClick={() => {
                         const body = document.body as HTMLBodyElement;
                         setNewPage(false), setPageId(item.id ?? '');
-                        body.clientWidth <= 640 ? setstate() : '';
+                        body.clientWidth <= 640 ? setstate() : {};
                      }}
                      className='outline-none border-none p-2 w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
                   >
