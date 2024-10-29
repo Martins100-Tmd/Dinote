@@ -65,7 +65,9 @@ export default function PageItem({ item }: any) {
                <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
                      onClick={() => {
-                        setNewPage(false), setPageId(item.id ?? ''), setstate();
+                        const body = document.body as HTMLBodyElement;
+                        setNewPage(false), setPageId(item.id ?? '');
+                        body.clientWidth <= 640 ? setstate() : '';
                      }}
                      className='outline-none border-none p-2 w-full text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
                   >
