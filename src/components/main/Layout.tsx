@@ -1,7 +1,5 @@
 import NoteSection from './Section/section';
 import NotePage from './Page/Page';
-import { useContext, useEffect, useState } from 'react';
-import createNoteState from '../state/context';
 import { NoteStore, NoteStoreState } from '../state/_note';
 
 const NoteLayout = function () {
