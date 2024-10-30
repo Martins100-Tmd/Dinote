@@ -10,11 +10,6 @@ export let Notedata = [
    {
       note: 'Martins Notebook',
       id: 'MART101',
-      section: [
-         {
-            title: 'Sleek Routine',
-            pages: ['Wake', 'Pray', 'Exercise', 'Take bathe'],
-         },
-      ],
+      section: [],
    },
 ];
