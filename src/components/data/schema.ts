@@ -15,10 +15,6 @@ export let Notedata = [
             title: 'Sleek Routine',
             pages: ['Wake', 'Pray', 'Exercise', 'Take bathe'],
          },
-         {
-            title: 'Section 2',
-            pages: ['Page I', 'Page II', 'Page III', 'Page IV'],
-         },
       ],
    },
 ];
