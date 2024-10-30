@@ -10,6 +10,5 @@ export let Notedata = [
    {
       note: 'Martins Notebook',
       id: 'MART101',
-      section: [],
    },
 ];
