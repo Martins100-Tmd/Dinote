@@ -21,14 +21,4 @@ export let Notedata = [
          },
       ],
    },
-   {
-      note: 'My Notebook',
-      id: 'My101',
-      section: [
-         {
-            title: 'Bob Marley',
-            pages: ['One drop', 'Lively Up', 'Redemption', 'Time will tell'],
-         },
-      ],
-   },
 ];
