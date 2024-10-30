@@ -1,1 +1,1 @@
-let schema = {};
+let schema = '';
