@@ -31,14 +31,4 @@ export let Notedata = [
          },
       ],
    },
-   {
-      note: 'Devas Life',
-      id: 'Dev101',
-      section: [
-         {
-            title: 'SWE',
-            pages: ['Frontend', 'Backend', 'Fullstack', 'Devops'],
-         },
-      ],
-   },
 ];
