@@ -15,7 +15,7 @@ export { default as NoteLayout } from './components/main/Layout';
 export { default as Icon } from './utils/icon';
 export { default as UtilFunc } from './utils/U1';
 
-// ========= Authentication ============
+// ========= Authentication =========
 export { default as Authentication } from './auth/auth';
 export { default as Login } from './auth/login';
 export { default as Signup } from './auth/signup';
