@@ -1,7 +1,7 @@
 //===== Navbar =======
 export { default as NavBar } from './components/nav/nav';
 
-// ===== Main ======
+// =============== Main ================
 export { default as Main } from './components/main/main';
 export { default as AddSection } from './components/main/Section/section';
 export { default as NoteSection } from './components/main/note/notesect';
