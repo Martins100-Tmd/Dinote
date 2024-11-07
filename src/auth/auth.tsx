@@ -11,19 +11,19 @@ const Authentication: React.FC = function () {
    }, [state]);
 
    return (
-      <section className='w-full h-screen bg-[#2c2c2c] flex justify-center'>
-         <section className='sm:w-[45%] h-full sm:h-[75%] p-5 mx-auto my-auto justify-between w-full flex flex-col bg-[#1f1f1f]'>
+      <section className='w-full h-screen bg-black flex justify-center'>
+         <section className='sm:w-[45%] h-full sm:h-[75%] rounded border border-[#2c2c2c] p-5 mx-auto my-auto justify-between w-full flex flex-col bg-[#191919]'>
             <div className='w-full flex justify-end'>
                <p
                   onClick={() => {
                      changeAuthText(), changeAuthComp();
                   }}
-                  className='font-raj text-end self-end text-xl underline font-bold text-white cursor-pointer'
+                  className='font-sand text-end self-end text-base underline font-bold text-white cursor-pointer'
                >
                   {state.auth.text}
                </p>
             </div>
-            <div className='h-[85%]'>{auth_components}</div>
+            <div className='h-auto'>{auth_components}</div>
          </section>
       </section>
    );

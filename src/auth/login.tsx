@@ -17,11 +17,11 @@ export default function Login() {
    return (
       <section className='w-full h-full flex flex-col items-start gap-10'>
          <div className='w-full flex justify-start'>
-            <p className='font-sand text-3xl font-semibold text-white underline-offset-2'>Log in</p>
+            <p className='font-sand text-3xl font-medium text-white underline-offset-2'>Log in</p>
          </div>
          <section className='flex flex-col items-center w-full gap-10'>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-sand font-semibold sm:text-lg text-sm text-slate-200'>
+               <label htmlFor='email' className='font-sand font-medium sm:text-base text-sm text-slate-200'>
                   Your Email
                </label>
                <input
@@ -29,12 +29,12 @@ export default function Login() {
                   onChange={handleChange}
                   required
                   type='email'
-                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-sand'
+                  className='p-2 text-white w-full text-xs border-b-2 outline-none bg-[#252525] border rounded border-[#2c2c2c] font-sand'
                   alt='email'
                />
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-sand font-semibold sm:text-lg text-sm text-slate-200'>
+               <label htmlFor='email' className='font-sand font-medium sm:text-base text-sm text-slate-200'>
                   Password
                </label>
                <input
@@ -42,7 +42,7 @@ export default function Login() {
                   onChange={handleChange}
                   required
                   type='password'
-                  className='px-1 py-1.5 text-slate-50 w-full border-b-2 outline-none bg-transparent border-[#555555] font-sand'
+                  className='p-2 text-white w-full text-xs border-b-2 outline-none bg-[#252525] border rounded border-[#2c2c2c] font-sand'
                   alt='password'
                />
             </div>
@@ -53,7 +53,7 @@ export default function Login() {
                         ? mutation.mutate(state.credentials)
                         : console.log('Make sure all field are filled');
                   }}
-                  className='rounded-2xl shadow p-4 w-full mx-auto font-sand font-semibold text-xl bg-[#555555]'
+                  className='rounded-lg shadow p-2.5 w-full text-white mx-auto font-sand font-semibold border border-[#2c2c2c] text-xl bg-[#202020]'
                >
                   Submit
                </button>
