@@ -7,6 +7,7 @@ export default {
             raj: ['Rajdhani'],
             redit: ['Reddit Sans'],
             sand: ['Quicksand'],
+            play: ['Play'],
          },
       },
    },
