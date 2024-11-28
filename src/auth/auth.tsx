@@ -13,8 +13,8 @@ const Authentication: React.FC = function () {
    return (
       <section className='w-full h-screen bg-black flex justify-center relative'>
          <img src={FormImg} className='sm:hidden flex object-cover w-full h-full absolute inset-0 z-0' alt='red' loading='lazy' />
-         <section className='sm:relative absolute inset-0 z-50 sm:w-3/4 h-full sm:h-[90%] rounded border border-[#2c2c2c] p-5 mx-auto my-auto justify-between w-full flex flex-row-reverse gap-3 bg-[#191919] sm:bg-opacity-100 bg-opacity-90'>
-            <div className='flex flex-col-reverse items-center w-full self-center'>
+         <section className='sm:relative absolute inset-0 z-50 sm:w-3/4 h-full sm:h-[90%] rounded border border-[#2c2c2c] p-5 mx-auto my-auto justify-between w-full flex flex-row-reverse gap-3 sm:bg-[#191919] bg-[#191919]/60'>
+            <div className='flex flex-col-reverse items-center w-full self-center sm:mt-auto -mt-20'>
                <div className='w-full flex justify-end'>
                   <p
                      onClick={() => {

@@ -1,6 +1,7 @@
 import useGlobalReducer from '../utils/hooks/reducer';
 import { useMutation } from '@tanstack/react-query';
 import { LoginFn } from '../utils/fetch';
+import { FormImg } from '..';
 
 export default function Login() {
    let { handleChange, state } = useGlobalReducer();
@@ -29,7 +30,7 @@ export default function Login() {
                   onChange={handleChange}
                   required
                   type='email'
-                  className='p-2 text-white w-full text-xs border-b-2 outline-none bg-[#252525] border rounded border-[#2c2c2c] font-play'
+                  className='p-3 text-white w-full text-xs border-b-2 outline-none sm:bg-[#0e0406] bg-[#0e0406]/60 border rounded border-[#2c2c2c] font-play'
                   alt='email'
                />
             </div>
@@ -42,7 +43,7 @@ export default function Login() {
                   onChange={handleChange}
                   required
                   type='password'
-                  className='p-2 text-white w-full text-xs border-b-2 outline-none bg-[#252525] border rounded border-[#2c2c2c] font-play'
+                  className='p-3 text-white w-full text-xs border-[#2c2c2c] border-b-2 outline-none sm:bg-[#0e0406] bg-[#0e0406]/60 rounded font-play'
                   alt='password'
                />
             </div>
@@ -53,9 +54,9 @@ export default function Login() {
                         ? mutation.mutate(state.credentials)
                         : console.log('Make sure all field are filled');
                   }}
-                  className='rounded-lg shadow p-2.5 w-full text-white mx-auto font-play font-medium border border-[#2c2c2c] text-xs sm:text-lg bg-[#1d1d1d]/20'
+                  className='rounded-lg shadow p-3.5 w-full text-white mx-auto border border-[#2c2c2c] sm:bg-[#302e2f] bg-[#25070d]/50'
                >
-                  Submit
+                  <p className='font-play font-medium text-xs sm:text-lg text-center self-center'>Submit</p>
                </button>
             </section>
          </section>
