@@ -49,7 +49,7 @@ export default function PutPage({ pageId }: { pageId: string }) {
 
    return (
       <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:px-10 sm:py-7 gap-5 sm:gap-8'>
-         <section className='flex flex-col items-center gap-2 sm:gap-3'>
+         <section className='flex flex-col items-center gap-2 sm:gap-3 w-full'>
             <Input updateMutation={updateMutation} body={body} setbody={setbody} />
             <div className='flex items-center w-full justify-start'>
                <p className='text-start text-[11px] sm:text-xs w-full font-sand text-slate-200'>{body.updatedAt}</p>
@@ -68,17 +68,19 @@ interface FormInt {
 
 function Input({ updateMutation, body, setbody }: FormInt) {
    return (
-      <input
-         onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
-         onChange={(e) => {
-            const target = e.target as HTMLInputElement;
-            setbody((bd: any) => ({ ...bd, title: target.value }));
-         }}
-         value={body.title}
-         type='text'
-         className='w-full outline-none border-b bg-transparent border-slate-200 text-slate-100 font-sand text-base sm:text-xl font-medium'
-         autoFocus={!!body.title}
-      />
+      <div className='flex flex-col items-start w-full gap-2'>
+         <input
+            onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
+            onChange={(e) => {
+               const target = e.target as HTMLInputElement;
+               setbody((bd: any) => ({ ...bd, title: target.value }));
+            }}
+            value={body.title}
+            className='w-3/5 outline-none bg-transparent text-slate-100 overflow-hidden font-play text-base sm:text-lg font-medium'
+            autoFocus={!!body.title}
+         />
+         <div className='h-[2px] bg-slate-200 w-3/5'></div>
+      </div>
    );
 }
 
@@ -91,7 +93,7 @@ function TextArea({ body, updateMutation, setbody }: FormInt) {
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}
          value={body.content}
-         className='text-white text-xs sm:text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none font-normal'
+         className='text-white text-xs sm:text-sm w-full h-full font-play text-start bg-transparent outline-none border-none font-normal'
       ></textarea>
    );
 }

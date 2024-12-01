@@ -69,9 +69,9 @@ export default function PageItem({ item }: any) {
                         setNewPage(false), setPageId(item.id ?? '');
                         body.clientWidth <= 640 ? setstate() : {};
                      }}
-                     className='truncate outline-none border-none p-2 w-[70%] text-[13px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center'
+                     className='truncate outline-none border-none p-2 w-[70%] text-[13px] cursor-pointer text-ellipsis font-play text-slate-100 font-medium self-center'
                   >
-                     {item.title}
+                     {item.title.substring(0, 30)}
                   </p>
                   <i
                      onClick={() => {

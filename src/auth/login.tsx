@@ -1,7 +1,6 @@
 import useGlobalReducer from '../utils/hooks/reducer';
 import { useMutation } from '@tanstack/react-query';
 import { LoginFn } from '../utils/fetch';
-import { FormImg } from '..';
 
 export default function Login() {
    let { handleChange, state } = useGlobalReducer();
@@ -14,6 +13,12 @@ export default function Login() {
       },
       onError: (err) => console.log(err),
    });
+
+   const btnAction = async () => {
+      state.credentials.email && state.credentials.password
+         ? mutation.mutate(state.credentials)
+         : console.log('Make sure all field are filled');
+   };
 
    return (
       <section className='w-full h-full flex flex-col items-start gap-10'>
@@ -49,11 +54,7 @@ export default function Login() {
             </div>
             <section className='sm:mb-[10%] mb-[5%] w-full flex justify-center'>
                <button
-                  onClick={async () => {
-                     state.credentials.email && state.credentials.password
-                        ? mutation.mutate(state.credentials)
-                        : console.log('Make sure all field are filled');
-                  }}
+                  onClick={btnAction}
                   className='rounded-lg shadow p-3.5 w-full text-white mx-auto border border-[#2c2c2c] sm:bg-[#302e2f] bg-[#25070d]/50'
                >
                   <p className='font-play font-medium text-xs sm:text-lg text-center self-center'>Submit</p>

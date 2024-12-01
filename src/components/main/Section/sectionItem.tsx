@@ -60,7 +60,9 @@ export default function SectionItem({ item }: any) {
                   </i>
                </>
             ) : (
-               <p className='font-sand text-slate-100 font-medium self-center text-sm'>{item.title}</p>
+               <p className='font-play text-slate-100 font-medium self-center text-sm text-ellipsis truncate w-full'>
+                  {item.title.substring(0, 30)}
+               </p>
             )}
          </>
          <PopUpMenu setswitch={setmenu} Switch={menu} DelAction={delSectMutation} id={item.id} setrename={setRenameAction} />
