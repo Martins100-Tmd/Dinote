@@ -14,7 +14,7 @@ const Note = function ({ width }: { width: boolean }) {
          id='notes'
          className={`${
             width ? 'left-0 sm:w-1/2 w-full sm:z-0 z-50' : '-left-full w-[0%]'
-         } flex flex-col items-center justify-between border-r absolute sm:relative duration-200 ease-linear bg-[#333333] border-x border-[#252525] h-full`}
+         } flex flex-col items-center justify-between border-r absolute sm:relative bg-[#333333] border-x border-[#252525] h-full`}
       >
          <NoteHeadFn />
          <section className='flex flex-col items-center w-full relative h-[98%]'>

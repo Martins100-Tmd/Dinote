@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import { PageContext } from '../../state/pageContext';
@@ -30,7 +30,7 @@ export default function PostPage() {
       },
    });
    return (
-      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:p-10 gap-10'>
+      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:p-10 gap-10 sm:-ml-2'>
          <section className='flex flex-col items-center gap-3'>
             <Input addMutation={addMutation} body={body} setbody={setbody} sectionId={sectionId} />
             <div className='flex items-center w-full justify-start'>
@@ -51,21 +51,27 @@ interface FormInt {
 
 function Input({ addMutation, body, setbody, sectionId }: FormInt) {
    let { setNewPage } = useContext(PageContext);
+   let [len, setlen] = useState('100px');
+
    return (
-      <input
-         onBlur={() => {
-            setNewPage(false);
-            body.title && sectionId ? addMutation.mutate(body) : '';
-         }}
-         onChange={(e) => {
-            const target = e.target as HTMLInputElement;
-            setbody((bd: any) => ({ ...bd, title: target.value }));
-         }}
-         value={body.title}
-         type='text'
-         className='w-full outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium'
-         autoFocus
-      />
+      <>
+         <input
+            onBlur={() => {
+               setNewPage(false);
+               body.title && sectionId ? addMutation.mutate(body) : '';
+            }}
+            onChange={(e) => {
+               const target = e.target as HTMLInputElement;
+               setlen(target.value.length * 4 + '%');
+               setbody((bd: any) => ({ ...bd, title: target.value }));
+            }}
+            value={body.title}
+            type='text'
+            style={{ width: len }}
+            className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium`}
+            autoFocus
+         />
+      </>
    );
 }
 

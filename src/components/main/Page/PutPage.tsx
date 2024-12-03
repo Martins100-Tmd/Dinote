@@ -48,8 +48,8 @@ export default function PutPage({ pageId }: { pageId: string }) {
    });
 
    return (
-      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:px-10 sm:py-7 gap-5 sm:gap-8'>
-         <section className='flex flex-col items-center gap-2 sm:gap-3 w-full'>
+      <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:px-10 sm:py-7 gap-5 sm:gap-8 sm:-ml-2'>
+         <section className='flex flex-col items-center gap-2 sm:gap-3 w-full overflow-hidden'>
             <Input updateMutation={updateMutation} body={body} setbody={setbody} />
             <div className='flex items-center w-full justify-start'>
                <p className='text-start text-[11px] sm:text-xs w-full font-sand text-slate-200'>{body.updatedAt}</p>
@@ -67,20 +67,25 @@ interface FormInt {
 }
 
 function Input({ updateMutation, body, setbody }: FormInt) {
+   let [len, setlen] = useState('100px');
+   let PERCENTILE = isSmallScreen ? 2.5 : 1.7;
+   useEffect(() => {
+      setlen(body.title.length * PERCENTILE + '%');
+   }, [body]);
    return (
-      <div className='flex flex-col items-start w-full gap-2'>
-         <input
-            onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
-            onChange={(e) => {
-               const target = e.target as HTMLInputElement;
-               setbody((bd: any) => ({ ...bd, title: target.value }));
-            }}
-            value={body.title}
-            className='w-3/5 outline-none bg-transparent text-slate-100 overflow-hidden font-play text-base sm:text-lg font-medium'
-            autoFocus={!!body.title}
-         />
-         <div className='h-[2px] bg-slate-200 w-3/5'></div>
-      </div>
+      <input
+         onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
+         onChange={(e) => {
+            const target = e.target as HTMLInputElement;
+            setlen(target.value.length * PERCENTILE + '%');
+            console.log(len);
+            setbody((bd: any) => ({ ...bd, title: target.value }));
+         }}
+         value={body.title}
+         style={{ width: len }}
+         className='self-start text-start outline-none bg-transparent text-wrap overflow-scroll text-slate-100 border-b border-slate-200 font-play text-base sm:text-lg font-medium'
+         autoFocus={!!body.title}
+      />
    );
 }
 
@@ -96,4 +101,9 @@ function TextArea({ body, updateMutation, setbody }: FormInt) {
          className='text-white text-xs sm:text-sm w-full h-full font-play text-start bg-transparent outline-none border-none font-normal'
       ></textarea>
    );
+}
+
+function isSmallScreen() {
+   const width = document.body.clientWidth;
+   return width > 640 ? false : true;
 }
