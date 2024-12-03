@@ -51,7 +51,7 @@ export default function PutPage({ pageId }: { pageId: string }) {
       <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:px-10 sm:py-7 gap-5 sm:gap-8 sm:-ml-2'>
          <section className='flex flex-col items-center gap-2 sm:gap-3 w-full overflow-hidden'>
             <Input updateMutation={updateMutation} body={body} setbody={setbody} />
-            <div className='flex items-center w-full justify-start'>
+            <div className='flex items-center w-full justify-start py-3'>
                <p className='text-start text-[11px] sm:text-xs w-full font-sand text-slate-200'>{body.updatedAt}</p>
             </div>
          </section>
@@ -68,7 +68,7 @@ interface FormInt {
 
 function Input({ updateMutation, body, setbody }: FormInt) {
    let [len, setlen] = useState('100px');
-   let PERCENTILE = isSmallScreen() ? 2.55 : 1.7;
+   let PERCENTILE = isSmallScreen() ? 2.3 : 1.6;
    useEffect(() => {
       setlen(body.title.length * PERCENTILE + '%');
    }, [body]);
@@ -83,7 +83,7 @@ function Input({ updateMutation, body, setbody }: FormInt) {
          }}
          value={body.title}
          style={{ width: len }}
-         className='self-start text-start outline-none bg-transparent text-wrap overflow-scroll text-slate-100 border-b border-slate-200 font-play text-base sm:text-lg font-medium'
+         className='self-start text-start outline-none bg-transparent text-wrap overflow-x-scroll text-slate-100 border-b border-slate-200 font-play text-base sm:text-lg font-medium'
          autoFocus={!!body.title}
       />
    );

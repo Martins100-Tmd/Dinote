@@ -16,9 +16,9 @@ const NoteNavComponent = function () {
             <div className='h-1.5 w-1.5 animate-ping duration-500 bg-white'></div>
             <div className='h-1.5 w-1.5 animate-ping duration-700 bg-gray-400'></div>
          </section>
-         <section className='flex flex-row items-center justify-between gap-5'>
-            <p className='font-sand font-thin text-sm sm:text-lg text-slate-50'>{username}</p>
-            <span className='h-[12px] sm:h-[15px] w-[2px] bg-opacity-45 bg-slate-50'></span>
+         <section className='flex flex-row items-center justify-between gap-5 mx-4'>
+            <p className='font-play font-thin text-sm sm:text-lg text-white/90'>{username}</p>
+            <span className='h-[12px] sm:h-[15px] w-[2px] bg-opacity-45 bg-rose-100'></span>
             <ProfileImage firstLetter={username ? username[0] : 'XX'} />
          </section>
       </nav>
