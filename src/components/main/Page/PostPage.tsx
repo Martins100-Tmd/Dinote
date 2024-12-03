@@ -1,6 +1,6 @@
 import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import { PageContext } from '../../state/pageContext';
