@@ -52,7 +52,7 @@ interface FormInt {
 function Input({ addMutation, body, setbody, sectionId }: FormInt) {
    let { setNewPage } = useContext(PageContext);
    let [len, setlen] = useState('100px');
-   let PERCENTILE = isSmallScreen() ? 4 : 2;
+   let PERCENTILE = isSmallScreen() ? 5 : 4;
 
    return (
       <>
