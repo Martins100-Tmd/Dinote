@@ -11,7 +11,7 @@ const NotePage = function () {
          <section className='flex flex-col gap-2 items-start w-full'>
             <PageListContainer />
          </section>
-         <section className='justify-end flex'>
+         <section className='justify-end flex sticky bottom-0'>
             <div
                onClick={() => {
                   setPageId(''), setNewPage(false), setTimeout(() => setNewPage(true), 100), setstate();
@@ -19,10 +19,22 @@ const NotePage = function () {
                id='newPAGE'
                className='flex flex-row items-center cursor-pointer bg-red'
             >
-               <i id='newPAGE' className='material-icons text-2xl text-emerald-200  font-thin'>
-                  add
-               </i>
-               <p id='newPAGE' className='text-sm text-left font-sand text-emerald-100 font-medium'>
+               <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  className='lucide lucide-plus text-indigo-300 self-center'
+               >
+                  <path d='M5 12h14' />
+                  <path d='M12 5v14' />
+               </svg>
+               <p id='newPAGE' className='text-sm text-left font-play text-indigo-200 font-medium'>
                   Add Page
                </p>
             </div>

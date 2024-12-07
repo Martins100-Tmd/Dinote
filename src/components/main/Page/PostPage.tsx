@@ -52,6 +52,7 @@ interface FormInt {
 function Input({ addMutation, body, setbody, sectionId }: FormInt) {
    let { setNewPage } = useContext(PageContext);
    let [len, setlen] = useState('100px');
+   let PERCENTILE = isSmallScreen() ? 4 : 2;
 
    return (
       <>
@@ -62,7 +63,7 @@ function Input({ addMutation, body, setbody, sectionId }: FormInt) {
             }}
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
-               setlen(target.value.length * 4 + '%');
+               setlen(target.value.length * PERCENTILE + '%');
                setbody((bd: any) => ({ ...bd, title: target.value }));
             }}
             value={body.title}
@@ -89,4 +90,9 @@ function TextArea({ body, addMutation, setbody, sectionId }: FormInt) {
          className='text-slate-100 text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none'
       ></textarea>
    );
+}
+
+function isSmallScreen() {
+   const width = document.body.clientWidth;
+   return width > 640 ? false : true;
 }
