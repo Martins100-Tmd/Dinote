@@ -68,8 +68,6 @@ interface FormInt {
 
 function Input({ updateMutation, body, setbody }: FormInt) {
    let [len, setlen] = useState('100px');
-   let PERCENTILE = isSmallScreen() ? 4 : 3;
-
    useEffect(() => {
       setlen(body.title.length * 9 + 'px');
    }, [body]);
