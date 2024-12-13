@@ -68,17 +68,18 @@ interface FormInt {
 
 function Input({ updateMutation, body, setbody }: FormInt) {
    let [len, setlen] = useState('100px');
-   let PERCENTILE = isSmallScreen() ? 5 : 4;
+   let PERCENTILE = isSmallScreen() ? 4 : 3;
+
    useEffect(() => {
-      setlen(body.title.length * PERCENTILE + '%');
+      setlen(body.title.length * 9 + 'px');
    }, [body]);
+
    return (
       <input
          onBlur={() => (body.title ? updateMutation.mutate(body) : '')}
          onChange={(e) => {
             const target = e.target as HTMLInputElement;
-            setlen(target.value.length * PERCENTILE + '%');
-            console.log(len);
+            setlen(target.value.length * 10 + 'px');
             setbody((bd: any) => ({ ...bd, title: target.value }));
          }}
          value={body.title}

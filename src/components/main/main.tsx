@@ -27,7 +27,7 @@ const NoteMainComponent = function () {
                      strokeWidth='2'
                      strokeLinecap='round'
                      strokeLinejoin='round'
-                     className='lucide lucide-library text-slate-50'
+                     className='lucide lucide-library text-slate-50 cursor-pointer'
                   >
                      <path d='m16 6 4 14' />
                      <path d='M12 6v14' />
@@ -46,7 +46,7 @@ const NoteMainComponent = function () {
                      strokeWidth='2'
                      strokeLinecap='round'
                      strokeLinejoin='round'
-                     className='lucide lucide-search text-slate-50'
+                     className='lucide lucide-search text-slate-50 cursor-pointer'
                   >
                      <circle cx='11' cy='11' r='8' />
                      <path d='m21 21-4.3-4.3' />
@@ -63,7 +63,7 @@ const NoteMainComponent = function () {
                      strokeWidth='2'
                      strokeLinecap='round'
                      strokeLinejoin='round'
-                     className='lucide lucide-history text-slate-50'
+                     className='lucide lucide-history text-slate-50 cursor-pointer'
                   >
                      <path d='M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8' />
                      <path d='M3 3v5h5' />

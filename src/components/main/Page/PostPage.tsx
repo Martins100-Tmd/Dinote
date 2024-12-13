@@ -63,7 +63,7 @@ function Input({ addMutation, body, setbody, sectionId }: FormInt) {
             }}
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
-               setlen(target.value.length * PERCENTILE + '%');
+               setlen(target.value.length * 10 + 'px');
                setbody((bd: any) => ({ ...bd, title: target.value }));
             }}
             value={body.title}
