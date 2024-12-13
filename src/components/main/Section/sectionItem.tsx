@@ -10,7 +10,7 @@ export default function SectionItem({ item }: any) {
    let [menu, setmenu] = useState(false);
    let [sectionRenameText, setSectionRenameText] = useState(item.title);
    let [renameAction, setRenameAction] = useState(false);
-   let setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
+   let [sectionId, setSectionId] = sectionIdStore((state: sectionId) => [state.sectionId, state.setSectionId]);
 
    const delSectMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
@@ -52,15 +52,19 @@ export default function SectionItem({ item }: any) {
                      onKeyDown={(e) => {
                         e.key == 'Enter' && PutMutation.mutate(sectionRenameText);
                      }}
-                     className='w-full font-sand text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
-                     autoFocus
+                     className='w-full font-play text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]/30 rounded-md'
+                     autoFocus={true}
                   />
                   <i onClick={() => setRenameAction(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
                      close
                   </i>
                </>
             ) : (
-               <p className='font-play text-slate-100 font-medium self-center text-sm text-ellipsis truncate w-full'>
+               <p
+                  className={`font-play ${
+                     sectionId == item.id ? 'text-rose-200 font-semibold' : ''
+                  } text-slate-100 font-medium self-center text-sm text-ellipsis truncate w-full`}
+               >
                   {item.title.substring(0, 30)}
                </p>
             )}

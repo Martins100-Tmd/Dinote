@@ -14,7 +14,7 @@ export default function PageItem({ item }: any) {
 
    const queryClient = useQueryClient();
    const { setNewPage } = useContext(PageContext);
-   let [setSignal, setPageId] = PageCurrentId((s: PageIdState) => [s.setSignal, s.setPageId]);
+   let [setSignal, setPageId, pageId] = PageCurrentId((s: PageIdState) => [s.setSignal, s.setPageId, s.pageId]);
    let setstate = useStore((state: any) => state.setSlide);
 
    const DelMutation = useMutation({
@@ -69,20 +69,35 @@ export default function PageItem({ item }: any) {
                         setNewPage(false), setPageId(item.id ?? '');
                         body.clientWidth <= 640 ? setstate() : {};
                      }}
-                     className='truncate outline-none border-none p-2 w-[70%] text-[13px] cursor-pointer text-ellipsis font-play text-slate-100 font-medium self-center'
+                     className={`${
+                        item.id == pageId ? 'text-rose-100' : ''
+                     } truncate outline-none border-none p-2 w-[70%] text-[13px] cursor-pointer text-ellipsis font-play text-slate-100 font-medium self-center`}
                   >
                      {item.title.substring(0, 30)}
                   </p>
-                  <i
+                  <svg
+                     xmlns='http://www.w3.org/2000/svg'
+                     width='20'
+                     height='20'
+                     viewBox='0 0 24 24'
+                     fill='none'
+                     stroke='currentColor'
+                     strokeWidth='2'
+                     strokeLinecap='round'
+                     strokeLinejoin='round'
+                     className={`lucide lucide-ellipsis cursor-pointer self-center text-slate-50 text-end ${
+                        pageId == item.id ? 'text-rose-100' : ''
+                     }`}
                      onClick={() => {
                         setPageMenu(true);
                         const button = document.getElementById('popmenu') as HTMLButtonElement;
                         button.focus();
                      }}
-                     className='material-icons text-lg py-2 cursor-pointer self-center text-slate-100 text-end'
                   >
-                     more_horiz
-                  </i>
+                     <circle cx='12' cy='12' r='1' />
+                     <circle cx='19' cy='12' r='1' />
+                     <circle cx='5' cy='12' r='1' />
+                  </svg>
                </div>
             )}
          </>
