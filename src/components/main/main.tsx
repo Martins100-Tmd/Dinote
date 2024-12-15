@@ -16,7 +16,7 @@ const NoteMainComponent = function () {
          <img src={FormImg} className='object-cover w-full h-screen absolute inset-0 z-0' />
          <div className='absolute flex flex-row inset-0 w-full h-full z-30'>
             <section className={`flex flex-col items-center p-2.5 sm:p-5 bg-[#424242] shadow h-full`}>
-               <div className='flex justify-center mb-7' onClick={() => setstate()}>
+               <div className='flex justify-center mb-7 relative group' onClick={() => setstate()}>
                   <svg
                      xmlns='http://www.w3.org/2000/svg'
                      width='20'
@@ -34,8 +34,16 @@ const NoteMainComponent = function () {
                      <path d='M8 8v12' />
                      <path d='M4 4v16' />
                   </svg>
+                  <div
+                     className='absolute top-full left-1/2 transform
+                       -translate-x-1/4 mt-2 w-max px-2 py-0.5 z-40 font-play
+                       text-xs bg-[#fff] rounded
+                       shadow-lg opacity-0 group-hover:opacity-100'
+                  >
+                     Catalogue
+                  </div>
                </div>
-               <div className='flex justify-center mb-7'>
+               <div className='flex justify-center mb-7 relative group'>
                   <svg
                      xmlns='http://www.w3.org/2000/svg'
                      width='20'
@@ -51,8 +59,16 @@ const NoteMainComponent = function () {
                      <circle cx='11' cy='11' r='8' />
                      <path d='m21 21-4.3-4.3' />
                   </svg>
+                  <div
+                     className='absolute top-full left-1/2 transform
+                       -translate-x-1/4 mt-2 w-max px-2 py-0.5 z-40 font-play
+                       text-xs bg-[#fff] rounded
+                       shadow-lg opacity-0 group-hover:opacity-100'
+                  >
+                     Search
+                  </div>
                </div>
-               <div className='flex justify-center'>
+               <div className='flex flex-col justify-center group items-center relative'>
                   <svg
                      xmlns='http://www.w3.org/2000/svg'
                      width='20'
@@ -68,7 +84,15 @@ const NoteMainComponent = function () {
                      <path d='M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8' />
                      <path d='M3 3v5h5' />
                      <path d='M12 7v5l4 2' />
-                  </svg>{' '}
+                  </svg>
+                  <div
+                     className='absolute top-full left-1/2 transform
+                       -translate-x-1/4 mt-2 w-max px-2 py-0.5 z-40 font-play
+                       text-xs bg-[#fff] rounded
+                       shadow-lg opacity-0 group-hover:opacity-100'
+                  >
+                     Recent
+                  </div>
                </div>
             </section>
             <Note width={state} />

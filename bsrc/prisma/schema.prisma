@@ -14,43 +14,49 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  email     String    @unique
+  id        String   @id @default(uuid())
+  email     String   @unique
   password  String
   username  String
-  notes     Note[]    @relation("UserNotes")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  notes     Note[]   @relation("UserNotes")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Note {
-  id    String    @id @default(uuid())
+  id        String    @id @default(uuid())
   title     String
   color     String
   userId    String
-  user      User      @relation("UserNotes", fields: [userId], references: [id],onDelete: Cascade)
+  user      User      @relation("UserNotes", fields: [userId], references: [id], onDelete: Cascade)
   sections  Section[] @relation("NoteSections")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model Section {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   title     String
   color     String
   noteId    String
-  note      Note      @relation("NoteSections", fields: [noteId], references: [id],onDelete: Cascade)
-  pages     Page[]    @relation("SectionPages")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  note      Note     @relation("NoteSections", fields: [noteId], references: [id], onDelete: Cascade)
+  pages     Page[]   @relation("SectionPages")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Page {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   title     String
   content   String
   sectionId String
-  section   Section   @relation("SectionPages", fields: [sectionId], references: [id],onDelete: Cascade)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  section   Section  @relation("SectionPages", fields: [sectionId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recent {
+  id        String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
