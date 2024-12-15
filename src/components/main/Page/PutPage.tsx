@@ -101,8 +101,3 @@ function TextArea({ body, updateMutation, setbody }: FormInt) {
       ></textarea>
    );
 }
-
-function isSmallScreen() {
-   const width = document.body.clientWidth;
-   return width > 640 ? false : true;
-}
