@@ -2,15 +2,18 @@ import { useStore } from '../state/note';
 import { PageContext } from '../state/pageContext';
 import PageInterface from './Page/pageInterface';
 import Note from './note/notesect';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { FormImg } from '../..';
 
 const NoteMainComponent = function () {
-   let [state, setstate] = useStore((state: any) => [state.slide, state.setSlide]);
+   let [state, setstate, search, setsearch] = useStore((state: any) => [state.slide, state.setSlide, state.search, state.setSearch]);
    let {
       notePageState: { newPage },
    } = useContext(PageContext);
 
+   useEffect(() => {
+      console.log(search);
+   }, [search]);
    return (
       <section className='flex flex-row items-center w-full h-screen min-h-full relative bg-[#333333]'>
          <img src={FormImg} className='object-cover w-full h-screen absolute inset-0 z-0' />
@@ -43,7 +46,7 @@ const NoteMainComponent = function () {
                      Catalogue
                   </div>
                </div>
-               <div className='flex justify-center mb-7 relative group'>
+               <div onClick={setsearch} className='flex justify-center mb-7 relative group'>
                   <svg
                      xmlns='http://www.w3.org/2000/svg'
                      width='20'
