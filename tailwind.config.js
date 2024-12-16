@@ -8,6 +8,7 @@ export default {
             redit: ['Reddit Sans'],
             sand: ['Quicksand'],
             play: ['Play'],
+            inter: ['Inter'],
          },
       },
    },

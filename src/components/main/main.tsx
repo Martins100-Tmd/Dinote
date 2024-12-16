@@ -2,9 +2,8 @@ import { useStore } from '../state/note';
 import { PageContext } from '../state/pageContext';
 import PageInterface from './Page/pageInterface';
 import Note from './note/notesect';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { FormImg } from '../..';
-import PageListContainer from './Page/pagelist';
 
 const NoteMainComponent = function () {
    let [state, setstate, setsearch] = useStore((state: any) => [state.slide, state.setSlide, state.setSearch]);

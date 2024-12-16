@@ -47,12 +47,12 @@ export default function SectionItem({ item }: any) {
                      }}
                      onBlur={() => {
                         setRenameAction(false);
-                        PutMutation.mutate(sectionRenameText);
+                        sectionRenameText.length > 0 ? PutMutation.mutate(sectionRenameText) : setRenameAction(false);
                      }}
                      onKeyDown={(e) => {
                         e.key == 'Enter' && PutMutation.mutate(sectionRenameText);
                      }}
-                     className='w-full font-play text-sm text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]/30 rounded-md'
+                     className='w-full font-play text-sm text-white bg-transparent h-full outline-none border p-1 border-[#a9a9a9]/30 rounded-md'
                      autoFocus={true}
                   />
                   <i onClick={() => setRenameAction(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
