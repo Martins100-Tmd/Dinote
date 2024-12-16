@@ -11,12 +11,12 @@ const NoteNavComponent = function () {
          <section className='flex flex-row items-center gap-10 cursor-pointer' onClick={() => {}}>
             <i className='text-lg sm:text-2xl text-start self-start text-[#fcfcfc] material-icons'>power_settings_new</i>
          </section>
-         <section className='flex flex-row items-center gap-5'>
+         <section className='flex flex-row items-center gap-3'>
             <div className='w-[2rem] h-[2rem] rounded-full shadow bg-stone-400/70 flex justify-center'>
                <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
+                  width='20'
+                  height='20'
                   viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
