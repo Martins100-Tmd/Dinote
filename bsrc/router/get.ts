@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import { getAllUsers, getNoteSections, getPage, getSectionPages, getUserWithNote, routeAuth } from '../controller/get';
+import { getAllUsers, getNoteSections, getPage, getSearchPages, getSectionPages, getUserWithNote, routeAuth } from '../controller/get';
 import userAuthMiddleWare from '../middleware/userId';
 
 export const getRouter = express.Router();
@@ -16,3 +16,4 @@ getRouter.get('/auth', userAuthMiddleWare, routeAuth);
 getRouter.get('/section/:id', userAuthMiddleWare, getNoteSections);
 getRouter.get('/page/:id', userAuthMiddleWare, getSectionPages);
 getRouter.get('/getpage/:id', userAuthMiddleWare, getPage);
+getRouter.get('/searchpages', userAuthMiddleWare, getSearchPages);

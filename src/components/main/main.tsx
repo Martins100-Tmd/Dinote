@@ -2,8 +2,11 @@ import { useStore } from '../state/note';
 import { PageContext } from '../state/pageContext';
 import PageInterface from './Page/pageInterface';
 import Note from './note/notesect';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FormImg } from '../..';
+import { useQuery } from '@tanstack/react-query';
+import { SearchPagesQuery } from '../../utils/fetch';
+import { PageCurrentId, PageIdState } from '../state/page';
 
 const NoteMainComponent = function () {
    let [state, setstate, setsearch] = useStore((state: any) => [state.slide, state.setSlide, state.setSearch]);
@@ -11,6 +14,26 @@ const NoteMainComponent = function () {
       notePageState: { newPage },
    } = useContext(PageContext);
    const search = useStore((s) => s.search);
+   let [inpText, setInpText] = useState('');
+   let [Data, setData] = useState([]);
+   let [searchData, setSearchData] = useState([]);
+
+   const allPageQuery = useQuery({
+      queryKey: ['searchPages', 'QueryPages'],
+      queryFn: () => SearchPagesQuery(),
+      enabled: false,
+   });
+
+   useEffect(() => {
+      let data: any = Data.filter((item: any) => {
+         return item.title.includes(inpText) || item.content.includes(inpText);
+      }).map((item: any) => {
+         return { title: item.title, text: item.content, id: item.id };
+      });
+      setSearchData(data);
+   }, [inpText]);
+
+   let setPageId = PageCurrentId((s: PageIdState) => s.setPageId);
    return (
       <>
          <section
@@ -37,9 +60,14 @@ const NoteMainComponent = function () {
                         <path d='m21 21-4.3-4.3' />
                      </svg>
                      <input
+                        onClick={() => {
+                           allPageQuery.refetch();
+                           setData(allPageQuery.data.data);
+                        }}
+                        onChange={(e) => setInpText(e.target.value)}
                         type='text'
                         placeholder='Search Page'
-                        className='bg-transparent p-2 outline-none border-none font-play sm:text-sm text-xs font-semibold text-stone-300/80 w-full'
+                        className='bg-transparent p-2 outline-none border-none font-play sm:text-sm text-xs font-medium text-stone-300/80 w-full'
                      />
                   </div>
                   <div
@@ -48,6 +76,26 @@ const NoteMainComponent = function () {
                   >
                      <p className='font-play text-[10px] text-center self-center font-semibold text-[#fff]/80'>ESC</p>
                   </div>
+               </div>
+               <div className='flex flex-col items-start w-full gap-3 max-h-full overflow-y-scroll'>
+                  {inpText.length > 0 &&
+                     searchData.map((item: any) => {
+                        return (
+                           <div
+                              onClick={() => {
+                                 setPageId(item.id ?? '');
+                                 setsearch();
+                              }}
+                              className='w-full flex flex-col items-start gap-1 hover:bg-[#2b2b2b] p-2'
+                              key={item.id}
+                           >
+                              <p className='font-semibold text-start font-play text-white/80 w-full text-xs'>{item.title}</p>
+                              <p className='font-medium text-start font-play text-white/60 w-full text-xs'>
+                                 {item.text.substring(0, 100)}...
+                              </p>
+                           </div>
+                        );
+                     })}
                </div>
             </div>
          </section>

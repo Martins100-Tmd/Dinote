@@ -103,3 +103,19 @@ export const getPage = async function (req: Request, res: Response) {
       } else res.status(404).json({ success: false, msg: 'User not found' });
    }
 };
+
+export const getSearchPages = async function (req: Request, res: Response) {
+   let userId = req.body.userId;
+
+   if (userId) {
+      const userExist = await prisma.user.findUnique({ where: { id: userId } });
+      if (userExist) {
+         const allPages = await prisma.page.findMany();
+         allPages && res.status(200).json({ data: allPages });
+      } else {
+         res.status(404).json({ msg: "User doesn't exist" });
+      }
+   } else {
+      res.status(403).json({ msg: 'Error authenticating user' });
+   }
+};

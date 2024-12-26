@@ -52,3 +52,20 @@ export async function addNoteFn(data: { title: string }) {
       throw error;
    }
 }
+
+export async function SearchPagesQuery() {
+   try {
+      const A = await fetch(`${backendAPI}/get/searchpages`, {
+         headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + token,
+         },
+         method: 'GET',
+      });
+      if (!A.ok) throw new Error(`Error: ${A.status} ${A.statusText}`);
+      return await A.json();
+   } catch (error) {
+      throw error;
+   }
+}
