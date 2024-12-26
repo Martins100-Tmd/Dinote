@@ -11,12 +11,12 @@ const NoteNavComponent = function () {
          <section className='flex flex-row items-center gap-10 cursor-pointer' onClick={() => {}}>
             <i className='text-lg sm:text-2xl text-start self-start text-[#fcfcfc] material-icons'>power_settings_new</i>
          </section>
-         <section className='flex flex-row items-center gap-3'>
-            <div className='w-[2rem] h-[2rem] rounded-full shadow bg-stone-400/70 flex justify-center'>
+         <section className='flex flex-row items-center gap-1'>
+            <div className='w-[1.4rem] h-[1.4rem] sm:w-[1.6rem] sm:h-[1.6rem] rounded-full shadow bg-stone-100/50 flex justify-center'>
                <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  width='20'
-                  height='20'
+                  width='16'
+                  height='16'
                   viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
@@ -30,7 +30,6 @@ const NoteNavComponent = function () {
                </svg>
             </div>
             <section className='flex flex-row-reverse items-center justify-between gap-1.5 mx-4'>
-               <p className='font-play font-thin text-xs sm:text-sm text-white/90'>{username}</p>
                <ProfileImage firstLetter={username ? username[0] : '--'} />
             </section>
          </section>

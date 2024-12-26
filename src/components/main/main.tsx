@@ -18,7 +18,7 @@ const NoteMainComponent = function () {
                search ? 'flex' : 'hidden'
             } fixed inset-0 z-50 w-full min-h-screen bg-[#000]/60 backdrop-blur-[1.5px] flex justify-center`}
          >
-            <div className='rounded-lg shadow-lg bg-[#242424] p-3 sm:w-3/5 w-[90%] h-[80%] m-auto'>
+            <div className='rounded-lg shadow-lg bg-[#242424] p-3 sm:w-3/5 w-[90%] h-[65%] sm:h-[80%] m-auto'>
                <div className='w-full flex flex-row items-center justify-between py-3 border-b border-stone-950'>
                   <div className='flex flex-row items-center gap-3 w-[85%]'>
                      <svg
@@ -31,7 +31,7 @@ const NoteMainComponent = function () {
                         strokeWidth='2'
                         strokeLinecap='round'
                         strokeLinejoin='round'
-                        className='lucide lucide-search'
+                        className='lucide lucide-search text-stone-300/80 self-center'
                      >
                         <circle cx='11' cy='11' r='8' />
                         <path d='m21 21-4.3-4.3' />
@@ -39,14 +39,14 @@ const NoteMainComponent = function () {
                      <input
                         type='text'
                         placeholder='Search Page'
-                        className='bg-transparent p-2 outline-none border-none font-play font-medium text-white w-full'
+                        className='bg-transparent p-2 outline-none border-none font-play sm:text-sm text-xs font-semibold text-stone-300/80 w-full'
                      />
                   </div>
                   <div
                      onClick={setsearch}
-                     className='w-[2.5rem] cursor-pointer h-[1.5rem] rounded-lg flex justify-center bg-transparent/70 shadow-lg'
+                     className='w-[2.5rem] cursor-pointer h-[1.3rem] self-center rounded-lg flex justify-center bg-transparent/70 shadow-lg'
                   >
-                     <p className='font-play text-xs text-center self-center font-semibold text-[#fff]/80'>ESC</p>
+                     <p className='font-play text-[10px] text-center self-center font-semibold text-[#fff]/80'>ESC</p>
                   </div>
                </div>
             </div>
