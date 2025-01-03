@@ -15,14 +15,12 @@ export default function SignUp() {
       onSuccess: (data) => {
          setvalue(data.token ?? 'empty');
          setComponent(), setText();
-         console.log(state);
       },
-      onError: (err) => console.log(err),
+      onError: (err) => new Error(err.message),
    });
 
    const mutateFn = () => {
       let { name, email, password } = state.credentials;
-      console.log(name, email, password);
       name && email && password
          ? mutation.mutate({
               email,

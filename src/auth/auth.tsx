@@ -1,18 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { FormImg, Login, Signup } from '..';
-import useGlobalReducer from '../utils/hooks/reducer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AuthComponentSwitch } from '../utils/store';
 
 const Authentication: React.FC = function () {
-   let { state } = useGlobalReducer();
    let [setComponent, component, setText, text] = AuthComponentSwitch((s) => [s.setComponent, s.component, s.setText, s.text]);
    let auth_components = [<Login />, <Signup />][component];
    let [show, setshow] = useState(true);
-
-   useEffect(() => {
-      console.log(state.credentials);
-   }, [state]);
 
    const { isSuccess, isLoading, isError } = useQuery({
       queryKey: ['spawn-server'],

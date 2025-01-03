@@ -26,7 +26,7 @@ export default function PostPage() {
          setTimeout(async () => await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] }), 10);
       },
       onError: async (error) => {
-         console.log(error);
+         throw new Error(error.message);
       },
    });
    return (
