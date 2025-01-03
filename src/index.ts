@@ -13,7 +13,6 @@ export { default as NoteLayout } from './components/main/Layout';
 
 // ========== Utils ===========
 export { default as Icon } from './utils/icon';
-export { default as UtilFunc } from './utils/U1';
 
 // ========= Authentication =============
 export { default as Authentication } from './auth/auth';
