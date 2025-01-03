@@ -2,15 +2,21 @@ import useGlobalReducer from '../utils/hooks/reducer';
 import { useMutation } from '@tanstack/react-query';
 import useLocalStorage from '../utils/hooks/localstorage';
 import { SignFn } from '../utils/fetch';
+import { AuthComponentSwitch } from '../utils/store';
 
 export default function SignUp() {
    let { handleChange, state } = useGlobalReducer();
    let [_, setvalue] = useLocalStorage(':tk:', 'empty');
+   let [setComponent, setText] = AuthComponentSwitch((s) => [s.setComponent, s.setText]);
 
    const mutation = useMutation({
       mutationFn: (data: any) => SignFn(data),
       mutationKey: ['signup'],
-      onSuccess: (data) => setvalue(data.token ?? 'empty'),
+      onSuccess: (data) => {
+         setvalue(data.token ?? 'empty');
+         setComponent(), setText();
+         console.log(state);
+      },
       onError: (err) => console.log(err),
    });
 

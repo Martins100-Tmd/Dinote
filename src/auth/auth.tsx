@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { FormImg, Login, Signup } from '..';
 import useGlobalReducer from '../utils/hooks/reducer';
 import { useEffect, useState } from 'react';
+import { AuthComponentSwitch } from '../utils/store';
 
 const Authentication: React.FC = function () {
-   let { changeAuthText, state, changeAuthComp } = useGlobalReducer();
-   let auth_components = [<Login />, <Signup />][state.auth.component];
+   let { state } = useGlobalReducer();
+   let [setComponent, component, setText, text] = AuthComponentSwitch((s) => [s.setComponent, s.component, s.setText, s.text]);
+   let auth_components = [<Login />, <Signup />][component];
    let [show, setshow] = useState(true);
 
    useEffect(() => {
@@ -66,11 +68,11 @@ const Authentication: React.FC = function () {
                   <div className='w-full flex justify-end'>
                      <p
                         onClick={() => {
-                           changeAuthText(), changeAuthComp();
+                           setText(), setComponent();
                         }}
                         className='font-play text-end self-end text-base font-bold text-white cursor-pointer'
                      >
-                        {state.auth.text}
+                        {text}
                      </p>
                   </div>
                   <div className='h-auto w-full'>{auth_components}</div>
