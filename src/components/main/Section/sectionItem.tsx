@@ -33,7 +33,7 @@ export default function SectionItem({ item }: any) {
       <div
          onContextMenu={() => setmenu(!menu)}
          onClick={() => setSectionId(item.id)}
-         className='flex cursor-pointer flex-row items-center justify-start p-3 w-full hover:bg-[#636363] relative'
+         className='flex cursor-pointer flex-row items-center justify-start px-3 py-0.5 w-full hover:bg-[#636363] relative'
       >
          <>
             {renameAction ? (
@@ -52,7 +52,7 @@ export default function SectionItem({ item }: any) {
                      onKeyDown={(e) => {
                         e.key == 'Enter' && PutMutation.mutate(sectionRenameText);
                      }}
-                     className='w-full font-play text-sm text-white bg-transparent h-full outline-none border p-1 border-[#a9a9a9]/30 rounded-md'
+                     className='w-full font-cor text-sm text-white bg-transparent h-full outline-none border p-1 border-[#a9a9a9]/30 rounded-md'
                      autoFocus={true}
                   />
                   <i onClick={() => setRenameAction(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
@@ -61,7 +61,7 @@ export default function SectionItem({ item }: any) {
                </>
             ) : (
                <p
-                  className={`font-play ${
+                  className={`font-cor ${
                      sectionId == item.id ? 'text-rose-200 font-semibold' : ''
                   } text-slate-100 font-medium self-center text-sm text-ellipsis truncate w-full`}
                >

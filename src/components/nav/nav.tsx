@@ -1,10 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import createNoteState from '../state/context';
 import ProfileImage from './profile';
 const NoteNavComponent = function () {
    let {
       state: { username },
    } = useContext(createNoteState);
+
+   useEffect(() => {
+      window.matchMedia('(prefers-color-scheme: dark)');
+   }, []);
 
    return (
       <nav className='flex flex-row items-center shadow border-[#2e2e2e] border-b justify-between w-xl p-1 sm:p-3 bg-[#424242]'>

@@ -44,7 +44,9 @@ export default function PageListContainer() {
    }, [sectionId]);
 
    if (isLoading) return <LoadingPageList />;
+
    if (isError) return <>{error?.message}</>;
+
    if (isSuccess) {
       if (!isDataEmpty)
          return DATA.length > 0

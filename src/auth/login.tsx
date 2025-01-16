@@ -1,6 +1,8 @@
-import useGlobalReducer from '../utils/hooks/reducer';
+import useGlobalReducer from '../utils/hooks/reducer.ts';
 import { useMutation } from '@tanstack/react-query';
-import { LoginFn } from '../utils/fetch';
+import { LoginFn } from '../utils/fetch.ts';
+import { Lock, Mail } from 'lucide-react';
+import React from 'react';
 
 export default function Login() {
    let { handleChange, state } = useGlobalReducer();
@@ -14,50 +16,55 @@ export default function Login() {
       onError: (err) => console.log(err),
    });
 
-   const btnAction = async () => {
+   const btnAction = () => {
       state.credentials.email && state.credentials.password
          ? mutation.mutate(state.credentials)
          : console.log('Make sure all field are filled');
    };
 
    return (
-      <section className='w-full h-full flex flex-col items-start gap-10'>
+      <section className='w-full min-h-[40%] justify-center flex flex-col items-start gap-6'>
          <div className='w-full flex justify-start'>
-            <p className='font-play text-3xl font-medium text-white underline-offset-2'>Log in</p>
+            <p className='font-cor sm:text-lg text-sm text-center font-medium text-white underline-offset-2'>
+               Please log in using your username and password if you already have an account
+            </p>
          </div>
          <section className='flex flex-col items-center w-full gap-10'>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-play font-medium sm:text-base text-sm text-slate-200'>
+               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
                   Your Email
                </label>
-               <input
-                  name='email'
-                  onChange={handleChange}
-                  required
-                  type='email'
-                  className='p-3 text-white w-full text-xs border-b-2 outline-none sm:bg-[#0e0406] bg-[#0e0406]/60 border rounded border-[#2c2c2c] font-play'
-                  alt='email'
-               />
+               <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
+                  <Mail className='text-white w-auto ml-1' />
+                  <input
+                     name='email'
+                     onChange={handleChange}
+                     required
+                     type='email'
+                     className='p-3 text-white w-full text-xs outline-none font-cor autofill:bg-transparent'
+                     alt='email'
+                  />
+               </div>
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-play font-medium sm:text-base text-sm text-slate-200'>
+               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
                   Password
                </label>
-               <input
-                  name='password'
-                  onChange={handleChange}
-                  required
-                  type='password'
-                  className='p-3 text-white w-full text-xs border-[#2c2c2c] border-b-2 outline-none sm:bg-[#0e0406] bg-[#0e0406]/60 rounded font-play'
-                  alt='password'
-               />
+               <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
+                  <Lock className='text-white w-auto ml-1' />
+                  <input
+                     name='password'
+                     onChange={handleChange}
+                     required
+                     type='password'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     alt='password'
+                  />
+               </div>
             </div>
             <section className='sm:mb-[10%] mb-[5%] w-full flex justify-center'>
-               <button
-                  onClick={btnAction}
-                  className='rounded-lg shadow p-3.5 w-full text-white mx-auto border border-[#2c2c2c] sm:bg-[#302e2f] bg-[#25070d]/50'
-               >
-                  <p className='font-play font-medium text-xs sm:text-lg text-center self-center'>Submit</p>
+               <button onClick={btnAction} className='rounded shadow p-2 w-full text-white mx-auto bg-neutral-600'>
+                  <p className='font-cor font-medium text-xs sm:text-base text-center self-center'>Submit</p>
                </button>
             </section>
          </section>

@@ -55,29 +55,22 @@ const Authentication: React.FC = function () {
 
    return (
       <>
-         <section className='w-full h-screen bg-black flex justify-center relative'>
-            <img src={FormImg} className='sm:hidden flex object-cover w-full h-full absolute inset-0 z-0' alt='red' loading='lazy' />
-            <section className='sm:relative absolute inset-0 z-50 sm:w-3/4 h-full sm:h-[90%] rounded border border-[#2c2c2c] p-5 mx-auto my-auto justify-between w-full flex flex-row-reverse gap-3 sm:bg-[#191919] bg-[#191919]/60'>
-               <div className='flex flex-col-reverse items-center w-full self-center sm:mt-auto -mt-20'>
+         <section className='w-full h-screen bg-[rgba(0,0,0,3)] flex justify-center relative'>
+            <img src={FormImg} className='object-center flex object-cover w-full h-full absolute inset-0 z-0' alt='red' loading='lazy' />
+            <div className='absolute z-10 bg-black/45 w-full h-full'></div>
+            <section className='sm:relative absolute inset-0 z-50 md:w-[45%] sm:w-3/5 h-full sm:h-auto rounded border border-[#2c2c2c] p-5 mx-auto my-auto justify-center w-full flex flex-row-reverse gap-3 sm:bg-[rgba(0,0,0,0.5)] bg-[rgba(0,0,0,3)]/60'>
+               <div className='flex flex-col-reverse items-start w-full self-start h-auto justify-start'>
                   <div className='w-full flex justify-end'>
                      <p
                         onClick={() => {
                            setText(), setComponent();
                         }}
-                        className='font-play text-end self-end text-base font-bold text-white cursor-pointer'
+                        className='font-cor text-end self-end text-base font-medium text-white cursor-pointer'
                      >
                         {text}
                      </p>
                   </div>
-                  <div className='h-auto w-full'>{auth_components}</div>
-               </div>
-               <div className='sm:flex hidden w-full h-full'>
-                  <img
-                     src={FormImg}
-                     loading='lazy'
-                     className='object-cover w-full h-full rounded-lg rounded-tl-3xl rounded-br-3xl'
-                     alt='red'
-                  />
+                  <div className='h-[90%] w-[90%] mx-auto my-auto self-start'>{auth_components}</div>
                </div>
             </section>
          </section>

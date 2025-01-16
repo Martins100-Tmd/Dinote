@@ -82,7 +82,7 @@ function Input({ updateMutation, body, setbody }: FormInt) {
          }}
          value={body.title}
          style={{ width: len }}
-         className='self-start text-start outline-none bg-transparent text-wrap overflow-x-scroll text-slate-100 border-b border-slate-200 font-play text-base sm:text-lg font-medium'
+         className='self-start text-start outline-none bg-transparent text-wrap overflow-x-scroll text-slate-100 border-b border-slate-200 font-cor text-base sm:text-lg font-medium'
          autoFocus={!!body.title}
       />
    );
@@ -97,7 +97,7 @@ function TextArea({ body, updateMutation, setbody }: FormInt) {
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}
          value={body.content}
-         className='text-white text-xs sm:text-sm w-full h-full font-play text-start bg-transparent outline-none border-none font-normal'
+         className='text-white text-xs sm:text-sm w-full h-full font-cor text-start bg-transparent outline-none border-none font-normal'
       ></textarea>
    );
 }

@@ -34,7 +34,7 @@ const NotePage = function () {
                   <path d='M5 12h14' />
                   <path d='M12 5v14' />
                </svg>
-               <p className='font-play text-[12px] font-medium self-end text-left text-white/80'>Add Page</p>
+               <p className='font-cor text-[12px] font-medium self-end text-left text-white/80'>Add Page</p>
             </div>
          </section>
       </section>

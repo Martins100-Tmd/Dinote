@@ -34,7 +34,7 @@ export default function PostPage() {
          <section className='flex flex-col items-center gap-3'>
             <Input addMutation={addMutation} body={body} setbody={setbody} sectionId={sectionId} />
             <div className='flex items-center w-full justify-start'>
-               <p className='text-start w-full font-sand text-slate-200'>{formattedDate(new Date())}</p>
+               <p className='text-start w-full font-play text-slate-200'>{formattedDate(new Date())}</p>
             </div>
          </section>
          <TextArea addMutation={addMutation} body={body} setbody={setbody} />
@@ -68,7 +68,7 @@ function Input({ addMutation, body, setbody, sectionId }: FormInt) {
             value={body.title}
             type='text'
             style={{ width: len }}
-            className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium`}
+            className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-play text-slate-100 text-xl font-medium`}
             autoFocus
          />
       </>
@@ -86,7 +86,7 @@ function TextArea({ body, addMutation, setbody, sectionId }: FormInt) {
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}
          value={body.content}
-         className='text-slate-100 text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none'
+         className='text-slate-100 text-sm w-full h-full font-play text-start bg-transparent outline-none border-none'
       ></textarea>
    );
 }

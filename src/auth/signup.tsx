@@ -1,8 +1,10 @@
-import useGlobalReducer from '../utils/hooks/reducer';
+import useGlobalReducer from '../utils/hooks/reducer.ts';
 import { useMutation } from '@tanstack/react-query';
-import useLocalStorage from '../utils/hooks/localstorage';
-import { SignFn } from '../utils/fetch';
-import { AuthComponentSwitch } from '../utils/store';
+import useLocalStorage from '../utils/hooks/localstorage.ts';
+import { SignFn } from '../utils/fetch.ts';
+import { AuthComponentSwitch } from '../utils/store.ts';
+import React from 'react';
+import { Contact, Lock, Mail } from 'lucide-react';
 
 export default function SignUp() {
    let { handleChange, state } = useGlobalReducer();
@@ -33,50 +35,61 @@ export default function SignUp() {
    return (
       <section className='w-full h-auto flex flex-col items-start gap-10'>
          <div className='w-full flex justify-start'>
-            <p className='font-play text-xl font-semibold text-white'>Sign up</p>
+            <p className='font-cor sm:text-lg text-sm text-center font-medium text-white underline-offset-2'>
+               Don't have an account, register here!
+            </p>
          </div>
          <section className='flex flex-col items-center w-full gap-5'>
             <div className='flex flex-col items-start w-full gap-4'>
-               <label htmlFor='email' className='font-play font-semibold sm:text-base text-xs text-white'>
+               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
                   Username
                </label>
-               <input
-                  onChange={handleChange}
-                  type='text'
-                  name='name'
-                  className='p-3 text-white w-full text-xs border-b-2 outline-none sm:bg-[#191919] bg-[#191919]/60 border rounded border-[#2c2c2c] font-play'
-                  alt='text'
-               />
+               <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
+                  <Contact className='text-white w-auto ml-1' />
+                  <input
+                     name='name'
+                     onChange={handleChange}
+                     required
+                     type='name'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     alt='name'
+                  />
+               </div>
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-play font-semibold sm:text-base text-xs text-white'>
+               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
                   Your Email
                </label>
-               <input
-                  onChange={handleChange}
-                  type='email'
-                  name='email'
-                  className='p-3 text-white w-full text-xs border-b-2 outline-none sm:bg-[#191919] bg-[#191919]/60 rounded border border-[#2c2c2c] font-play'
-                  alt='email'
-               />
+               <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
+                  <Mail className='text-white w-auto ml-1' />
+                  <input
+                     name='email'
+                     onChange={handleChange}
+                     required
+                     type='email'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     alt='email'
+                  />
+               </div>
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-play font-semibold sm:text-base text-xs text-white'>
+               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
                   Password
                </label>
-               <input
-                  name='password'
-                  onChange={handleChange}
-                  type='password'
-                  className='p-3 text-white w-full text-xs border-b-2 outline-none sm:bg-[#191919] bg-[#191919]/60 rounded border border-[#2c2c2c] font-play'
-                  alt='password'
-               />
+               <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
+                  <Lock className='text-white w-auto ml-1' />
+                  <input
+                     name='password'
+                     onChange={handleChange}
+                     required
+                     type='password'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     alt='password'
+                  />
+               </div>
             </div>
             <section className='w-full mt-2 flex justify-center'>
-               <button
-                  onClick={mutateFn}
-                  className='rounded-lg shadow p-3.5 w-full text-white mx-auto font-play font-semibold border border-[#2c2c2c] sm:text-lg text-sm bg-[#202020]'
-               >
+               <button onClick={mutateFn} className='rounded shadow p-2 w-full text-white mx-auto bg-neutral-600 font-cor'>
                   Submit
                </button>
             </section>
