@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import createNoteState from '../state/context.tsx';
 import ProfileImage from './profile.tsx';
 import React from 'react';
