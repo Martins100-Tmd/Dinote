@@ -1,15 +1,15 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Icon } from '../../..';
-import { useStore } from '../../state/note';
+import { usePageControllerStore } from '../../state/note';
 import createNoteState from '../../state/context';
 import { ArrowDownWideNarrow } from 'lucide-react';
 import { sortAction } from '../../state/page';
 export function NoteHeadFn() {
-   let [noteDrop, setNoteDrop] = useStore((state: any) => [state.action, state.setAction]);
-   let { state } = useContext(createNoteState);
-   let [title, settitle] = useState('Martins Notebook');
-   let [sort, setsort] = useState(false);
-   let { setAction } = sortAction();
+   const [noteDrop, setNoteDrop] = usePageControllerStore((state: any) => [state.action, state.setAction]);
+   const { state } = useContext(createNoteState);
+   const [title, settitle] = useState('Martins Notebook');
+   const [sort, setsort] = useState(false);
+   const { setAction } = sortAction();
 
    useEffect(() => {
       settitle(state.noteObj ? state.noteObj.title : 'Notebook');

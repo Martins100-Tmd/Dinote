@@ -1,13 +1,13 @@
 import { NoteHeadFn } from './notehead';
 import NoteListFn from './notelist';
-import { useStore, useStoreII } from '../../state/note';
+import { useNoteStore, usePageControllerStore } from '../../state/note';
 import NoteLayout from '../Layout';
 import AddNoteSection from './addnote';
 import { Plus } from 'lucide-react';
 
 const Note = function ({ width }: { width: boolean }) {
-   let noteDrop = useStore((state: any) => state.action);
-   let [_, setNoteState] = useStoreII((s: any) => [s.addnote, s.setAddNote]);
+   const noteDrop = usePageControllerStore((state: any) => state.action);
+   const setNoteState = useNoteStore((s: any) => s.setAddNote);
 
    return (
       <section

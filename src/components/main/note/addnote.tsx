@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addNoteFn } from '../../../utils/fetch';
-import { useStoreII } from '../../state/note';
+import { useNoteStore } from '../../state/note';
 import { FormEvent, useEffect } from 'react';
 
 export default function AddNoteSection() {
    const queryClient = useQueryClient();
-   const [notename, setnotename] = useStoreII((s: any) => [s.notename, s.setNoteName]);
-   const [addnote, setaddnote] = useStoreII((s: any) => [s.addnote, s.setAddNote]);
+   const [notename, setnotename] = useNoteStore((s: any) => [s.notename, s.setNoteName]);
+   const [addnote, setaddnote] = useNoteStore((s: any) => [s.addnote, s.setAddNote]);
 
    const addNoteMutation = useMutation({
       mutationKey: ['addNote'],

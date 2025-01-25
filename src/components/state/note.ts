@@ -1,19 +1,7 @@
 import { create } from 'zustand';
+import { useNoteIdState, useStoreIIInt, useStoreInterFace } from '../../types/note';
 
-interface useStoreInterFace {
-   expand: boolean;
-   count: number;
-   slide: boolean;
-   action: string;
-   search: boolean;
-   setSearch: () => void;
-   setAction: () => void;
-   setExpand: () => void;
-   setCount: () => void;
-   setSlide: () => void;
-}
-
-export const useStore = create<useStoreInterFace>()((set) => ({
+export const usePageControllerStore = create<useStoreInterFace>()((set) => ({
    expand: false,
    count: 0,
    slide: false,
@@ -26,19 +14,7 @@ export const useStore = create<useStoreInterFace>()((set) => ({
    setSlide: () => set((state) => ({ ...state, slide: !state.slide })),
 }));
 
-interface useStoreIIState {
-   addnote: boolean;
-   notename: string;
-   currnoteobj: object;
-   currsectionobj: object;
-}
-interface useStoreIIInt extends useStoreIIState {
-   setCurrNoteObj: (obj: useStoreIIState) => void;
-   setCurrSectionObj: (obj: useStoreIIState) => void;
-   setAddNote: () => void;
-   setNoteName: (val: string) => void;
-}
-export const useStoreII = create<useStoreIIInt>()((set) => ({
+export const useNoteStore = create<useStoreIIInt>()((set) => ({
    addnote: false,
    notename: '',
    currnoteobj: {},
@@ -47,4 +23,11 @@ export const useStoreII = create<useStoreIIInt>()((set) => ({
    setCurrSectionObj: (obj) => set((state) => ({ ...state, currNoteObj: obj })),
    setAddNote: () => set((state) => ({ ...state, addnote: !state.addnote })),
    setNoteName: (val: string) => set((state) => ({ ...state, notename: val })),
+}));
+
+export const useNoteIdStore = create<useNoteIdState>()((set) => ({
+   currentnoteid: '',
+   currentnotename: '',
+   setCurrentNoteId: (val: string) => set((state) => ({ ...state, currentnoteid: val })),
+   setCurrentNoteName: (val: string) => set((state) => ({ ...state, currentnotename: val })),
 }));
