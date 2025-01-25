@@ -36,6 +36,8 @@ export interface noteObjectState {
    signal: boolean;
    reft: boolean;
    secnal: number;
+   username: string;
+   setUsername: (val: string) => void;
    setSignal: () => void;
    noteObjectUpdate: (obj: { id: string; title: string }) => void;
 }

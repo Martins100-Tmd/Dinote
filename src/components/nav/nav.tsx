@@ -1,16 +1,12 @@
-import { useContext } from 'react';
-import createNoteState from '../state/context.tsx';
+import { useNoteObjectStore } from '../state/note.ts';
 import ProfileImage from './profile.tsx';
-import React from 'react';
 
 const NoteNavComponent = function () {
-   let {
-      state: { username },
-   } = useContext(createNoteState);
+   const username = useNoteObjectStore((s) => s.username);
 
    return (
       <nav className='flex flex-row items-center shadow border-[#2e2e2e] border-b justify-between w-xl p-1 sm:p-3 bg-[#424242]'>
-         <section className='flex flex-row items-center gap-10 cursor-pointer' onClick={() => {}}>
+         <section className='flex flex-row items-center gap-10 cursor-pointer'>
             <i className='text-lg sm:text-2xl text-start self-start text-[#fcfcfc] material-icons'>power_settings_new</i>
          </section>
          <section className='flex flex-row items-center gap-1'>

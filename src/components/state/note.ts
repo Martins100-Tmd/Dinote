@@ -37,6 +37,8 @@ export const useNoteObjectStore = create<noteObjectState>()((set) => ({
    signal: false,
    reft: false,
    secnal: 3,
+   username: '',
+   setUsername: (val: string) => set((s) => ({ ...s, username: val })),
    setSignal: () => set((s) => ({ ...s, signal: !s.signal })),
    noteObjectUpdate: (obj: any) => set((s) => ({ ...s, noteObj: obj })),
 }));

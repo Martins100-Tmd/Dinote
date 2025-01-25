@@ -9,7 +9,13 @@ export default function NoteListFn() {
    const noteQuery = useQuery({ queryKey: ['fetchNotes'], queryFn: fetchNotes, refetchOnMount: 'always' });
    let [noteData, setNoteData] = useState<any[]>([]);
    let currentnoteid = useNoteIdStore((s) => s.currentnoteid);
-   const [noteObj, noteObjFn, signal, setSignal] = useNoteObjectStore((s) => [s.noteObj, s.noteObjectUpdate, s.signal, s.setSignal]);
+   const [noteObj, noteObjFn, signal, setSignal, setUsername] = useNoteObjectStore((s) => [
+      s.noteObj,
+      s.noteObjectUpdate,
+      s.signal,
+      s.setSignal,
+      s.setUsername,
+   ]);
 
    const getCurrNote = (list: any[], id: string) => noteObjFn(list.find((item) => item.id === id));
 
@@ -23,6 +29,7 @@ export default function NoteListFn() {
          getCurrNote(noteData, currentnoteid);
          noteObjFn(noteData[0]);
          setSignal();
+         if (noteQuery.data.getUserWithNote.username) setUsername(noteQuery.data.getUserWithNote.username);
       }
    }, [noteQuery.status, noteQuery.data, currentnoteid, noteData]);
 
