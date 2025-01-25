@@ -2,7 +2,6 @@ import { useState } from 'react';
 import SectionContainer from './sectionCont.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addSection } from './op.ts';
-import React from 'react';
 
 const NoteSection = ({ id }: { id: string }) => {
    const queryClient = useQueryClient();

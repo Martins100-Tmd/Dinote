@@ -1,28 +1,17 @@
 import { create } from 'zustand';
+import { PageIdState, pageControllState, sortType } from '../../types/page';
 
-export const PageStore = create((set) => ({
+export const PageStore = create<pageControllState>()((set) => ({
    newPage: false,
    clickedPageId: '',
    setClickedPageId: (id: string) => set((s: any) => ({ ...s, clickedPageId: id })),
    setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: val ?? !state.newPage })),
 }));
 
-interface sortType {
-   action: string;
-   setAction: (val: string) => void; // setAction should return void, not {}
-}
-
 export const sortAction = create<sortType>()((set) => ({
-   action: 'None', // This is the initial state
-   setAction: (val: string) => set((state) => ({ ...state, action: val })), // Action to update state
+   action: 'None',
+   setAction: (val: string) => set((state) => ({ ...state, action: val })),
 }));
-
-export interface PageIdState {
-   pageId: string;
-   getSignal: number;
-   setPageId: (id: string) => void;
-   setSignal: () => void;
-}
 
 export const PageCurrentId = create<PageIdState>()((set) => ({
    pageId: '',

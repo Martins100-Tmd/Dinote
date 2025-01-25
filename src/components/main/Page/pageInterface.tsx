@@ -1,10 +1,9 @@
 import PostPage from './PostPage.tsx';
 import PutPage from './PutPage.tsx';
-import { PageCurrentId, PageIdState } from '../../state/page.ts';
-import React from 'react';
+import { PageCurrentId } from '../../state/page.ts';
 
 export default function PageInterface({ init }: { init: boolean }) {
-   let pageId = PageCurrentId((s: PageIdState) => s.pageId);
+   let pageId = PageCurrentId((s) => s.pageId);
    return init ? <PostPage /> : pageId ? <PutPage pageId={pageId} /> : <NoPage />;
 }
 

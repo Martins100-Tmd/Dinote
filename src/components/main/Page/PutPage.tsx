@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { bodyReq } from '../../../types';
 import { formattedDate } from '../../../utils/date';
 import { sectionId, sectionIdStore } from '../../state/section';
-import { PageCurrentId, PageIdState } from '../../state/page';
+import { PageCurrentId } from '../../state/page';
 
 export default function PutPage({ pageId }: { pageId: string }) {
    const queryClient = useQueryClient();
    let sectionId = sectionIdStore((state: sectionId) => state.sectionId);
-   let Sig = PageCurrentId((s: PageIdState) => s.getSignal);
+   let Sig = PageCurrentId((s) => s.getSignal);
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',

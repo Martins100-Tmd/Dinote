@@ -7,10 +7,10 @@ import { PageContext } from '../../state/pageContext';
 import { sectionId, sectionIdStore } from '../../state/section';
 
 export default function SectionContainer({ id }: { id: string }) {
-   let { setNewPage } = useContext(PageContext);
-   let setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
+   const { setNewPage } = useContext(PageContext);
+   const setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
 
-   let { data, isSuccess, isLoading, isError, error, status } = useQuery({
+   const { data, isSuccess, isLoading, isError, error, status } = useQuery({
       queryKey: ['sectionList', id],
       queryFn: () => fetchNoteSection(id ?? ''),
       refetchOnMount: false,
@@ -20,7 +20,7 @@ export default function SectionContainer({ id }: { id: string }) {
       staleTime: 10000,
    });
 
-   let isEmptyData = useMemo(() => data && JSON.stringify(data.data) == '[]', [status, data]);
+   const isEmptyData = useMemo(() => data && JSON.stringify(data.data) == '[]', [status, data]);
 
    useEffect(() => {
       if (isEmptyData) setNewPage(false), setSectionId('');
@@ -35,6 +35,7 @@ export default function SectionContainer({ id }: { id: string }) {
             <p className='font-sand text-base text-center text-white'>{error?.message}</p>
          </div>
       );
+
    if (isSuccess && data) {
       return data && id && data.data.map((item: any, index: number) => <SectionItem key={index} item={item} />);
    }

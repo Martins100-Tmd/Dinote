@@ -3,19 +3,19 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PageContext } from '../../state/pageContext';
 import { updPageName } from './fetch';
 import { deletePage } from './fetch';
-import { PageCurrentId, PageIdState } from '../../state/page';
+import { PageCurrentId } from '../../state/page';
 import PopUpMenu from '../../../utils/Popmenu';
-import { useStore } from '../../state/note';
+import { usePageControllerStore } from '../../state/note';
 
 export default function PageItem({ item }: any) {
-   let [pageMenu, setPageMenu] = useState(false);
-   let [rename, setrename] = useState(false);
-   let [pageText, setPageText] = useState(item.title);
+   const [pageMenu, setPageMenu] = useState(false);
+   const [rename, setrename] = useState(false);
+   const [pageText, setPageText] = useState(item.title);
 
    const queryClient = useQueryClient();
    const { setNewPage } = useContext(PageContext);
-   let [setSignal, setPageId, pageId] = PageCurrentId((s: PageIdState) => [s.setSignal, s.setPageId, s.pageId]);
-   let setstate = useStore((state: any) => state.setSlide);
+   const [setSignal, setPageId, pageId] = PageCurrentId((s) => [s.setSignal, s.setPageId, s.pageId]);
+   const setstate = usePageControllerStore((state: any) => state.setSlide);
 
    const DelMutation = useMutation({
       mutationFn: (id: string) => deletePage(id),
@@ -35,6 +35,18 @@ export default function PageItem({ item }: any) {
          setPageMenu(false), setrename(false);
       },
    });
+
+   function checkResponsiveness() {
+      const body = document.body as HTMLBodyElement;
+      setNewPage(false), setPageId(item.id ?? '');
+      body.clientWidth <= 640 ? setstate() : {};
+   }
+
+   const focusBodyFn = () => {
+      setPageMenu(true);
+      const button = document.getElementById('popmenu') as HTMLButtonElement;
+      button.focus();
+   };
 
    return (
       <div className='relative flex flex-row w-full items-center justify-between rounded-l-md'>
@@ -64,11 +76,7 @@ export default function PageItem({ item }: any) {
             ) : (
                <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
-                     onClick={() => {
-                        const body = document.body as HTMLBodyElement;
-                        setNewPage(false), setPageId(item.id ?? '');
-                        body.clientWidth <= 640 ? setstate() : {};
-                     }}
+                     onClick={checkResponsiveness}
                      className={`${
                         item.id == pageId ? 'text-rose-100' : ''
                      } truncate outline-none border-none p-2 w-[70%] text-[14px] cursor-pointer text-ellipsis font-cor text-slate-100 font-medium self-center`}
@@ -88,11 +96,7 @@ export default function PageItem({ item }: any) {
                      className={`lucide lucide-ellipsis cursor-pointer self-center text-slate-50 text-end ${
                         pageId == item.id ? 'text-rose-100' : ''
                      }`}
-                     onClick={() => {
-                        setPageMenu(true);
-                        const button = document.getElementById('popmenu') as HTMLButtonElement;
-                        button.focus();
-                     }}
+                     onClick={focusBodyFn}
                   >
                      <circle cx='12' cy='12' r='1' />
                      <circle cx='19' cy='12' r='1' />

@@ -5,12 +5,12 @@ import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import { PageContext } from '../../state/pageContext';
 import { sectionId, sectionIdStore } from '../../state/section';
-import { PageCurrentId, PageIdState } from '../../state/page';
+import { PageCurrentId } from '../../state/page';
 
 export default function PostPage() {
    const queryClient = useQueryClient();
    let sectionId = sectionIdStore((state: sectionId) => state.sectionId);
-   let setPageId = PageCurrentId((s: PageIdState) => s.setPageId);
+   let setPageId = PageCurrentId((s) => s.setPageId);
    let [body, setbody] = useState<bodyReq>({
       title: '',
       content: '',
