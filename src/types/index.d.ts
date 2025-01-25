@@ -58,11 +58,8 @@ export interface SortFunctions {
 export type SortKeys = keyof SortFunctions;
 
 interface PageEditInterface {
-   Q: QueryClient;
-   title?: string;
-   content?: string;
    addMutation: UseMutationResult<any, Error, any, unknown>;
-   setTitle?: Function;
-   setContent?: Function;
+   body: { title: string; content: string; sectionId: string };
+   setBody: Function;
    sectionId?: string;
 }
