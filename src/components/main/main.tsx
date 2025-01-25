@@ -1,4 +1,4 @@
-import { useStore } from '../state/note';
+import { usePageControllerStore } from '../state/note';
 import { PageContext } from '../state/pageContext';
 import PageInterface from './Page/pageInterface';
 import Note from './note/notesect';
@@ -6,14 +6,14 @@ import { useContext, useEffect, useState } from 'react';
 import { FormImg } from '../..';
 import { useQuery } from '@tanstack/react-query';
 import { SearchPagesQuery } from '../../utils/fetch';
-import { PageCurrentId, PageIdState } from '../state/page';
+import { PageCurrentId } from '../state/page';
 
 const NoteMainComponent = function () {
-   let [state, setstate, setsearch] = useStore((state: any) => [state.slide, state.setSlide, state.setSearch]);
+   let [state, setstate, setsearch] = usePageControllerStore((state: any) => [state.slide, state.setSlide, state.setSearch]);
    let {
       notePageState: { newPage },
    } = useContext(PageContext);
-   const search = useStore((s) => s.search);
+   const search = usePageControllerStore((s) => s.search);
    let [inpText, setInpText] = useState('');
    let [Data, setData] = useState([]);
    let [searchData, setSearchData] = useState([]);
@@ -33,7 +33,7 @@ const NoteMainComponent = function () {
       setSearchData(data);
    }, [inpText]);
 
-   let setPageId = PageCurrentId((s: PageIdState) => s.setPageId);
+   let setPageId = PageCurrentId((s) => s.setPageId);
    return (
       <>
          <section

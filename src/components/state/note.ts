@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { useNoteIdState, useStoreIIInt, useStoreInterFace } from '../../types/note';
+import { noteObjectState, useNoteIdState, useStoreIIInt, useStoreInterFace } from '../../types/note';
 
 export const usePageControllerStore = create<useStoreInterFace>()((set) => ({
    expand: false,
@@ -30,4 +30,13 @@ export const useNoteIdStore = create<useNoteIdState>()((set) => ({
    currentnotename: '',
    setCurrentNoteId: (val: string) => set((state) => ({ ...state, currentnoteid: val })),
    setCurrentNoteName: (val: string) => set((state) => ({ ...state, currentnotename: val })),
+}));
+
+export const useNoteObjectStore = create<noteObjectState>()((set) => ({
+   noteObj: { id: '', title: '' },
+   signal: false,
+   reft: false,
+   secnal: 3,
+   setSignal: () => set((s) => ({ ...s, signal: !s.signal })),
+   noteObjectUpdate: (obj: any) => set((s) => ({ ...s, noteObj: obj })),
 }));

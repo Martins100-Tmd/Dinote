@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-export interface sectionId {
-   sectionId: string;
-   setSectionId: (id: string) => void;
-}
+import { sectionId } from '../../types/section';
 
 export const sectionIdStore = create<sectionId>()((set) => ({
    sectionId: '',

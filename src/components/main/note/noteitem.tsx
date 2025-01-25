@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { storeB } from '../../state/sectnpage';
 import { delNote } from './op';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +9,6 @@ import { Pencil, Trash2 } from 'lucide-react';
 export default function NoteItem({ item }: any) {
    const queryClient = useQueryClient();
    let [state, setstate] = useState(false);
-   let [_, setCurrNoteId] = storeB((s: any) => [s.currNoteId, s.setCurrNoteId]);
    let navigate = useNavigate();
    let setNoteDrop = usePageControllerStore((state: any) => state.setAction);
    let setCurrentNoteId = useNoteIdStore((s) => s.setCurrentNoteId);
@@ -31,7 +29,7 @@ export default function NoteItem({ item }: any) {
          onContextMenu={() => setstate(!state)}
          onClick={(event: any) => {
             setNoteDrop();
-            event.stopPropagation(), setCurrNoteId(item.id);
+            event.stopPropagation(), setCurrentNoteId(item.id);
             setCurrentNoteId(item.id);
          }}
          className='flex flex-row items-center cursor-pointer justify-start relative w-full gap-4 hover:bg-[#5e5e5e] p-2'

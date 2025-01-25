@@ -30,3 +30,12 @@ export interface useNoteIdState {
    setCurrentNoteId: (val: string) => void;
    setCurrentNoteName: (val: string) => void;
 }
+
+export interface noteObjectState {
+   noteObj: { id: string; title: string };
+   signal: boolean;
+   reft: boolean;
+   secnal: number;
+   setSignal: () => void;
+   noteObjectUpdate: (obj: { id: string; title: string }) => void;
+}
