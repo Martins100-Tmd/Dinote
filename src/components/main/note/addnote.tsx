@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addNoteFn } from '../../../utils/fetch';
 import { useStoreII } from '../../state/note';
-import { useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 
 export default function AddNoteSection() {
    const queryClient = useQueryClient();
-   let [notename, setnotename] = useStoreII((s: any) => [s.notename, s.setNoteName]);
-   let [addnote, setaddnote] = useStoreII((s: any) => [s.addnote, s.setAddNote]);
+   const [notename, setnotename] = useStoreII((s: any) => [s.notename, s.setNoteName]);
+   const [addnote, setaddnote] = useStoreII((s: any) => [s.addnote, s.setAddNote]);
 
    const addNoteMutation = useMutation({
       mutationKey: ['addNote'],
@@ -14,9 +14,13 @@ export default function AddNoteSection() {
       onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchNotes'] }),
    });
 
+   const setNoteFn = (e: FormEvent<HTMLInputElement>) => {
+      const target = e.target as HTMLInputElement;
+      setnotename(target.value);
+   };
+
    useEffect(() => {
       if (addNoteMutation.isSuccess) setaddnote();
-      if (addNoteMutation.isError) console.log(addNoteMutation.error.message);
    }, [addNoteMutation.status]);
 
    return (
@@ -29,10 +33,7 @@ export default function AddNoteSection() {
                <p className='font-play text-lg sm:text-2xl text-slate-200 font-medium'>New Notebook</p>
             </div>
             <input
-               onInput={(e) => {
-                  const target = e.target as HTMLInputElement;
-                  setnotename(target.value);
-               }}
+               onInput={(e) => setNoteFn(e)}
                type='text'
                placeholder='Notebook name'
                className=' w-full border font-thin border-gray-300 bg-transparent text-white outline-none p-2.5 font-play text-sm sm:text-lg'
@@ -50,8 +51,7 @@ export default function AddNoteSection() {
                </button>
                <button
                   onClick={setaddnote}
-                  className='w-full shadow p-1.5 sm:p-4 font-play text-center text-base sm:text-lg
-                bg-[#646464] text-slate-100'
+                  className='w-full shadow p-1.5 sm:p-4 font-play text-center text-base sm:text-lg bg-[#646464] text-slate-100'
                >
                   Cancel
                </button>

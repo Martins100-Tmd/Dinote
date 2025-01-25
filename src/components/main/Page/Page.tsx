@@ -3,8 +3,8 @@ import { PageContext } from '../../state/pageContext';
 import PageListContainer from './pagelist';
 import { useStore } from '../../state/note';
 const NotePage = function () {
-   let { setNewPage, setPageId } = useContext(PageContext);
-   let setstate = useStore((state: any) => state.setSlide);
+   const { setNewPage, setPageId } = useContext(PageContext);
+   const setstate = useStore((state: any) => state.setSlide);
 
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] justify-between h-full'>

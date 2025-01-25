@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import SectionContainer from './sectionCont';
+import SectionContainer from './sectionCont.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addSection } from './op';
+import { addSection } from './op.ts';
+import React from 'react';
 
 const NoteSection = ({ id }: { id: string }) => {
    const queryClient = useQueryClient();
-   let [state, setstate] = useState(false);
-   let [sectVal, setSectVal] = useState('');
+   const [state, setstate] = useState(false);
+   const [sectVal, setSectVal] = useState('');
 
-   let addSectMutation = useMutation({
-      mutationFn: (data: any) => addSection(data),
+   const addSectMutation = useMutation({
+      mutationFn: (data: { title: string; noteId: string }) => addSection(data),
       mutationKey: ['addSection'],
       async onSuccess() {
          await queryClient.invalidateQueries({ queryKey: ['sectionList'] });

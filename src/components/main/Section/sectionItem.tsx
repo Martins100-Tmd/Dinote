@@ -7,12 +7,12 @@ import PopUpMenu from '../../../utils/Popmenu';
 
 export default function SectionItem({ item }: any) {
    const queryClient = useQueryClient();
-   let [menu, setmenu] = useState(false);
-   let [sectionRenameText, setSectionRenameText] = useState(item.title);
-   let [renameAction, setRenameAction] = useState(false);
-   let [sectionId, setSectionId] = sectionIdStore((state: sectionId) => [state.sectionId, state.setSectionId]);
+   const [menu, setmenu] = useState(false);
+   const [sectionRenameText, setSectionRenameText] = useState(item.title);
+   const [renameAction, setRenameAction] = useState(false);
+   const [sectionId, setSectionId] = sectionIdStore((state: sectionId) => [state.sectionId, state.setSectionId]);
 
-   const delSectMutation = useMutation({
+   const deleteSectionMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
       mutationKey: ['delSection'],
       onSuccess: async () => {
@@ -69,7 +69,7 @@ export default function SectionItem({ item }: any) {
                </p>
             )}
          </>
-         <PopUpMenu setswitch={setmenu} Switch={menu} DelAction={delSectMutation} id={item.id} setrename={setRenameAction} />
+         <PopUpMenu setswitch={setmenu} Switch={menu} DelAction={deleteSectionMutation} id={item.id} setrename={setRenameAction} />
       </div>
    );
 }
