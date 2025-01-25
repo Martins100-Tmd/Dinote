@@ -66,7 +66,7 @@ export default function PageItem({ item }: any) {
                      onKeyDown={(e) => {
                         e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
                      }}
-                     className='w-full font-cor text-base text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
+                     className='w-full font-sand text-base text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
                   />
                   <i onClick={() => setrename(false)} className='cursor-pointer material-icons text-lg text-slate-50 self-center'>
@@ -79,7 +79,7 @@ export default function PageItem({ item }: any) {
                      onClick={checkResponsiveness}
                      className={`${
                         item.id == pageId ? 'text-rose-100' : ''
-                     } truncate outline-none border-none p-2 w-[70%] text-[14px] cursor-pointer text-ellipsis font-cor text-slate-100 font-medium self-center`}
+                     } truncate outline-none border-none p-2 w-[70%] text-[14px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center`}
                   >
                      {item.title.substring(0, 30)}
                   </p>

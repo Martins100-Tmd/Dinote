@@ -3,12 +3,12 @@ import { getSolePage, updatePage } from './fetch';
 import { useState, useEffect } from 'react';
 import { bodyReq } from '../../../types';
 import { formattedDate } from '../../../utils/date';
-import { sectionId, sectionIdStore } from '../../state/section';
+import { sectionIdStore } from '../../state/section';
 import { PageCurrentId } from '../../state/page';
 
 export default function PutPage({ pageId }: { pageId: string }) {
    const queryClient = useQueryClient();
-   let sectionId = sectionIdStore((state: sectionId) => state.sectionId);
+   let sectionId = sectionIdStore((state) => state.sectionId);
    let Sig = PageCurrentId((s) => s.getSignal);
    let [body, setbody] = useState<bodyReq>({
       title: '',
@@ -82,7 +82,7 @@ function Input({ updateMutation, body, setbody }: FormInt) {
          }}
          value={body.title}
          style={{ width: len }}
-         className='self-start text-start outline-none bg-transparent text-wrap overflow-x-scroll text-slate-100 border-b border-slate-200 font-cor text-base sm:text-lg font-medium'
+         className='self-start text-start outline-none bg-transparent text-wrap overflow-x-scroll text-slate-100 border-b border-slate-200 font-sand text-base sm:text-lg font-medium'
          autoFocus={!!body.title}
       />
    );
@@ -97,7 +97,7 @@ function TextArea({ body, updateMutation, setbody }: FormInt) {
             setbody((bd: any) => ({ ...bd, content: target.value }));
          }}
          value={body.content}
-         className='text-white text-xs sm:text-sm w-full h-full font-cor text-start bg-transparent outline-none border-none font-normal'
+         className='text-white text-xs sm:text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none font-normal'
       ></textarea>
    );
 }

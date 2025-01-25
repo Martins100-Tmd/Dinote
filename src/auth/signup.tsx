@@ -3,7 +3,6 @@ import { useMutation } from '@tanstack/react-query';
 import useLocalStorage from '../utils/hooks/localstorage.ts';
 import { SignFn } from '../utils/fetch.ts';
 import { AuthComponentSwitch } from '../utils/store.ts';
-import React from 'react';
 import { Contact, Lock, Mail } from 'lucide-react';
 
 export default function SignUp() {
@@ -35,13 +34,13 @@ export default function SignUp() {
    return (
       <section className='w-full h-auto flex flex-col items-start gap-10'>
          <div className='w-full flex justify-start'>
-            <p className='font-cor sm:text-lg text-sm text-center font-medium text-white underline-offset-2'>
+            <p className='font-sand sm:text-lg text-sm text-center font-medium text-white underline-offset-2'>
                Don't have an account, register here!
             </p>
          </div>
          <section className='flex flex-col items-center w-full gap-5'>
             <div className='flex flex-col items-start w-full gap-4'>
-               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
+               <label htmlFor='email' className='font-sand font-medium sm:text-base text-sm text-slate-200'>
                   Username
                </label>
                <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
@@ -51,13 +50,13 @@ export default function SignUp() {
                      onChange={handleChange}
                      required
                      type='name'
-                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-sand'
                      alt='name'
                   />
                </div>
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
+               <label htmlFor='email' className='font-sand font-medium sm:text-base text-sm text-slate-200'>
                   Your Email
                </label>
                <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
@@ -67,13 +66,13 @@ export default function SignUp() {
                      onChange={handleChange}
                      required
                      type='email'
-                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-sand'
                      alt='email'
                   />
                </div>
             </div>
             <div className='flex flex-col items-start w-full gap-2'>
-               <label htmlFor='email' className='font-cor font-medium sm:text-base text-sm text-slate-200'>
+               <label htmlFor='email' className='font-sand font-medium sm:text-base text-sm text-slate-200'>
                   Password
                </label>
                <div className='flex flex-row items-center w-full p-0.5 bg-stone-600/50 rounded border-b-2 border border-[#2c2c2c]'>
@@ -83,13 +82,13 @@ export default function SignUp() {
                      onChange={handleChange}
                      required
                      type='password'
-                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-cor'
+                     className='p-3 text-white w-full text-xs outline-none bg-transparent font-sand'
                      alt='password'
                   />
                </div>
             </div>
             <section className='w-full mt-2 flex justify-center'>
-               <button onClick={mutateFn} className='rounded shadow p-2 w-full text-white mx-auto bg-neutral-600 font-cor'>
+               <button onClick={mutateFn} className='rounded shadow p-2 w-full text-white mx-auto bg-neutral-600 font-sand'>
                   Submit
                </button>
             </section>

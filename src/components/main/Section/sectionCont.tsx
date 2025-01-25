@@ -4,11 +4,11 @@ import SectionItem from './sectionItem';
 import { useEffect, useContext, useMemo } from 'react';
 import { fetchNoteSection } from './op';
 import { PageContext } from '../../state/pageContext';
-import { sectionId, sectionIdStore } from '../../state/section';
+import { sectionIdStore } from '../../state/section';
 
 export default function SectionContainer({ id }: { id: string }) {
    const { setNewPage } = useContext(PageContext);
-   const setSectionId = sectionIdStore((state: sectionId) => state.setSectionId);
+   const setSectionId = sectionIdStore((state) => state.setSectionId);
 
    const { data, isSuccess, isLoading, isError, error, status } = useQuery({
       queryKey: ['sectionList', id],

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { delSection } from './op';
 import { updSectionName } from './op';
-import { sectionId, sectionIdStore } from '../../state/section';
+import { sectionIdStore } from '../../state/section';
 import PopUpMenu from '../../../utils/Popmenu';
 
 export default function SectionItem({ item }: any) {
@@ -10,7 +10,7 @@ export default function SectionItem({ item }: any) {
    const [menu, setmenu] = useState(false);
    const [sectionRenameText, setSectionRenameText] = useState(item.title);
    const [renameAction, setRenameAction] = useState(false);
-   const [sectionId, setSectionId] = sectionIdStore((state: sectionId) => [state.sectionId, state.setSectionId]);
+   const [sectionId, setSectionId] = sectionIdStore((state) => [state.sectionId, state.setSectionId]);
 
    const deleteSectionMutation = useMutation({
       mutationFn: (id: string) => delSection(id),
@@ -52,7 +52,7 @@ export default function SectionItem({ item }: any) {
                      onKeyDown={(e) => {
                         e.key == 'Enter' && PutMutation.mutate(sectionRenameText);
                      }}
-                     className='w-full font-cor text-sm text-white bg-transparent h-full outline-none border p-1 border-[#a9a9a9]/30 rounded-md'
+                     className='w-full font-sand text-sm text-white bg-transparent h-full outline-none border p-1 border-[#a9a9a9]/30 rounded-md'
                      autoFocus={true}
                   />
                   <i onClick={() => setRenameAction(false)} className='cursor-pointer material-icons text-xl text-slate-50 self-center'>
@@ -61,8 +61,8 @@ export default function SectionItem({ item }: any) {
                </>
             ) : (
                <p
-                  className={`font-cor ${
-                     sectionId == item.id ? 'text-rose-200 font-semibold' : ''
+                  className={`font-sand ${
+                     sectionId == item.id ? 'text-white font-semibold' : ''
                   } text-slate-100 font-medium self-center text-sm text-ellipsis truncate w-full`}
                >
                   {item.title.substring(0, 30)}

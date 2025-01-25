@@ -65,7 +65,7 @@ const Authentication: React.FC = function () {
                         onClick={() => {
                            setText(), setComponent();
                         }}
-                        className='font-cor text-end self-end text-base font-medium text-white cursor-pointer'
+                        className='font-sand text-end self-end text-base font-medium text-white cursor-pointer'
                      >
                         {text}
                      </p>

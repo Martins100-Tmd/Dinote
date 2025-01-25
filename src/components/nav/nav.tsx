@@ -10,7 +10,10 @@ const NoteNavComponent = function () {
             <i className='text-lg sm:text-2xl text-start self-start text-[#fcfcfc] material-icons'>power_settings_new</i>
          </section>
          <section className='flex flex-row items-center gap-1'>
-            <div className='w-[1.4rem] h-[1.4rem] sm:w-[1.6rem] sm:h-[1.6rem] rounded-full shadow bg-stone-100/50 flex justify-center'>
+            <div
+               onClick={() => (window.location.href = 'https://github.com/Martins100-Tmd/Dinote')}
+               className='w-[1.4rem] h-[1.4rem] cursor-pointer sm:w-[1.6rem] sm:h-[1.6rem] rounded-full shadow bg-stone-100/50 flex justify-center'
+            >
                <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'

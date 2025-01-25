@@ -6,10 +6,10 @@ import { fetchSectionPages } from './fetch';
 import { PageContext } from '../../state/pageContext';
 import { PageCurrentId, sortAction } from '../../state/page';
 import { sortFunctions } from './fetch';
-import { sectionId, sectionIdStore } from '../../state/section';
+import { sectionIdStore } from '../../state/section';
 
 export default function PageListContainer() {
-   let sectionId = sectionIdStore((state: sectionId) => state.sectionId);
+   let sectionId = sectionIdStore((state) => state.sectionId);
    let { setNewPage } = useContext(PageContext);
    let { action, setAction } = sortAction();
    let [pageId, setPageId] = PageCurrentId((state) => [state.pageId, state.setPageId]);

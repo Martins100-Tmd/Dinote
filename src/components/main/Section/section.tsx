@@ -37,7 +37,7 @@ const NoteSection = ({ id }: { id: string }) => {
                      }
                   }}
                   type='text'
-                  className='border border-gray-300/30 bg-transparent text-white outline-none p-1 rounded-md font-cor text-base'
+                  className='border border-gray-300/30 bg-transparent text-white outline-none p-1 rounded-md font-sand text-base'
                />
                <svg
                   onClick={() => setstate(false)}
@@ -74,7 +74,7 @@ const NoteSection = ({ id }: { id: string }) => {
                   <path d='M5 12h14' />
                   <path d='M12 5v14' />
                </svg>
-               <p className='font-cor text-[12px] font-medium self-end text-left text-white/80'>Add Section</p>
+               <p className='font-sand text-[12px] font-medium self-end text-left text-white/80'>Add Section</p>
             </div>
          </section>
       </section>
