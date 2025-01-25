@@ -56,3 +56,13 @@ export interface SortFunctions {
 
 // Define the allowed keys
 export type SortKeys = keyof SortFunctions;
+
+interface PageEditInterface {
+   Q: QueryClient;
+   title?: string;
+   content?: string;
+   addMutation: UseMutationResult<any, Error, any, unknown>;
+   setTitle?: Function;
+   setContent?: Function;
+   sectionId?: string;
+}

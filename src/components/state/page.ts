@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { PageIdState, pageControllState, sortType } from '../../types/page';
+import { PageIdState, pageControllState, pageTextStateInterface, sortType } from '../../types/page';
 
 export const PageStore = create<pageControllState>()((set) => ({
    newPage: false,
@@ -18,4 +18,11 @@ export const PageCurrentId = create<PageIdState>()((set) => ({
    getSignal: 1,
    setPageId: (id: string) => set((state) => ({ ...state, pageId: id })),
    setSignal: () => set((state) => ({ ...state, getSignal: Math.floor(Math.random() * 1000) })),
+}));
+
+export const pageTextState = create<pageTextStateInterface>()((set) => ({
+   title: '',
+   content: '',
+   setTitle: (val: string) => set((s) => ({ ...s, title: val })),
+   setContent: (val: string) => set((s) => ({ ...s, content: val })),
 }));

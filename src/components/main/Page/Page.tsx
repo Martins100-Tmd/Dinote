@@ -1,14 +1,20 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { PageContext } from '../../state/pageContext';
 import PageListContainer from './pagelist';
 import { usePageControllerStore } from '../../state/note';
+import { PageCurrentId } from '../../state/page';
 const NotePage = function () {
-   const { setNewPage, setPageId } = useContext(PageContext);
+   const { setNewPage } = useContext(PageContext);
+   const [pageId, setPageId] = PageCurrentId((s) => [s.pageId, s.setPageId]);
    const setstate = usePageControllerStore((state: any) => state.setSlide);
 
    const allFunction = () => {
-      setPageId(''), setNewPage(false), setTimeout(() => setNewPage(true), 100), setstate();
+      setPageId(''), setNewPage(true), setstate();
    };
+
+   useEffect(() => {
+      console.log(pageId);
+   }, [pageId]);
 
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] justify-between h-full'>

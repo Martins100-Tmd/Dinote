@@ -16,3 +16,10 @@ export interface pageControllState {
    setClickedPageId: (id: string) => void;
    setNewPage: (val: string) => void;
 }
+
+export interface pageTextStateInterface {
+   title: string;
+   content: string;
+   setTitle: (val: string) => void;
+   setContent: (val: string) => void;
+}
