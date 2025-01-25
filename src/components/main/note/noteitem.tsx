@@ -53,7 +53,7 @@ export default function NoteItem({ item }: any) {
                   className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'
                >
                   <Trash2 className='text-red-600 self-center' size={'1.1rem'} />
-                  <span className='font-san text-base font-medium text-red-600 self-center'>Delete</span>
+                  <span className='font-sand text-base font-medium text-red-600 self-center'>Delete</span>
                </li>
                <li
                   onClick={(e) => {
@@ -62,7 +62,7 @@ export default function NoteItem({ item }: any) {
                   className='flex flex-row items-center w-full p-1 gap-2 px-4 cursor-pointer hover:bg-[#727272]'
                >
                   <Pencil className='text-lg text-slate-50 self-center' size={'1.1rem'} />
-                  <span className='font-raj text-sm font-medium text-gray-100 self-center'>Rename page</span>
+                  <span className='font-sand text-sm font-medium text-gray-100 self-center'>Rename page</span>
                </li>
             </ul>
          </button>

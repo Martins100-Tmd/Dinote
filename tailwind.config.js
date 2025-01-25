@@ -4,13 +4,7 @@ export default {
    theme: {
       extend: {
          fontFamily: {
-            raj: ['Rajdhani'],
-            redit: ['Reddit Sans'],
             sand: ['Quicksand'],
-            play: ['Play'],
-            cor: ['Cormorant'],
-            afa: ['Afacad'],
-            yrsa: ['Yrsa'],
          },
       },
    },
