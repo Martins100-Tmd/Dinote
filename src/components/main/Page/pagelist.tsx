@@ -28,7 +28,9 @@ export default function PageListContainer() {
 
    let DATA = useMemo(() => {
       setAction('None');
-      if (data && data.data) return sortFunctions[action](data.data).length > 0 ? sortFunctions[action](data.data) : data.data;
+      if (data && data.data) {
+         return sortFunctions[action](data.data).length > 0 ? sortFunctions[action](data.data) : data.data;
+      }
    }, [data, action, sectionId]);
 
    useEffect(() => {
@@ -36,21 +38,20 @@ export default function PageListContainer() {
       if (data && isSuccess && !pageId && data.data && data.data[0]) {
          setPageId(data.data[0].id ?? '');
       }
+      console.log(data, pageId);
    }, [pageId, status]);
 
    useEffect(() => {
       if (data && data.data && data.data[0]) setPageId(data.data[0].id ?? '');
-      if (isDataEmpty || data == undefined) setPageId('');
+      if (isDataEmpty || data == undefined) setPageId(''), console.log('EMPTY', pageId);
    }, [sectionId]);
 
    if (isLoading) return <LoadingPageList />;
 
    if (isError) return <>{error?.message}</>;
 
-   if (isSuccess) {
-      if (!isDataEmpty)
-         return DATA.length > 0
-            ? DATA.map((item: any, index: number) => <PageItem item={item} key={index} />)
-            : data.data && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
-   }
+   if (isSuccess && !isDataEmpty)
+      return DATA.length > 0
+         ? DATA.map((item: any, index: number) => <PageItem item={item} key={index} />)
+         : data.data && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
 }

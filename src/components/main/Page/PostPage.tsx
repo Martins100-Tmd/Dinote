@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addPage } from './fetch';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { PageEditInterface, bodyReq } from '../../../types';
 import { sectionIdStore } from '../../state/section';
@@ -18,8 +18,9 @@ export default function PostPage() {
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
       onSuccess: async () => {
+         console.log('saved!');
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
+         // await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
       },
       onError: async (error) => {
@@ -42,12 +43,18 @@ export default function PostPage() {
 
 function Input({ addMutation, body, setBody, sectionId }: PageEditInterface) {
    let [len, setlen] = useState('150px');
+
+   useEffect(() => {
+      setTimeout(() => {
+         body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
+      });
+   }, [3000]);
    return (
       <>
          <input
-            onBlur={() => {
-               body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
-            }}
+            // onBlur={() => {
+            //    body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
+            // }}
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
                setlen(target.value.length * 10 + 'px');
@@ -64,11 +71,15 @@ function Input({ addMutation, body, setBody, sectionId }: PageEditInterface) {
 }
 
 function TextArea({ body, setBody, addMutation, sectionId }: PageEditInterface) {
+   useEffect(() => {
+      setTimeout(() => {
+         body.content && body.title && sectionId ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
+      }, 2000);
+   }, []);
    return (
       <textarea
-         onBlur={() => {
-            body.content && body.title && sectionId ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
-         }}
+         // onBlur={() => {
+         // }}
          onChange={(e) => {
             const target = e.target as HTMLTextAreaElement;
             setBody((body: any) => ({ ...body, content: target.value }));

@@ -21,18 +21,19 @@ export default function PageItem({ item }: any) {
       mutationFn: (id: string) => deletePage(id),
       mutationKey: ['delPage'],
       onSuccess: async () => {
+         setPageMenu(false);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
-         setPageMenu(false);
       },
    });
    const PutMutation = useMutation({
       mutationFn: (title: string) => updPageName(item.id, { title }),
       mutationKey: ['updatePageName'],
       onSuccess: async () => {
+         setPageMenu(false);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
-         setPageMenu(false), setrename(false);
+         setrename(false);
       },
    });
 
@@ -46,6 +47,11 @@ export default function PageItem({ item }: any) {
       setPageMenu(true);
       const button = document.getElementById('popmenu') as HTMLButtonElement;
       button.focus();
+   };
+
+   const deleteAction = async function (id: string) {
+      DelMutation.mutate(id);
+      await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
    };
 
    return (
@@ -105,7 +111,7 @@ export default function PageItem({ item }: any) {
                </div>
             )}
          </>
-         <PopUpMenu setswitch={setPageMenu} Switch={pageMenu} DelAction={DelMutation} id={item.id} setrename={setrename} />
+         <PopUpMenu setswitch={setPageMenu} Switch={pageMenu} DelAction={deleteAction} id={item.id} setrename={setrename} />
       </div>
    );
 }
