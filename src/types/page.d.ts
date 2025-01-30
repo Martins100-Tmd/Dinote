@@ -23,3 +23,18 @@ export interface pageTextStateInterface {
    setTitle: (val: string) => void;
    setContent: (val: string) => void;
 }
+
+export interface NotePageState {
+   currpageid: string;
+   pagelistempty: boolean;
+   sectpageid: string;
+   newPage: boolean;
+}
+
+export interface PageContextT {
+   notePageState: NotePageState;
+   setPageId: (id: string) => void;
+   setPageEmp: (val: boolean) => void;
+   setSectId: (id: string) => void;
+   setNewPage: (id?: boolean) => void;
+}

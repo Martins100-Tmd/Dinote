@@ -1,15 +1,13 @@
-import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
-import { addPage, updatePage } from './fetch';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addPage } from './fetch';
 import { useState, useEffect } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { PageEditInterface, bodyReq } from '../../../types';
 import { sectionIdStore } from '../../state/section';
-import { PageCurrentId } from '../../state/page';
 
 export default function PostPage() {
    const queryClient = useQueryClient();
    let sectionId = sectionIdStore((state) => state.sectionId);
-   let pageId = PageCurrentId((s) => s.pageId);
    let [body, setbody] = useState({
       title: '',
       content: '',
@@ -20,15 +18,15 @@ export default function PostPage() {
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
       onSuccess: async () => {
+         console.log('saved!');
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         // await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+         // await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
+         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
       },
       onError: async (error) => {
          throw new Error(error.message);
       },
    });
-
-   useEffect(() => console.log(pageId), []);
 
    return (
       <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:p-10 gap-10 sm:-ml-2'>
@@ -38,29 +36,31 @@ export default function PostPage() {
                <p className='text-start w-full font-sand text-slate-200'>{formattedDate(new Date())}</p>
             </div>
          </section>
-         <TextArea addMutation={addMutation} body={body} setBody={setbody} pageId={pageId} />
+         <TextArea addMutation={addMutation} body={body} setBody={setbody} />
       </section>
    );
 }
 
-function Input({ addMutation, sectionId }: PageEditInterface) {
+function Input({ addMutation, body, setBody, sectionId }: PageEditInterface) {
    let [len, setlen] = useState('150px');
-   let [title, setTitle] = useState('');
 
    useEffect(() => {
-      setInterval(() => {
-         title && sectionId ? addMutation.mutate({ title, content: '' }) : '';
-      }, 5000);
-   }, []);
+      setTimeout(() => {
+         body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
+      });
+   }, [3000]);
    return (
       <>
          <input
+            // onBlur={() => {
+            //    body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
+            // }}
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
                setlen(target.value.length * 10 + 'px');
-               setTitle(target.value);
+               setBody((body: any) => ({ ...body, title: target.value }));
             }}
-            value={title}
+            value={body.title}
             type='text'
             style={{ width: len }}
             className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium`}
@@ -70,43 +70,21 @@ function Input({ addMutation, sectionId }: PageEditInterface) {
    );
 }
 
-function TextArea({ addMutation, sectionId, title, pageId }: any) {
-   const queryClient = useQueryClient();
-   let [content, setContent] = useState('');
-   const updateMutation = useMutation({
-      mutationKey: ['updatePage'],
-      mutationFn: (body: bodyReq) => updatePage(body, pageId),
-      onSuccess: async () => {
-         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
-      },
-      onError: async (error) => {
-         throw error;
-      },
-   });
-
-   const decisionMaker = function () {
-      if (content && title && sectionId && pageId) {
-         updateMutation.mutate({ title, content, sectionId });
-      } else if (content && title && sectionId && !pageId) {
-         addMutation.mutate({ title, content, sectionId });
-      }
-   };
-
+function TextArea({ body, setBody, addMutation, sectionId }: PageEditInterface) {
    useEffect(() => {
-      setTimeout(() => decisionMaker(), 2000);
+      setTimeout(() => {
+         body.content && body.title && sectionId ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
+      }, 2000);
    }, []);
-
    return (
       <textarea
          // onBlur={() => {
          // }}
          onChange={(e) => {
             const target = e.target as HTMLTextAreaElement;
-            setContent(target.value);
+            setBody((body: any) => ({ ...body, content: target.value }));
          }}
-         value={content}
+         value={body.content}
          className='text-slate-100 text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none'
       ></textarea>
    );

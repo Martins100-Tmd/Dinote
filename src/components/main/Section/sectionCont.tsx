@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import LoadingSectionList from './loading';
 import SectionItem from './sectionItem';
-import { useEffect, useContext, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { fetchNoteSection } from './op';
-import { PageContext } from '../../state/pageContext';
 import { sectionIdStore } from '../../state/section';
+import { PageStore } from '../../state/page';
 
 export default function SectionContainer({ id }: { id: string }) {
-   const { setNewPage } = useContext(PageContext);
+   const setNewPage = PageStore((s) => s.setNewPage);
    const setSectionId = sectionIdStore((state) => state.setSectionId);
 
    const { data, isSuccess, isLoading, isError, error, status } = useQuery({
@@ -23,7 +23,7 @@ export default function SectionContainer({ id }: { id: string }) {
    const isEmptyData = useMemo(() => data && JSON.stringify(data.data) == '[]', [status, data]);
 
    useEffect(() => {
-      if (isEmptyData) setNewPage(false), setSectionId('');
+      if (isEmptyData) setNewPage('false'), setSectionId('');
       if (isSuccess && data && data.data && data.data[0]) setSectionId(data['data'][0]['id']);
    }, [status, data]);
 

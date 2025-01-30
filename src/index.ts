@@ -23,6 +23,7 @@ export { default as Signup } from './auth/signup';
 export { default as Layout } from './components/Layout';
 
 export const backendAPI = 'https://dinote-api.onrender.com';
+// export const backendAPI = 'localhost:3001';
 
 // =================== IMAGE ===================
 export { default as FormImg } from '../Image/formImg.webp';

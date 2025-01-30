@@ -1,15 +1,13 @@
-import { useContext } from 'react';
-import { PageContext } from '../../state/pageContext';
 import PageListContainer from './pagelist';
 import { usePageControllerStore } from '../../state/note';
-import { PageCurrentId } from '../../state/page';
+import { PageCurrentId, PageStore } from '../../state/page';
 const NotePage = function () {
-   const { setNewPage } = useContext(PageContext);
-   const [_, setPageId] = PageCurrentId((s) => [s.pageId, s.setPageId]);
-   const setstate = usePageControllerStore((state: any) => state.setSlide);
+   const setNewPage = PageStore((s) => s.setNewPage);
+   const setPageId = PageCurrentId((s) => s.setPageId);
+   const setState = usePageControllerStore((state: any) => state.setSlide);
 
-   const allFunction = () => {
-      setPageId(''), setNewPage(false), setTimeout(() => setNewPage(true), 100), setstate();
+   const allFunction = function () {
+      setPageId(''), setState(), setNewPage('true');
    };
 
    return (

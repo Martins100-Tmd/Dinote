@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { PageContext } from '../../state/pageContext';
 import { updPageName } from './fetch';
 import { deletePage } from './fetch';
-import { PageCurrentId } from '../../state/page';
+import { PageCurrentId, PageStore } from '../../state/page';
 import PopUpMenu from '../../../utils/Popmenu';
 import { usePageControllerStore } from '../../state/note';
 
@@ -13,7 +12,7 @@ export default function PageItem({ item }: any) {
    const [pageText, setPageText] = useState(item.title);
 
    const queryClient = useQueryClient();
-   const { setNewPage } = useContext(PageContext);
+   const setNewPage = PageStore((s) => s.setNewPage);
    const [setSignal, setPageId, pageId] = PageCurrentId((s) => [s.setSignal, s.setPageId, s.pageId]);
    const setstate = usePageControllerStore((state: any) => state.setSlide);
 
@@ -39,7 +38,7 @@ export default function PageItem({ item }: any) {
 
    function checkResponsiveness() {
       const body = document.body as HTMLBodyElement;
-      setNewPage(false), setPageId(item.id ?? '');
+      setNewPage('false'), setPageId(item.id ?? '');
       body.clientWidth <= 640 ? setstate() : {};
    }
 
@@ -67,10 +66,10 @@ export default function PageItem({ item }: any) {
                         setPageText(target.value);
                      }}
                      onBlur={(e) => {
-                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
+                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage('false'), setPageMenu(false), setSignal();
                      }}
                      onKeyDown={(e) => {
-                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
+                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage('false'), setPageMenu(false), setSignal();
                      }}
                      className='w-full font-sand text-base text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus
