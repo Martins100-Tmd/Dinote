@@ -26,7 +26,8 @@ export function Input({ addMutation, sectionId, pageId, newPage, updateMutation,
    );
 
    useEffect(() => {
-      newPage ? setBody((prev: any) => ({ ...prev, title: '' })) : '';
+      console.log('New Page Activate!');
+      newPage ? setBody((prev: any) => ({ ...prev, title: '', content: '' })) : '';
    }, [newPage]);
 
    return (
