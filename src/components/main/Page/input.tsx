@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { PageEditInterface } from '../../../types';
 import { debounceFn } from '../../../utils/debounce';
 
-export function Input({ addMutation, sectionId, pageId, updateMutation, body, setBody }: PageEditInterface) {
+export function Input({ addMutation, sectionId, pageId, newPage, updateMutation, body, setBody }: PageEditInterface) {
    const [len, setlen] = useState('150px');
    const [action, setAction] = useState(false);
 
@@ -21,8 +21,13 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
    let callDebounce = useCallback(
       debounceFn(function () {
          setAction(true);
-      }, 1000)
+      }, 1000),
+      []
    );
+
+   useEffect(() => {
+      newPage ? setBody((prev: any) => ({ ...prev, title: '' })) : '';
+   }, [newPage]);
 
    return (
       <>
@@ -33,7 +38,6 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
                setBody((prev: any) => ({ ...prev, title: target.value }));
                callDebounce();
             }}
-            // onInput={() => callDebounce()}
             value={body.title}
             type='text'
             style={{ width: len }}

@@ -2,12 +2,13 @@ import PageListContainer from './pagelist';
 import { usePageControllerStore } from '../../state/note';
 import { PageCurrentId, PageStore } from '../../state/page';
 const NotePage = function () {
-   const setNewPage = PageStore((s) => s.setNewPage);
+   const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
    const setPageId = PageCurrentId((s) => s.setPageId);
    const setState = usePageControllerStore((state: any) => state.setSlide);
 
    const allFunction = function () {
-      setPageId(''), setState(), setNewPage('false');
+      setPageId(''), setState(), setNewPage('true');
+      console.log(newPage);
    };
 
    return (

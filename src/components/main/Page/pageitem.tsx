@@ -79,6 +79,7 @@ export default function PageItem({ item }: any) {
                      onClick={() => {
                         checkResponsiveness();
                         item && setPageId(item.id);
+                        setNewPage('false');
                      }}
                      className={`${
                         item.id == pageId ? 'text-rose-100' : ''

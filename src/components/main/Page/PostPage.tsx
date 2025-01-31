@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import { sectionIdStore } from '../../state/section';
-import { PageCurrentId } from '../../state/page';
+import { PageCurrentId, PageStore } from '../../state/page';
 import { Input } from './input';
 import { TextArea } from './textarea';
-import { pageControllState } from '../../../types/page';
 
 export default function PostPage() {
    const queryClient = useQueryClient();
    let sectionId = sectionIdStore((state) => state.sectionId);
    let [pageId, setPageId] = PageCurrentId((s) => [s.pageId, s.setPageId]);
    let Sig = PageCurrentId((s) => s.getSignal);
+   let newPage = PageStore((s) => s.newPage);
    let [body, setbody] = useState({
       title: '',
       content: '',
@@ -68,6 +68,7 @@ export default function PostPage() {
                pageId={pageId}
                updateMutation={updateMutation}
                body={body}
+               newPage={newPage}
                setBody={setbody}
                sectionId={sectionId}
             />
@@ -75,7 +76,14 @@ export default function PostPage() {
                <p className='text-start w-full font-sand text-slate-200'>{formattedDate(new Date())}</p>
             </div>
          </section>
-         <TextArea addMutation={addMutation} updateMutation={updateMutation} body={body} setBody={setbody} pageId={pageId} />
+         <TextArea
+            addMutation={addMutation}
+            newPage={newPage}
+            updateMutation={updateMutation}
+            body={body}
+            setBody={setbody}
+            pageId={pageId}
+         />
       </section>
    );
 }
