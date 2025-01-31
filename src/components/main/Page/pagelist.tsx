@@ -12,7 +12,7 @@ export default function PageListContainer() {
    let { action, setAction } = sortAction();
    let [pageId, setPageId] = PageCurrentId((state) => [state.pageId, state.setPageId]);
 
-   let { isSuccess, isLoading, isError, error, data, status } = useQuery({
+   let { isLoading, isError, error, data, status } = useQuery({
       queryKey: ['fetchSectionPages', sectionId],
       queryFn: () => fetchSectionPages(sectionId),
       enabled: !!sectionId,
@@ -37,20 +37,16 @@ export default function PageListContainer() {
    }, [data, action, sectionId]);
 
    useEffect(() => {
-      if (!dataIsEmpty && data.data[0]) setPageId(data.data[0].id ?? '');
-   }, [status, pageId]);
-
-   useEffect(() => {
-      if (data && data.data[0]) setPageId(data.data[0].id ?? '');
-      if (dataIsEmpty || data == undefined) setPageId(''), console.log('EMPTY', pageId);
-   }, [sectionId]);
+      if (!dataIsEmpty && data && data.data[0]) setPageId(data.data[0].id ?? '');
+      else setPageId('');
+   }, [status, pageId, sectionId]);
 
    if (isLoading) return <LoadingPageList />;
 
    if (isError) return <>{error?.message}</>;
 
-   if (isSuccess && !dataIsEmpty)
+   if (data && !dataIsEmpty)
       return processedData.length > 0
          ? processedData.map((item: any, index: number) => <PageItem item={item} key={index} />)
-         : data && data.map((item: any, index: number) => <PageItem item={item} key={index} />);
+         : data.data && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
 }

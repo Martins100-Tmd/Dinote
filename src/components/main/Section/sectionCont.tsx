@@ -23,9 +23,10 @@ export default function SectionContainer({ id }: { id: string }) {
    const isEmptyData = useMemo(() => data && JSON.stringify(data.data) == '[]', [status, data]);
 
    useEffect(() => {
+      console.log(data);
       if (isEmptyData) setNewPage('false'), setSectionId('');
-      if (isSuccess && data && data.data && data.data[0]) setSectionId(data['data'][0]['id']);
-   }, [status, data]);
+      if (!isEmptyData && data && data.data[0]) setSectionId(data['data'][0]['id']);
+   }, [status]);
 
    if (isLoading) return <LoadingSectionList />;
 

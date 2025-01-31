@@ -2,20 +2,20 @@ import { useEffect, useState } from 'react';
 import { PageEditInterface } from '../../../types';
 import { debounceFn } from '../../../utils/debounce';
 
-export function TextArea({ addMutation, sectionId, body, setBody, pageId, updateMutation }: PageEditInterface) {
+export function TextArea({ sectionId, body, setBody, pageId, updateMutation }: PageEditInterface) {
    const [action, setAction] = useState(false);
+
    useEffect(() => {
-      if (body.content && sectionId && action) {
-         if (pageId) {
-            updateMutation.mutate({ ...body });
-         } else {
-            addMutation.mutate({ ...body });
-         }
+      if (body.content && sectionId && action && pageId) {
+         console.log('Updating content');
+         updateMutation.mutate({ ...body });
       }
+      setAction(false);
    }, [action]);
 
    let callDebounce = debounceFn(function () {
-      setAction(!action);
+      setAction(true);
+      console.log('NOWWWWW');
    }, 3000);
 
    return (
@@ -25,7 +25,7 @@ export function TextArea({ addMutation, sectionId, body, setBody, pageId, update
             setBody((prev: any) => ({ ...prev, content: target.value }));
          }}
          onInput={() => callDebounce()}
-         value={body.content}
+         value={pageId ? body.content : ''}
          className='text-slate-100 text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none'
       ></textarea>
    );

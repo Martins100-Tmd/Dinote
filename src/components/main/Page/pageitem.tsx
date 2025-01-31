@@ -48,11 +48,6 @@ export default function PageItem({ item }: any) {
       button.focus();
    };
 
-   const deleteAction = async function (id: string) {
-      DelMutation.mutate(id);
-      await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-   };
-
    return (
       <div className='relative flex flex-row w-full items-center justify-between rounded-l-md'>
          <>
@@ -81,7 +76,10 @@ export default function PageItem({ item }: any) {
             ) : (
                <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
-                     onClick={checkResponsiveness}
+                     onClick={() => {
+                        checkResponsiveness();
+                        item && setPageId(item.id);
+                     }}
                      className={`${
                         item.id == pageId ? 'text-rose-100' : ''
                      } truncate outline-none border-none p-2 w-[70%] text-[14px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center`}
@@ -110,7 +108,7 @@ export default function PageItem({ item }: any) {
                </div>
             )}
          </>
-         <PopUpMenu setswitch={setPageMenu} Switch={pageMenu} DelAction={deleteAction} id={item.id} setrename={setrename} />
+         <PopUpMenu setswitch={setPageMenu} Switch={pageMenu} DelAction={DelMutation} id={item.id} setrename={setrename} />
       </div>
    );
 }

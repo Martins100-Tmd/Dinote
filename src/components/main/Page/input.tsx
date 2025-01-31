@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { PageEditInterface } from '../../../types';
 import { debounceFn } from '../../../utils/debounce';
 
@@ -14,14 +14,11 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
             addMutation.mutate({ ...body });
          }
       }
+      setAction(false);
    }, [action]);
 
-   useEffect(() => {
-      console.log(pageId, body);
-   }, [pageId]);
-
    let callDebounce = debounceFn(function () {
-      setAction(!action);
+      setAction(true);
    }, 3000);
 
    return (
@@ -33,7 +30,7 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
                setBody((prev: any) => ({ ...prev, title: target.value }));
             }}
             onInput={() => callDebounce()}
-            value={body.title}
+            value={pageId ? body.title : ''}
             type='text'
             style={{ width: len }}
             className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium`}

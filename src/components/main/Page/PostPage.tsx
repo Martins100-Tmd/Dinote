@@ -39,12 +39,7 @@ export default function PostPage() {
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
       mutationFn: (body: bodyReq) => updatePage(body, pageId),
-      onSuccess: async (data) => {
-         console.log(data);
-         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
-      },
+      onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] }),
       onError: async (error) => {
          throw error;
       },
@@ -56,7 +51,7 @@ export default function PostPage() {
       onSuccess: async (data) => {
          data && setPageId(data.id);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         // await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
       },
       onError: async (error) => {
          throw new Error(error.message);
