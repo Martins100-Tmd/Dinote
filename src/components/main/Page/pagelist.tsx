@@ -34,7 +34,6 @@ export default function PageListContainer() {
    }, [data, action, sectionId]);
 
    useEffect(() => {
-      if (newPage) setPageId('');
       if (pageId && dataIsEmpty) setNewPage('false');
       if (data && isSuccess && !pageId && data.data && data.data[0]) {
          setPageId(data.data[0].id ?? '');

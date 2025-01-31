@@ -7,7 +7,7 @@ const NotePage = function () {
    const setState = usePageControllerStore((state: any) => state.setSlide);
 
    const allFunction = function () {
-      setPageId(''), setState(), setNewPage('true');
+      setPageId(''), setState(), setNewPage('false');
    };
 
    return (
