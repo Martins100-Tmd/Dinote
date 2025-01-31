@@ -7,6 +7,7 @@ import { sectionIdStore } from '../../state/section';
 import { PageCurrentId } from '../../state/page';
 import { Input } from './input';
 import { TextArea } from './textarea';
+import { pageControllState } from '../../../types/page';
 
 export default function PostPage() {
    const queryClient = useQueryClient();
@@ -30,7 +31,8 @@ export default function PostPage() {
    });
 
    useEffect(() => {
-      if (isSuccess && data && data['data']) {
+      console.log(pageId);
+      if (isSuccess && data && data['data'] && pageId) {
          const formatDate = formattedDate(new Date(data.data.createdAt));
          setbody((prev) => ({ ...prev, title: data.data['title'], content: data.data['content'], updatedAt: formatDate }));
       }

@@ -3,7 +3,7 @@ import LoadingPageList from './loadingpages';
 import PageItem from './Pageitem';
 import { useEffect, useMemo } from 'react';
 import { fetchSectionPages } from './fetch';
-import { PageCurrentId, sortAction } from '../../state/page';
+import { PageCurrentId, PageStore, sortAction } from '../../state/page';
 import { sortFunctions } from './fetch';
 import { sectionIdStore } from '../../state/section';
 
@@ -11,6 +11,7 @@ export default function PageListContainer() {
    let sectionId = sectionIdStore((state) => state.sectionId);
    let { action, setAction } = sortAction();
    let [pageId, setPageId] = PageCurrentId((state) => [state.pageId, state.setPageId]);
+   let newPage = PageStore((s) => s.newPage);
 
    let { isLoading, isError, error, data, status } = useQuery({
       queryKey: ['fetchSectionPages', sectionId],
@@ -37,7 +38,8 @@ export default function PageListContainer() {
    }, [data, action, sectionId]);
 
    useEffect(() => {
-      if (!dataIsEmpty && data && data.data[0]) setPageId(data.data[0].id ?? '');
+      console.log(pageId);
+      if (!dataIsEmpty && data && data.data[0] && !newPage) setPageId(data.data[0].id ?? '');
       else setPageId('');
    }, [status, pageId, sectionId]);
 
