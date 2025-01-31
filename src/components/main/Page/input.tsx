@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { PageEditInterface } from '../../../types';
 import { debounceFn } from '../../../utils/debounce';
 
@@ -15,6 +15,10 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
          }
       }
    }, [action]);
+
+   useEffect(() => {
+      console.log(pageId, body);
+   }, [pageId]);
 
    let callDebounce = debounceFn(function () {
       setAction(!action);

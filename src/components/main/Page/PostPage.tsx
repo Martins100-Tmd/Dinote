@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addPage, updatePage } from './fetch';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { addPage, getSolePage, updatePage } from './fetch';
 import { useState, useEffect } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
@@ -11,17 +11,36 @@ import { TextArea } from './textarea';
 export default function PostPage() {
    const queryClient = useQueryClient();
    let sectionId = sectionIdStore((state) => state.sectionId);
-   let pageId = PageCurrentId((s) => s.pageId);
+   let [pageId, setPageId] = PageCurrentId((s) => [s.pageId, s.setPageId]);
+   let Sig = PageCurrentId((s) => s.getSignal);
    let [body, setbody] = useState({
       title: '',
       content: '',
       sectionId,
    });
 
+   const { isSuccess, data, status } = useQuery({
+      queryKey: ['getPageContent', pageId, Sig],
+      queryFn: () => getSolePage(pageId),
+      enabled: !!pageId,
+      refetchOnWindowFocus: false,
+      retry: 2,
+      staleTime: 10000,
+      refetchOnMount: false,
+   });
+
+   useEffect(() => {
+      if (isSuccess && data && data['data']) {
+         const formatDate = formattedDate(new Date(data.data.createdAt));
+         setbody((prev) => ({ ...prev, title: data.data['title'], content: data.data['content'], updatedAt: formatDate }));
+      }
+   }, [status, pageId]);
+
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
       mutationFn: (body: bodyReq) => updatePage(body, pageId),
-      onSuccess: async () => {
+      onSuccess: async (data) => {
+         console.log(data);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
@@ -34,7 +53,8 @@ export default function PostPage() {
    const addMutation = useMutation({
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
-      onSuccess: async () => {
+      onSuccess: async (data) => {
+         data && setPageId(data.id);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
          // await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
       },
@@ -42,8 +62,6 @@ export default function PostPage() {
          throw new Error(error.message);
       },
    });
-
-   useEffect(() => console.log(pageId), []);
 
    return (
       <section className='w-full h-full bg-[rgba(33,33,33,.9)] flex flex-col items-start p-3 sm:p-10 gap-10 sm:-ml-2'>
