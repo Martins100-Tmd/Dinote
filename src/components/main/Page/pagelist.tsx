@@ -3,13 +3,12 @@ import LoadingPageList from './loadingpages';
 import PageItem from './Pageitem';
 import { useEffect, useMemo } from 'react';
 import { fetchSectionPages } from './fetch';
-import { PageCurrentId, PageStore, sortAction } from '../../state/page';
+import { PageCurrentId, sortAction } from '../../state/page';
 import { sortFunctions } from './fetch';
 import { sectionIdStore } from '../../state/section';
 
 export default function PageListContainer() {
    let sectionId = sectionIdStore((state) => state.sectionId);
-   const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
    let { action, setAction } = sortAction();
    let [pageId, setPageId] = PageCurrentId((state) => [state.pageId, state.setPageId]);
 
@@ -23,6 +22,10 @@ export default function PageListContainer() {
       refetchOnMount: false,
    });
 
+   useEffect(() => {
+      console.log(data);
+   }, [status]);
+
    //Check if the response is empty
    let dataIsEmpty = useMemo(() => data && JSON.stringify(data.data) == '[]', [status]);
 
@@ -34,11 +37,8 @@ export default function PageListContainer() {
    }, [data, action, sectionId]);
 
    useEffect(() => {
-      if (pageId && dataIsEmpty) setNewPage('false');
-      if (data && isSuccess && !pageId && data.data && data.data[0]) {
-         setPageId(data.data[0].id ?? '');
-      }
-   }, [pageId, status]);
+      if (!dataIsEmpty && data.data[0]) setPageId(data.data[0].id ?? '');
+   }, [status, pageId]);
 
    useEffect(() => {
       if (data && data.data[0]) setPageId(data.data[0].id ?? '');
