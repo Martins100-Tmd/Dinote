@@ -44,9 +44,9 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
 
    useEffect(() => {
       setlen(function () {
-         const Body = document.body as HTMLBodyElement;
-         let VAL = Body.clientWidth <= 640 ? 4.5 : 2;
-         return body.title.length * VAL + '%';
+         //const Body = document.body as HTMLBodyElement;
+         let VAL = 8;
+         return body.title.length * VAL + 50 + 'px';
       });
    }, [body]);
 
@@ -55,11 +55,6 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
          <input
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
-               setlen(function () {
-                  const Body = document.body as HTMLBodyElement;
-                  let VAL = Body.clientWidth <= 640 ? 1.5 : 2;
-                  return body.title.length * VAL + '%';
-               });
                setBody((prev: any) => ({ ...prev, title: target.value }));
                callDebounce();
             }}

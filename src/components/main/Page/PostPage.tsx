@@ -71,7 +71,7 @@ export default function PostPage() {
                sectionId={sectionId}
             />
             <div className='flex items-center w-full justify-start'>
-               <p className='text-start w-full font-sand text-slate-200'>{formattedDate(new Date())}</p>
+               <p className='text-start w-full text-[11px] sm:text-xs font-sand text-slate-200'>{formattedDate(new Date())}</p>
             </div>
          </section>
          <TextArea addMutation={addMutation} updateMutation={updateMutation} body={body} setBody={setbody} pageId={pageId} />
