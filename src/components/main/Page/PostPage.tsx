@@ -39,7 +39,10 @@ export default function PostPage() {
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
       mutationFn: (body: bodyReq) => updatePage(body, pageId),
-      onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages', 'getPageContent'] }),
+      onSuccess: async () => {
+         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] }),
+            await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+      },
       onError: async (error) => {
          throw error;
       },
