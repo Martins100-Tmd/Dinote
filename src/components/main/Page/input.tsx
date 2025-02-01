@@ -42,19 +42,31 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
       }
    }, [newPage, setBody]);
 
+   useEffect(() => {
+      setlen(function () {
+         const Body = document.body as HTMLBodyElement;
+         let VAL = Body.clientWidth <= 640 ? 4.5 : 2;
+         return body.title.length * VAL + '%';
+      });
+   }, [body]);
+
    return (
       <>
          <input
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
-               setlen(target.value.length * 10 + 'px');
+               setlen(function () {
+                  const Body = document.body as HTMLBodyElement;
+                  let VAL = Body.clientWidth <= 640 ? 1.5 : 2;
+                  return body.title.length * VAL + '%';
+               });
                setBody((prev: any) => ({ ...prev, title: target.value }));
                callDebounce();
             }}
             value={body.title}
             type='text'
             style={{ width: len }}
-            className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium`}
+            className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-[15px] sm:text-xl font-medium`}
             autoFocus
          />
       </>
