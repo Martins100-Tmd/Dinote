@@ -38,8 +38,8 @@ export default function PageItem({ item }: any) {
    function checkResponsiveness() {
       const body = document.body as HTMLBodyElement;
       body.clientWidth <= 640 ? setstate() : {};
-      setNewPage('false'), setPageId(item.id ?? '');
-      console.log(newPage);
+      setNewPage(false), setNewPage(false), setPageId(item.id ?? '');
+      console.log(newPage, item.id);
    }
 
    useEffect(() => console.log(newPage), [newPage]);
@@ -63,10 +63,10 @@ export default function PageItem({ item }: any) {
                         setPageText(target.value);
                      }}
                      onBlur={(e) => {
-                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage('false'), setPageMenu(false), setSignal();
+                        e.type == 'blur' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
                      }}
                      onKeyDown={(e) => {
-                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage('false'), setPageMenu(false), setSignal();
+                        e.key == 'Enter' && PutMutation.mutate(pageText), setNewPage(false), setPageMenu(false), setSignal();
                      }}
                      className='w-full font-sand text-base text-white bg-transparent h-full outline-none border p-1 border-[#c4c4c4]'
                      autoFocus

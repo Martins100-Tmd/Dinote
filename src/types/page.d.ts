@@ -10,11 +10,9 @@ export interface sortType {
    setAction: (val: string) => void;
 }
 
-export interface pageControllState {
+export interface pageControlState {
    newPage: boolean;
-   clickedPageId: string;
-   setClickedPageId: (id: string) => void;
-   setNewPage: (val: string) => void;
+   setNewPage: (val: boolean) => void;
 }
 
 export interface pageTextStateInterface {

@@ -13,7 +13,8 @@ export function TextArea({ body, setBody, pageId, updateMutation }: PageEditInte
             { ...body },
             {
                onSuccess() {
-                  setNewPage('false');
+                  console.log('updated!');
+                  setNewPage(false);
                },
             }
          );
@@ -24,7 +25,7 @@ export function TextArea({ body, setBody, pageId, updateMutation }: PageEditInte
    let callDebounce = useCallback(
       debounceFn(function () {
          setAction(true);
-      }, 3000),
+      }, 1000),
       []
    );
 

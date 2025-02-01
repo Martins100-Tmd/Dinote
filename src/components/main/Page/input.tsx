@@ -17,7 +17,7 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
                {
                   onSuccess(data, _) {
                      setPageId(data.id);
-                     setNewPage('false'); // Set newPage to false after successful mutation
+                     setNewPage(false); // Set newPage to false after successful mutation
                   },
                }
             );

@@ -13,7 +13,6 @@ export default function PostPage() {
    let sectionId = sectionIdStore((state) => state.sectionId);
    let [pageId, setPageId] = PageCurrentId((s) => [s.pageId, s.setPageId]);
    let Sig = PageCurrentId((s) => s.getSignal);
-   let newPage = PageStore((s) => s.newPage);
    let [body, setbody] = useState({
       title: '',
       content: '',

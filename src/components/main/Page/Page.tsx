@@ -8,8 +8,7 @@ const NotePage = function () {
    const setState = usePageControllerStore((state: any) => state.setSlide);
 
    const allFunction = function () {
-      setPageId(''), setState(), setNewPage('true');
-      console.log(newPage);
+      setPageId(''), setState(), setNewPage(true);
    };
 
    useEffect(() => {
