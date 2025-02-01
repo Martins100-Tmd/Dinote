@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { formattedDate } from '../../../utils/date';
 import { bodyReq } from '../../../types';
 import { sectionIdStore } from '../../state/section';
-import { PageCurrentId, PageStore } from '../../state/page';
+import { PageCurrentId } from '../../state/page';
 import { Input } from './input';
 import { TextArea } from './textarea';
 
@@ -25,8 +25,8 @@ export default function PostPage() {
       enabled: !!pageId,
       refetchOnWindowFocus: false,
       retry: 2,
-      staleTime: 10000,
-      refetchOnMount: false,
+      // staleTime: 10000,
+      // refetchOnMount: false,
    });
 
    useEffect(() => {

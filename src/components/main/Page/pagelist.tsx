@@ -28,8 +28,6 @@ export default function PageListContainer() {
       refetchOnMount: false,
    });
 
-   useEffect(() => {}, [status]);
-
    const dataIsEmpty = useMemo(() => data && data.data.length === 0, [data]);
 
    const processedData = useMemo(() => {
@@ -40,12 +38,8 @@ export default function PageListContainer() {
 
    useEffect(() => {
       if (!dataIsEmpty && data && data.data[0] && !newPage) {
-         if (!pageId) {
-            setPageId(data.data[0].id ?? '');
-         }
-      } else {
-         setPageId('');
-      }
+         if (pageId) setPageId(data.data[0].id ?? '');
+      } else setPageId('');
    }, [status, data, dataIsEmpty, newPage, pageId, setPageId]);
 
    if (isLoading) return <LoadingPageList />;

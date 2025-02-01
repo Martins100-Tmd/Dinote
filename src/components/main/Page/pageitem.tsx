@@ -21,7 +21,7 @@ export default function PageItem({ item }: any) {
       onSuccess: async () => {
          setPageMenu(false);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
       },
    });
    const PutMutation = useMutation({
@@ -48,6 +48,7 @@ export default function PageItem({ item }: any) {
       setPageMenu(true);
       const button = document.getElementById('popmenu') as HTMLButtonElement;
       button.focus();
+      console.log(item.id, 'ID');
    };
 
    return (
