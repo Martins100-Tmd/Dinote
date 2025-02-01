@@ -31,7 +31,6 @@ export default function PostPage() {
    });
 
    useEffect(() => {
-      console.log(pageId);
       if (isSuccess && data && data['data'] && pageId) {
          const formatDate = formattedDate(new Date(data.data.createdAt));
          setbody((prev) => ({ ...prev, title: data.data['title'], content: data.data['content'], updatedAt: formatDate }));
@@ -41,7 +40,7 @@ export default function PostPage() {
    const updateMutation = useMutation({
       mutationKey: ['updatePage'],
       mutationFn: (body: bodyReq) => updatePage(body, pageId),
-      onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] }),
+      onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages', 'getPageContent'] }),
       onError: async (error) => {
          throw error;
       },
@@ -68,7 +67,6 @@ export default function PostPage() {
                pageId={pageId}
                updateMutation={updateMutation}
                body={body}
-               newPage={newPage}
                setBody={setbody}
                sectionId={sectionId}
             />
@@ -76,14 +74,7 @@ export default function PostPage() {
                <p className='text-start w-full font-sand text-slate-200'>{formattedDate(new Date())}</p>
             </div>
          </section>
-         <TextArea
-            addMutation={addMutation}
-            newPage={newPage}
-            updateMutation={updateMutation}
-            body={body}
-            setBody={setbody}
-            pageId={pageId}
-         />
+         <TextArea addMutation={addMutation} updateMutation={updateMutation} body={body} setBody={setbody} pageId={pageId} />
       </section>
    );
 }

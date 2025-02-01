@@ -65,6 +65,5 @@ interface PageEditInterface {
    body: { title: string; content: string; sectionId: string };
    setBody: Function;
    pageId: string;
-   newPage: boolean;
    sectionId?: string;
 }

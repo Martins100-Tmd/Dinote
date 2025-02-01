@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updPageName } from './fetch';
 import { deletePage } from './fetch';
@@ -10,9 +10,8 @@ export default function PageItem({ item }: any) {
    const [pageMenu, setPageMenu] = useState(false);
    const [rename, setrename] = useState(false);
    const [pageText, setPageText] = useState(item.title);
-
    const queryClient = useQueryClient();
-   const setNewPage = PageStore((s) => s.setNewPage);
+   const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
    const [setSignal, setPageId, pageId] = PageCurrentId((s) => [s.setSignal, s.setPageId, s.pageId]);
    const setstate = usePageControllerStore((state: any) => state.setSlide);
 
@@ -38,9 +37,12 @@ export default function PageItem({ item }: any) {
 
    function checkResponsiveness() {
       const body = document.body as HTMLBodyElement;
-      setNewPage('false'), setPageId(item.id ?? '');
       body.clientWidth <= 640 ? setstate() : {};
+      setNewPage('false'), setPageId(item.id ?? '');
+      console.log(newPage);
    }
+
+   useEffect(() => console.log(newPage), [newPage]);
 
    const focusBodyFn = () => {
       setPageMenu(true);
@@ -79,7 +81,6 @@ export default function PageItem({ item }: any) {
                      onClick={() => {
                         checkResponsiveness();
                         item && setPageId(item.id);
-                        setNewPage('false');
                      }}
                      className={`${
                         item.id == pageId ? 'text-rose-100' : ''

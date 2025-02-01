@@ -1,6 +1,7 @@
 import PageListContainer from './pagelist';
 import { usePageControllerStore } from '../../state/note';
 import { PageCurrentId, PageStore } from '../../state/page';
+import { useEffect } from 'react';
 const NotePage = function () {
    const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
    const setPageId = PageCurrentId((s) => s.setPageId);
@@ -10,6 +11,10 @@ const NotePage = function () {
       setPageId(''), setState(), setNewPage('true');
       console.log(newPage);
    };
+
+   useEffect(() => {
+      console.log(newPage, 'LLLLLLL');
+   }, [newPage]);
 
    return (
       <section className='flex flex-col items-start w-full border-r border-[#2b2b2b] justify-between h-full'>

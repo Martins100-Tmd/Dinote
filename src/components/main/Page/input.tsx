@@ -1,22 +1,32 @@
 import { useState, useEffect, useCallback } from 'react';
 import { PageEditInterface } from '../../../types';
 import { debounceFn } from '../../../utils/debounce';
+import { PageCurrentId, PageStore } from '../../state/page';
 
-export function Input({ addMutation, sectionId, pageId, newPage, updateMutation, body, setBody }: PageEditInterface) {
+export function Input({ addMutation, sectionId, pageId, updateMutation, body, setBody }: PageEditInterface) {
    const [len, setlen] = useState('150px');
    const [action, setAction] = useState(false);
+   const setPageId = PageCurrentId((s) => s.setPageId);
+   const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
 
    useEffect(() => {
       if (body.title && sectionId && action) {
-         console.log(body.title);
-         // if (pageId) {
-         //    updateMutation.mutate({ ...body });
-         // } else {
-         //    addMutation.mutate({ ...body });
-         // }
+         if (newPage) {
+            addMutation.mutate(
+               { ...body },
+               {
+                  onSuccess(data, _) {
+                     setPageId(data.id);
+                     setNewPage('false'); // Set newPage to false after successful mutation
+                  },
+               }
+            );
+         } else if (pageId) {
+            updateMutation.mutate({ ...body });
+         }
       }
-      setAction(false);
-   }, [action]);
+      setAction(false); // Reset action after processing
+   }, [action, body, sectionId, pageId, newPage, setPageId, setNewPage, addMutation, updateMutation]);
 
    let callDebounce = useCallback(
       debounceFn(function () {
@@ -26,9 +36,11 @@ export function Input({ addMutation, sectionId, pageId, newPage, updateMutation,
    );
 
    useEffect(() => {
-      console.log('New Page Activate!');
-      newPage ? setBody((prev: any) => ({ ...prev, title: '', content: '' })) : '';
-   }, [newPage]);
+      if (newPage) {
+         setBody((prev: any) => ({ ...prev, title: '', content: '' }));
+         console.log(body);
+      }
+   }, [newPage, setBody]);
 
    return (
       <>

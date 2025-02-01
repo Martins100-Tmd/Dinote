@@ -5,7 +5,7 @@ export const PageStore = create<pageControllState>()((set) => ({
    newPage: false,
    clickedPageId: '',
    setClickedPageId: (id: string) => set((s: any) => ({ ...s, clickedPageId: id })),
-   setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: val ? Boolean(val) : !state.newPage })),
+   setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: Boolean(val) })),
 }));
 
 export const sortAction = create<sortType>()((set) => ({

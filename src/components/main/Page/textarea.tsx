@@ -1,14 +1,22 @@
 import { useEffect, useState, useCallback } from 'react';
 import { PageEditInterface } from '../../../types';
 import { debounceFn } from '../../../utils/debounce';
+import { PageStore } from '../../state/page';
 
-export function TextArea({ sectionId, body, setBody, newPage, pageId, updateMutation }: PageEditInterface) {
+export function TextArea({ body, setBody, pageId, updateMutation }: PageEditInterface) {
    const [action, setAction] = useState(false);
+   const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
 
    useEffect(() => {
-      if (body.content && sectionId && action && pageId) {
-         console.log('Updating content');
-         updateMutation.mutate({ ...body });
+      if (body && body.sectionId && action && pageId) {
+         updateMutation.mutate(
+            { ...body },
+            {
+               onSuccess() {
+                  setNewPage('false');
+               },
+            }
+         );
       }
       setAction(false);
    }, [action]);
@@ -29,8 +37,8 @@ export function TextArea({ sectionId, body, setBody, newPage, pageId, updateMuta
          onChange={(e) => {
             const target = e.target as HTMLTextAreaElement;
             setBody((prev: any) => ({ ...prev, content: target.value }));
+            callDebounce();
          }}
-         onInput={() => callDebounce()}
          value={body.content}
          className='text-slate-100 text-sm w-full h-full font-sand text-start bg-transparent outline-none border-none'
       ></textarea>
