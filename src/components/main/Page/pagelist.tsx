@@ -9,7 +9,6 @@ import { sectionIdStore } from '../../state/section';
 
 interface Page {
    id: string;
-   // Add other properties as needed
 }
 
 export default function PageListContainer() {

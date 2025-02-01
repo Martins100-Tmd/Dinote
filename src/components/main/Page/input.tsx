@@ -17,7 +17,7 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
                {
                   onSuccess(data, _) {
                      setPageId(data.id);
-                     setNewPage(false); // Set newPage to false after successful mutation
+                     setNewPage(false);
                   },
                }
             );
@@ -25,8 +25,8 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
             updateMutation.mutate({ ...body });
          }
       }
-      setAction(false); // Reset action after processing
-   }, [action, body, sectionId, pageId, newPage, setPageId, setNewPage, addMutation, updateMutation]);
+      setAction(false);
+   }, [action, body, sectionId, pageId, newPage]);
 
    let callDebounce = useCallback(
       debounceFn(function () {

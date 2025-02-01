@@ -25,8 +25,6 @@ export default function PostPage() {
       enabled: !!pageId,
       refetchOnWindowFocus: false,
       retry: 2,
-      // staleTime: 10000,
-      // refetchOnMount: false,
    });
 
    useEffect(() => {
