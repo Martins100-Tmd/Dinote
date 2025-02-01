@@ -35,11 +35,12 @@ export default function PageItem({ item }: any) {
       },
    });
 
-   function checkResponsiveness() {
+   async function checkResponsiveness() {
       const body = document.body as HTMLBodyElement;
       body.clientWidth <= 640 ? setstate() : {};
-      setNewPage(false), setNewPage(false), setPageId(item.id ?? '');
-      console.log(newPage, item.id);
+      setNewPage(false), setPageId(item.id ?? '');
+      console.log(pageId);
+      await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
    }
 
    useEffect(() => console.log(newPage), [newPage]);
