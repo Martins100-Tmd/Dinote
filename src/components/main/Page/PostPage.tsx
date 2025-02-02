@@ -18,10 +18,8 @@ export default function PostPage() {
       mutationKey: ['addPage'],
       mutationFn: (body: bodyReq) => addPage(body),
       onSuccess: async () => {
-         console.log('saved!');
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         // await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+         // await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
       },
       onError: async (error) => {
          throw new Error(error.message);
@@ -41,26 +39,24 @@ export default function PostPage() {
    );
 }
 
-function Input({ addMutation, body, setBody, sectionId }: PageEditInterface) {
+function Input({ addMutation, sectionId }: PageEditInterface) {
    let [len, setlen] = useState('150px');
+   let [title, setTitle] = useState('');
 
    useEffect(() => {
-      setTimeout(() => {
-         body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
-      });
-   }, [3000]);
+      setInterval(() => {
+         title && sectionId ? addMutation.mutate({ title, content: '' }) : '';
+      }, 5000);
+   }, []);
    return (
       <>
          <input
-            // onBlur={() => {
-            //    body.title && sectionId ? addMutation.mutate({ ...body, content: '' }) : '';
-            // }}
             onChange={(e) => {
                const target = e.target as HTMLInputElement;
                setlen(target.value.length * 10 + 'px');
-               setBody((body: any) => ({ ...body, title: target.value }));
+               setTitle(target.value);
             }}
-            value={body.title}
+            value={title}
             type='text'
             style={{ width: len }}
             className={`text-start self-start outline-none border-b bg-transparent border-slate-200 font-sand text-slate-100 text-xl font-medium`}
@@ -70,7 +66,8 @@ function Input({ addMutation, body, setBody, sectionId }: PageEditInterface) {
    );
 }
 
-function TextArea({ body, setBody, addMutation, sectionId }: PageEditInterface) {
+function TextArea({ addMutation, sectionId }: PageEditInterface) {
+   let [body];
    useEffect(() => {
       setTimeout(() => {
          body.content && body.title && sectionId ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
