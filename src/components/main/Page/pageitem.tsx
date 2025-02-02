@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { PageContext } from '../../state/pageContext';
 import { updPageName } from './fetch';
 import { deletePage } from './fetch';
-import { PageCurrentId } from '../../state/page';
+import { PageCurrentId, PageStore } from '../../state/page';
 import PopUpMenu from '../../../utils/Popmenu';
 import { usePageControllerStore } from '../../state/note';
 
@@ -11,9 +10,8 @@ export default function PageItem({ item }: any) {
    const [pageMenu, setPageMenu] = useState(false);
    const [rename, setrename] = useState(false);
    const [pageText, setPageText] = useState(item.title);
-
    const queryClient = useQueryClient();
-   const { setNewPage } = useContext(PageContext);
+   const [newPage, setNewPage] = PageStore((s) => [s.newPage, s.setNewPage]);
    const [setSignal, setPageId, pageId] = PageCurrentId((s) => [s.setSignal, s.setPageId, s.pageId]);
    const setstate = usePageControllerStore((state: any) => state.setSlide);
 
@@ -23,7 +21,7 @@ export default function PageItem({ item }: any) {
       onSuccess: async () => {
          setPageMenu(false);
          await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
-         await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
+         await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
       },
    });
    const PutMutation = useMutation({
@@ -37,21 +35,21 @@ export default function PageItem({ item }: any) {
       },
    });
 
-   function checkResponsiveness() {
+   async function checkResponsiveness() {
       const body = document.body as HTMLBodyElement;
-      setNewPage(false), setPageId(item.id ?? '');
       body.clientWidth <= 640 ? setstate() : {};
+      setNewPage(false), setPageId(item.id ?? '');
+      console.log(pageId);
+      await queryClient.invalidateQueries({ queryKey: ['getPageContent'] });
    }
+
+   useEffect(() => console.log(newPage), [newPage]);
 
    const focusBodyFn = () => {
       setPageMenu(true);
       const button = document.getElementById('popmenu') as HTMLButtonElement;
       button.focus();
-   };
-
-   const deleteAction = async function (id: string) {
-      DelMutation.mutate(id);
-      await queryClient.invalidateQueries({ queryKey: ['fetchSectionPages'] });
+      console.log(item.id, 'ID');
    };
 
    return (
@@ -82,7 +80,10 @@ export default function PageItem({ item }: any) {
             ) : (
                <div className='flex flex-row items-center w-full justify-between hover:bg-[#535353]'>
                   <p
-                     onClick={checkResponsiveness}
+                     onClick={() => {
+                        checkResponsiveness();
+                        item && setPageId(item.id);
+                     }}
                      className={`${
                         item.id == pageId ? 'text-rose-100' : ''
                      } truncate outline-none border-none p-2 w-[70%] text-[14px] cursor-pointer text-ellipsis font-sand text-slate-100 font-medium self-center`}
@@ -111,7 +112,7 @@ export default function PageItem({ item }: any) {
                </div>
             )}
          </>
-         <PopUpMenu setswitch={setPageMenu} Switch={pageMenu} DelAction={deleteAction} id={item.id} setrename={setrename} />
+         <PopUpMenu setswitch={setPageMenu} Switch={pageMenu} DelAction={DelMutation} id={item.id} setrename={setrename} />
       </div>
    );
 }

@@ -1,3 +1,5 @@
+import { UseMutationResult } from '@tanstack/react-query';
+
 export interface NoteLayoutInterface {
    sect: sectionT;
    page: string[];
@@ -59,7 +61,9 @@ export type SortKeys = keyof SortFunctions;
 
 interface PageEditInterface {
    addMutation: UseMutationResult<any, Error, any, unknown>;
+   updateMutation: UseMutationResult<any, Error, any, unknown>;
    body: { title: string; content: string; sectionId: string };
    setBody: Function;
+   pageId: string;
    sectionId?: string;
 }

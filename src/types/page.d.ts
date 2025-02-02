@@ -10,11 +10,9 @@ export interface sortType {
    setAction: (val: string) => void;
 }
 
-export interface pageControllState {
+export interface pageControlState {
    newPage: boolean;
-   clickedPageId: string;
-   setClickedPageId: (id: string) => void;
-   setNewPage: (val: string) => void;
+   setNewPage: (val: boolean) => void;
 }
 
 export interface pageTextStateInterface {
@@ -22,4 +20,19 @@ export interface pageTextStateInterface {
    content: string;
    setTitle: (val: string) => void;
    setContent: (val: string) => void;
+}
+
+export interface NotePageState {
+   currpageid: string;
+   pagelistempty: boolean;
+   sectpageid: string;
+   newPage: boolean;
+}
+
+export interface PageContextT {
+   notePageState: NotePageState;
+   setPageId: (id: string) => void;
+   setPageEmp: (val: boolean) => void;
+   setSectId: (id: string) => void;
+   setNewPage: (id?: boolean) => void;
 }

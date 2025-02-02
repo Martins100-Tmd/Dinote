@@ -1,16 +1,14 @@
 import { create } from 'zustand';
-import { PageIdState, pageControllState, pageTextStateInterface, sortType } from '../../types/page';
+import { PageIdState, pageControlState, pageTextStateInterface, sortType } from '../../types/page';
 
-export const PageStore = create<pageControllState>()((set) => ({
+export const PageStore = create<pageControlState>()((set) => ({
    newPage: false,
-   clickedPageId: '',
-   setClickedPageId: (id: string) => set((s: any) => ({ ...s, clickedPageId: id })),
-   setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: val ?? !state.newPage })),
+   setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: val })),
 }));
 
 export const sortAction = create<sortType>()((set) => ({
    action: 'None',
-   setAction: (val: string) => set((state) => ({ ...state, action: val })),
+   setAction: (val: boolean) => set((state) => ({ ...state, action: val })),
 }));
 
 export const PageCurrentId = create<PageIdState>()((set) => ({

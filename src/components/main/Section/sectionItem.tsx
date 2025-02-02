@@ -36,7 +36,10 @@ export default function SectionItem({ item }: any) {
    return (
       <div
          onContextMenu={() => setmenu(!menu)}
-         onClick={() => setSectionId(item.id)}
+         onClick={async () => {
+            setSectionId(item.id);
+            await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
+         }}
          className='flex cursor-pointer flex-row items-center justify-start px-3 py-0.5 w-full hover:bg-[#636363] relative'
       >
          <>

@@ -13,5 +13,12 @@ export function formattedDate(updateTime: Date) {
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
+      weekday: 'short',
    });
 }
+
+console.log(
+   new Date().toLocaleDateString('en-US', {
+      day: 'numeric',
+   })
+);

@@ -1,57 +1,58 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useMemo } from 'react';
 import LoadingPageList from './loadingpages';
 import PageItem from './Pageitem';
-import { useContext, useEffect, useMemo } from 'react';
 import { fetchSectionPages } from './fetch';
-import { PageContext } from '../../state/pageContext';
-import { PageCurrentId, sortAction } from '../../state/page';
+import { PageCurrentId, PageStore, sortAction } from '../../state/page';
 import { sortFunctions } from './fetch';
 import { sectionIdStore } from '../../state/section';
 
-export default function PageListContainer() {
-   let sectionId = sectionIdStore((state) => state.sectionId);
-   let { setNewPage } = useContext(PageContext);
-   let { action, setAction } = sortAction();
-   let [pageId, setPageId] = PageCurrentId((state) => [state.pageId, state.setPageId]);
+interface Page {
+   id: string;
+}
 
-   let { isSuccess, isLoading, isError, error, data, status } = useQuery({
+export default function PageListContainer() {
+   const sectionId = sectionIdStore((state) => state.sectionId);
+   const { action, setAction } = sortAction();
+   const [pageId, setPageId] = PageCurrentId((state) => [state.pageId, state.setPageId]);
+   const newPage = PageStore((s) => s.newPage);
+
+   const { isLoading, isError, error, data, status } = useQuery<{ data: Page[] }>({
       queryKey: ['fetchSectionPages', sectionId],
       queryFn: () => fetchSectionPages(sectionId),
       enabled: !!sectionId,
       refetchOnWindowFocus: false,
       retry: false,
-      staleTime: 10000,
+      staleTime: 2000,
       refetchOnMount: false,
    });
 
-   let isDataEmpty = useMemo(() => data && JSON.stringify(data.data) == '[]', [data]);
+   const dataIsEmpty = useMemo(() => data && data.data.length === 0, [data]);
 
-   let DATA = useMemo(() => {
+   const processedData = useMemo(() => {
+      if (!data) return [];
       setAction('None');
-      if (data && data.data) {
-         return sortFunctions[action](data.data).length > 0 ? sortFunctions[action](data.data) : data.data;
-      }
-   }, [data, action, sectionId]);
+      return sortFunctions[action](data.data);
+   }, [data, action]);
 
    useEffect(() => {
-      if (pageId || isDataEmpty) setNewPage(false);
-      if (data && isSuccess && !pageId && data.data && data.data[0]) {
-         setPageId(data.data[0].id ?? '');
-      }
-      console.log(data, pageId);
-   }, [pageId, status]);
-
-   useEffect(() => {
-      if (data && data.data && data.data[0]) setPageId(data.data[0].id ?? '');
-      if (isDataEmpty || data == undefined) setPageId(''), console.log('EMPTY', pageId);
-   }, [sectionId]);
+      if (!dataIsEmpty && data && data.data[0] && !newPage) {
+         if (!pageId) setPageId(data.data[0].id ?? '');
+      } else setPageId('');
+   }, [status, data, dataIsEmpty, newPage, pageId, setPageId]);
 
    if (isLoading) return <LoadingPageList />;
 
    if (isError) return <>{error?.message}</>;
 
-   if (isSuccess && !isDataEmpty)
-      return DATA.length > 0
-         ? DATA.map((item: any, index: number) => <PageItem item={item} key={index} />)
-         : data.data && data.data.map((item: any, index: number) => <PageItem item={item} key={index} />);
+   if (!dataIsEmpty && data) {
+      const renderData = data && data?.data && processedData.length > 0 ? processedData : data!.data;
+      return (
+         <>
+            {renderData.map((item: Page) => (
+               <PageItem item={item} key={item.id} />
+            ))}
+         </>
+      );
+   }
 }

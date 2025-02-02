@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { FormImg, Login, Signup } from '..';
+import { FormImg, Login, Signup, backendAPI } from '..';
 import { useState } from 'react';
 import { AuthComponentSwitch } from '../components/state/authstore';
 
@@ -11,7 +11,7 @@ const Authentication: React.FC = function () {
    const { isSuccess, isLoading, isError } = useQuery({
       queryKey: ['spawn-server'],
       queryFn: async () => {
-         const A = await fetch('https://dinote-api.onrender.com/get/users');
+         const A = await fetch(backendAPI + '/get/users');
          return await A.json();
       },
    });
