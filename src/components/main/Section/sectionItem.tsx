@@ -29,6 +29,10 @@ export default function SectionItem({ item }: any) {
          setmenu(false), setRenameAction(false);
       },
    });
+   const deleteAction = async function (id: string) {
+      deleteSectionMutation.mutate(id);
+      await queryClient.invalidateQueries({ queryKey: ['sectionList'] });
+   };
    return (
       <div
          onContextMenu={() => setmenu(!menu)}
@@ -69,7 +73,7 @@ export default function SectionItem({ item }: any) {
                </p>
             )}
          </>
-         <PopUpMenu setswitch={setmenu} Switch={menu} DelAction={deleteSectionMutation} id={item.id} setrename={setRenameAction} />
+         <PopUpMenu setswitch={setmenu} Switch={menu} DelAction={deleteAction} id={item.id} setrename={setRenameAction} />
       </div>
    );
 }

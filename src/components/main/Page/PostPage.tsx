@@ -66,8 +66,7 @@ function Input({ addMutation, sectionId }: PageEditInterface) {
    );
 }
 
-function TextArea({ addMutation, sectionId }: PageEditInterface) {
-   let [body];
+function TextArea({ addMutation, body, setBody, sectionId }: PageEditInterface) {
    useEffect(() => {
       setTimeout(() => {
          body.content && body.title && sectionId ? addMutation.mutate(body) : addMutation.mutate({ ...body, title: 'untitled' });
