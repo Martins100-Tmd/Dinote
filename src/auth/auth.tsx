@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { FormImg, Login, Signup, backendAPI } from '..';
 import { useState } from 'react';
-import { AuthComponentSwitch } from '../utils/store';
+import { AuthComponentSwitch } from '../components/state/authstore';
 
 const Authentication: React.FC = function () {
    let [setComponent, component, setText, text] = AuthComponentSwitch((s) => [s.setComponent, s.component, s.setText, s.text]);

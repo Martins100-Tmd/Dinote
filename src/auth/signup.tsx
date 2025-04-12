@@ -2,7 +2,7 @@ import useGlobalReducer from '../utils/hooks/reducer.ts';
 import { useMutation } from '@tanstack/react-query';
 import useLocalStorage from '../utils/hooks/localstorage.ts';
 import { SignFn } from '../utils/fetch.ts';
-import { AuthComponentSwitch } from '../utils/store.ts';
+import { AuthComponentSwitch } from '../components/state/authstore.ts';
 import { Contact, Lock, Mail } from 'lucide-react';
 
 export default function SignUp() {
