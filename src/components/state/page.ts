@@ -3,12 +3,12 @@ import { PageIdState, pageControlState, pageTextStateInterface, sortType } from 
 
 export const PageStore = create<pageControlState>()((set) => ({
    newPage: false,
-   setNewPage: (val?: string) => set((state: any) => ({ ...state, newPage: val })),
+   setNewPage: (val: boolean) => set((state: any) => ({ ...state, newPage: val })),
 }));
 
 export const sortAction = create<sortType>()((set) => ({
    action: 'None',
-   setAction: (val: boolean) => set((state) => ({ ...state, action: val })),
+   setAction: (val: string) => set((state) => ({ ...state, action: val })),
 }));
 
 export const PageCurrentId = create<PageIdState>()((set) => ({

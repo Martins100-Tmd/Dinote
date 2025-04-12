@@ -2,8 +2,10 @@ import { Response, Request } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { JWT } from '../util/jwt';
 import { color } from '../util/color';
-
+import { config } from 'dotenv';
+import { decryptUserPassword, encryptUserPassword } from '../util/hash';
 const prisma = new PrismaClient();
+config({ path: '../.env' });
 
 //:SIGNUP
 export const createANewUser = async function (req: Request, res: Response) {
@@ -14,8 +16,9 @@ export const createANewUser = async function (req: Request, res: Response) {
    if (checkRedundantCreation) {
       res.status(403).json({ success: false, msg: 'User already exist' });
    } else {
+      const { cipherText, iv, tag } = encryptUserPassword(process.env.CRYPTO_KEY!, password);
       const createUser = await prisma.user.create({
-         data: { username, email, password },
+         data: { username, email, password: cipherText, iv, tag },
       });
       if (createUser) {
          res.status(200).json({ success: true, message: 'User created!!', token: JWT(createUser.id) });
@@ -40,7 +43,7 @@ export const createANewNote = async function (req: Request, res: Response) {
    }
 };
 
-//:SECTION
+//SECTION
 export const createANewSection = async function (req: Request, res: Response) {
    const { title, noteId } = req.body;
    const createSection = await prisma.section.create({
@@ -58,19 +61,25 @@ export const createANewSection = async function (req: Request, res: Response) {
 //:LOGIN
 export const authenticateUser = async function (req: Request, res: Response) {
    const { email, password } = req.body;
-   let userHasAccount, token;
-   console.log(email, password);
-   if (email && password) {
-      userHasAccount = await prisma.user.findUnique({
-         where: {
-            email,
-            password,
+   const reqPassword = password;
+   let isUserExist, token;
+   if (email && reqPassword) {
+      isUserExist = await prisma.user.findUnique({ where: { email } });
+      const { password, iv, tag, id, ...rest }: any = isUserExist;
+      const plainPassword = isUserExist ? decryptUserPassword(process.env.CRYPTO_KEY!, password, iv, tag) : '';
+      token = plainPassword == reqPassword ? JWT(id || '') : '';
+   }
+   if (isUserExist) {
+      const constantNote = await prisma.note.create({
+         data: {
+            title: '~',
+            color: '#000',
+            userId: isUserExist.id,
          },
       });
-      token = JWT(userHasAccount?.id || '');
-   }
-   if (userHasAccount) res.status(200).json({ success: true, info: userHasAccount, token });
-   else res.status(400).json({ success: false, msg: 'Bad request' });
+      if (constantNote) res.status(200).json({ success: true, info: isUserExist, token, msg: 'folder' });
+      else res.status(200).json({ success: true, info: isUserExist, token });
+   } else res.status(400).json({ success: false, msg: 'Bad request' });
 };
 
 //:PAGE

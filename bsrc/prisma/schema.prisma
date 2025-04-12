@@ -21,6 +21,8 @@ model User {
   notes     Note[]   @relation("UserNotes")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  iv        String
+  tag       String
 }
 
 model Note {

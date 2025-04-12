@@ -31,7 +31,7 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
    let callDebounce = useCallback(
       debounceFn(function () {
          setAction(true);
-      }, 1000),
+      }, 400),
       []
    );
 
@@ -44,7 +44,6 @@ export function Input({ addMutation, sectionId, pageId, updateMutation, body, se
 
    useEffect(() => {
       setlen(function () {
-         //const Body = document.body as HTMLBodyElement;
          let VAL = 8;
          return body.title.length * VAL + 50 + 'px';
       });

@@ -25,7 +25,7 @@ export function TextArea({ body, setBody, pageId, updateMutation }: PageEditInte
    let callDebounce = useCallback(
       debounceFn(function () {
          setAction(true);
-      }, 1000),
+      }, 400),
       []
    );
 

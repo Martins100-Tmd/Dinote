@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "iv" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "tag" TEXT NOT NULL DEFAULT '';
