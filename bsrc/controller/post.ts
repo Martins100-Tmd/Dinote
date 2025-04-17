@@ -21,7 +21,15 @@ export const createANewUser = async function (req: Request, res: Response) {
          data: { username, email, password: cipherText, iv, tag },
       });
       if (createUser) {
-         res.status(200).json({ success: true, message: 'User created!!', token: JWT(createUser.id) });
+         const constantNote = await prisma.note.create({
+            data: {
+               title: '~',
+               color: '#000',
+               userId: createUser.id,
+            },
+         });
+         if (constantNote) res.status(200).json({ success: true, message: 'User created!!(^ folder)', token: JWT(createUser.id) });
+         else res.status(200).json({ success: true, message: '' });
       }
    }
 };
@@ -70,15 +78,7 @@ export const authenticateUser = async function (req: Request, res: Response) {
       token = plainPassword == reqPassword ? JWT(id || '') : '';
    }
    if (isUserExist) {
-      const constantNote = await prisma.note.create({
-         data: {
-            title: '~',
-            color: '#000',
-            userId: isUserExist.id,
-         },
-      });
-      if (constantNote) res.status(200).json({ success: true, info: isUserExist, token, msg: 'folder' });
-      else res.status(200).json({ success: true, info: isUserExist, token });
+      res.status(200).json({ success: true, info: isUserExist, token });
    } else res.status(400).json({ success: false, msg: 'Bad request' });
 };
 
